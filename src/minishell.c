@@ -6,24 +6,34 @@
 /*   By: ygille <ygille@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/28 17:52:41 by ygille            #+#    #+#             */
-/*   Updated: 2025/01/28 18:10:33 by ygille           ###   ########.fr       */
+/*   Updated: 2025/01/28 19:58:56 by ygille           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	tests(void)
+int	main(int argc, char **argv, char **envp)
 {
-	char	*line;
+	int		pid;
 
-	line = readline("minishell$ ");
-	ft_putstr_fd(line, 1);
+	(void)argc;
+	pid = fork();
+	if (pid == -1)
+		error("fork failed");
+	if (pid == 0)
+		execve("/bin/clear", argv, envp);
+	if (waitpid(pid, NULL, 0) == -1)
+		error("waitpid failed");
+	while (1)
+		parse_line(readline(PROMPT_STYLE));
+	return (0);
 }
 
-int	main(int ac, char **av)
+/*
+** Function to display an error message and exit the program
+*/
+void	error(char *message)
 {
-	(void)ac;
-	(void)av;
-	tests();
-	return (0);
+	ft_putendl_fd(message, 2);
+	exit(1);
 }
