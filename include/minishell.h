@@ -6,7 +6,7 @@
 /*   By: ygille <ygille@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/28 17:52:27 by ygille            #+#    #+#             */
-/*   Updated: 2025/01/29 00:29:06 by ygille           ###   ########.fr       */
+/*   Updated: 2025/01/29 00:44:31 by ygille           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,8 +30,20 @@ typedef unsigned char	t_bool;
 void	error(char *message);
 void	free_exit(char *line);
 
+//	functions.c
+void	func_echo(char *line);
+void	func_cd(char *line);
+void	func_pwd(void);
+void	func_export(char *line);
+void	func_unset(char *line);
+
+//	functions2.c
+void	func_env(void);
+
 //	parse.c
 void	parse_line(char *line);
+t_bool	builtin_functions(char *line);
+void	try_launch(char *line);
 
 //	text.c
 void	display_text(char *text, char format[5], char color[6]);

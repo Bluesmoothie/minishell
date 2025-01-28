@@ -6,7 +6,7 @@
 /*   By: ygille <ygille@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/28 17:52:41 by ygille            #+#    #+#             */
-/*   Updated: 2025/01/29 00:13:29 by ygille           ###   ########.fr       */
+/*   Updated: 2025/01/29 00:51:13 by ygille           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ int	main(int argc, char **argv, char **envp)
 	{
 		prompt = calc_prompt();
 		parse_line(readline(prompt));
+		free(prompt);
 	}
 	return (0);
 }

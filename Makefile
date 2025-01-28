@@ -16,6 +16,8 @@ INCLUDE 		=	-Iinclude/ -I$(LIBFT)/include/
 #			SRC
 
 SRC_FILES		=	minishell	\
+					functions	\
+					functions2	\
 					parse		\
 					text		\
 					utils		\
