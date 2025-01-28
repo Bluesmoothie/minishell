@@ -6,7 +6,7 @@
 /*   By: ygille <ygille@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/28 17:52:41 by ygille            #+#    #+#             */
-/*   Updated: 2025/01/28 19:58:56 by ygille           ###   ########.fr       */
+/*   Updated: 2025/01/29 00:13:29 by ygille           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 int	main(int argc, char **argv, char **envp)
 {
 	int		pid;
+	char	*prompt;
 
 	(void)argc;
 	pid = fork();
@@ -25,7 +26,10 @@ int	main(int argc, char **argv, char **envp)
 	if (waitpid(pid, NULL, 0) == -1)
 		error("waitpid failed");
 	while (1)
-		parse_line(readline(PROMPT_STYLE));
+	{
+		prompt = calc_prompt();
+		parse_line(readline(prompt));
+	}
 	return (0);
 }
 
@@ -36,4 +40,12 @@ void	error(char *message)
 {
 	ft_putendl_fd(message, 2);
 	exit(1);
+}
+
+void	free_exit(char *line)
+{
+	if (line)
+		free(line);
+	rl_clear_history();
+	exit(0);
 }

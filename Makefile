@@ -18,6 +18,7 @@ INCLUDE 		=	-Iinclude/ -I$(LIBFT)/include/
 SRC_FILES		=	minishell	\
 					parse		\
 					text		\
+					utils		\
 
 SRC 			= 	$(addprefix $(SRC_DIR), $(addsuffix .c, $(SRC_FILES)))
 OBJ 			= 	$(addprefix $(BUILD_DIR), $(addsuffix .o, $(SRC_FILES)))
