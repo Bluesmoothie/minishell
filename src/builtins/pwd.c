@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   functions2.c                                       :+:      :+:    :+:   */
+/*   pwd.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ygille <ygille@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/01/29 00:43:58 by ygille            #+#    #+#             */
-/*   Updated: 2025/01/29 15:07:36 by ygille           ###   ########.fr       */
+/*   Created: 2025/01/29 15:13:56 by ygille            #+#    #+#             */
+/*   Updated: 2025/01/29 15:14:01 by ygille           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	func_env(t_minishell *minishell)
+void	func_pwd(t_minishell *minishell)
 {
-	(void)minishell;
+	ft_putendl_fd(minishell->pwd, 1);
 }

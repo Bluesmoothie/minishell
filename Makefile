@@ -15,13 +15,17 @@ INCLUDE 		=	-Iinclude/ -I$(LIBFT)/include/
 
 #			SRC
 
-SRC_FILES		=	minishell	\
-					functions	\
-					functions2	\
-					parse		\
-					struct		\
-					text		\
-					utils		\
+SRC_FILES		=	minishell		\
+					parse			\
+					struct			\
+					text			\
+					utils			\
+					builtins/cd		\
+					builtins/echo	\
+					builtins/env	\
+					builtins/export	\
+					builtins/pwd	\
+					builtins/unset	\
 
 SRC 			= 	$(addprefix $(SRC_DIR), $(addsuffix .c, $(SRC_FILES)))
 OBJ 			= 	$(addprefix $(BUILD_DIR), $(addsuffix .o, $(SRC_FILES)))
@@ -41,6 +45,7 @@ $(NAME)			:	$(BUILD_DIR) $(OBJ) $(LIBFT_A)
 
 $(BUILD_DIR)	:
 				mkdir -p $(BUILD_DIR)
+				mkdir -p $(BUILD_DIR)builtins
 
 $(BUILD_DIR)%.o	: 	$(SRC_DIR)%.c
 				$(CC) $(CFLAGS) -c $< -o $@
