@@ -6,7 +6,7 @@
 /*   By: ygille <ygille@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/28 17:52:41 by ygille            #+#    #+#             */
-/*   Updated: 2025/01/29 14:38:59 by ygille           ###   ########.fr       */
+/*   Updated: 2025/01/29 15:08:10 by ygille           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,9 @@
 
 int	main(int argc, char **argv, char **envp)
 {
-	int		pid;
-	char	*prompt;
-	char	**null_argv;
+	int			pid;
+	char		**null_argv;
+	t_minishell	minishell;
 
 	(void)argc;
 	(void)argv;
@@ -28,13 +28,14 @@ int	main(int argc, char **argv, char **envp)
 		execve("/bin/clear", null_argv, envp);
 	if (waitpid(pid, NULL, 0) == -1)
 		error("waitpid failed");
+	init_struct(&minishell);
 	while (1)
 	{
-		prompt = calc_prompt();
-		parse_line(readline(prompt));
-		free(prompt);
+		minishell.prompt = calc_prompt(minishell);
+		parse_line(&minishell, readline(minishell.prompt));
+		update_infos(&minishell);
 	}
-	free_split(null_argv);
+	free_split(&null_argv);
 	return (0);
 }
 
@@ -50,9 +51,10 @@ void	error(char *message)
 /*
 ** Free args and exit the program
 */
-void	free_exit(char **args, char *message)
+void	free_exit(t_minishell *minishell, char **args, char *message)
 {
-	free_split(args);
+	free_struct(minishell);
+	free_split(&args);
 	rl_clear_history();
 	if (message)
 		error(message);

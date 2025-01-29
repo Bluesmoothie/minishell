@@ -6,7 +6,7 @@
 /*   By: ygille <ygille@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/28 19:54:08 by ygille            #+#    #+#             */
-/*   Updated: 2025/01/29 14:31:19 by ygille           ###   ########.fr       */
+/*   Updated: 2025/01/29 14:53:21 by ygille           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,16 +29,14 @@ void	display_error(char *command, char *error, char *arg)
 	ft_putchar_fd('\n', 1);
 }
 
-char	*calc_prompt(void)
+char	*calc_prompt(t_minishell minishell)
 {
-	char	*user;
 	char	*pwd;
 	char	*prompt;
 
-	user = getenv("USER");
-	pwd = get_relative_path();
+	pwd = get_relative_path(minishell.pwd, minishell.home);
 	prompt = ft_strfcat(PROMPT_LEFT_COLOR, TEXT_BOLD, FALSE, FALSE);
-	prompt = ft_strfcat(prompt, user, TRUE, FALSE);
+	prompt = ft_strfcat(prompt, minishell.user, TRUE, FALSE);
 	prompt = ft_strfcat(prompt, "@minishell", TRUE, FALSE);
 	prompt = ft_strfcat(prompt, PROMPT_RIGHT_COLOR, TRUE, FALSE);
 	prompt = ft_strfcat(prompt, ":", TRUE, FALSE);
@@ -48,15 +46,11 @@ char	*calc_prompt(void)
 	return (prompt);
 }
 
-char	*get_relative_path(void)
+char	*get_relative_path(char *pwd, char *home)
 {
-	char	*pwd;
-	char	*home;
 	char	*relative_path;
 	int		i;
 
-	pwd = getcwd(NULL, 0);
-	home = getenv("HOME");
 	i = 0;
 	if (!(ft_strnstr(pwd, home, ft_strlen(pwd))))
 		return (pwd);
@@ -64,6 +58,5 @@ char	*get_relative_path(void)
 		i++;
 	relative_path = ft_strdup(&pwd[i]);
 	relative_path = ft_strfcat("~", relative_path, FALSE, TRUE);
-	free(pwd);
 	return (relative_path);
 }

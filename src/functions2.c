@@ -6,12 +6,13 @@
 /*   By: ygille <ygille@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/29 00:43:58 by ygille            #+#    #+#             */
-/*   Updated: 2025/01/29 00:44:17 by ygille           ###   ########.fr       */
+/*   Updated: 2025/01/29 15:07:36 by ygille           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	func_env(void)
+void	func_env(t_minishell *minishell)
 {
+	(void)minishell;
 }

@@ -19,6 +19,7 @@ SRC_FILES		=	minishell	\
 					functions	\
 					functions2	\
 					parse		\
+					struct		\
 					text		\
 					utils		\
 

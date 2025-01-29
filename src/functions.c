@@ -6,14 +6,15 @@
 /*   By: ygille <ygille@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/29 00:43:02 by ygille            #+#    #+#             */
-/*   Updated: 2025/01/29 14:32:17 by ygille           ###   ########.fr       */
+/*   Updated: 2025/01/29 15:08:25 by ygille           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	func_echo(char **args)
+void	func_echo(t_minishell *minishell, char **args)
 {
+	(void)minishell;
 	int		i;
 	t_bool	newline;
 
@@ -40,17 +41,16 @@ void	func_echo(char **args)
 		ft_putchar_fd('\n', 1);
 }
 
-void	func_cd(char **args)
+void	func_cd(t_minishell *minishell, char **args)
 {
 	char	*dir;
 
 	if (args[1] == NULL || (args[1][0] == '~'
 		&& ((args[1][1] == '/' && args[1][2] == '\0') || args[1][1] == '\0')))
-		chdir(getenv("HOME"));
+		chdir(minishell->home);
 	else if (args[1][0] == '~' && args[1][1] == '/' && args[1][2] != '\0')
 	{
-		dir = ft_strdup(getenv("HOME"));
-		dir = ft_strfcat(dir, &args[1][1], TRUE, FALSE);
+		dir = ft_strfcat(minishell->home, &args[1][1], FALSE, FALSE);
 		if (chdir(dir))
 			display_error(args[0], E_NOFILE, args[1]);
 		free(dir);
@@ -59,21 +59,19 @@ void	func_cd(char **args)
 		display_error(args[0], E_NOFILE, args[1]);
 }
 
-void	func_pwd(void)
+void	func_pwd(t_minishell *minishell)
 {
-	char	*pwd;
-
-	pwd = getcwd(NULL, 0);
-	ft_putendl_fd(pwd, 1);
-	free(pwd);
+	ft_putendl_fd(minishell->pwd, 1);
 }
 
-void	func_export(char **args)
+void	func_export(t_minishell *minishell, char **args)
 {
+	(void)minishell;
 	(void)args;
 }
 
-void	func_unset(char **args)
+void	func_unset(t_minishell *minishell, char **args)
 {
+	(void)minishell;
 	(void)args;
 }
