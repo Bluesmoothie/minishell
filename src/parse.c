@@ -6,7 +6,7 @@
 /*   By: ygille <ygille@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/28 19:38:14 by ygille            #+#    #+#             */
-/*   Updated: 2025/01/29 01:54:07 by ygille           ###   ########.fr       */
+/*   Updated: 2025/01/29 02:05:22 by ygille           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,5 @@ t_bool	builtin_functions(char **args)
 
 void	try_launch(char **args)
 {
-	display_text(args[0], TEXT_ITALIC, TEXT_NULL_COLOR);
-	display_text(" : Command not found\n", TEXT_NULL_FORMAT, TEXT_RED);
+	display_error(args[0], E_COMMANDNF);
 }

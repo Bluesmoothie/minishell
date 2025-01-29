@@ -6,7 +6,7 @@
 /*   By: ygille <ygille@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/29 00:43:02 by ygille            #+#    #+#             */
-/*   Updated: 2025/01/29 01:35:42 by ygille           ###   ########.fr       */
+/*   Updated: 2025/01/29 02:11:48 by ygille           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,12 +42,20 @@ void	func_echo(char **args)
 
 void	func_cd(char **args)
 {
-	(void)args;
+	if (args[1] == NULL)
+		chdir(getenv("HOME"));
+	else
+		if (chdir(args[1]))
+			display_error(args[0], E_NOFILE);
 }
 
 void	func_pwd(void)
 {
-	ft_putendl_fd(getenv("PWD"), 1);
+	char	*pwd;
+
+	pwd = getcwd(NULL, 0);
+	ft_putendl_fd(pwd, 1);
+	free(pwd);
 }
 
 void	func_export(char **args)
