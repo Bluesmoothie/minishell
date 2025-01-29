@@ -6,7 +6,7 @@
 /*   By: ygille <ygille@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/28 19:54:08 by ygille            #+#    #+#             */
-/*   Updated: 2025/01/29 00:31:52 by ygille           ###   ########.fr       */
+/*   Updated: 2025/01/29 01:51:18 by ygille           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ void	display_text(char *text, char format[5], char color[6])
 {
 	ft_putstr_fd(format, 1);
 	ft_putstr_fd(color, 1);
-	ft_putendl_fd(text, 1);
+	ft_putstr_fd(text, 1);
 	ft_putstr_fd(TEXT_RESET, 1);
 }
 

@@ -6,7 +6,7 @@
 /*   By: ygille <ygille@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/28 19:46:39 by ygille            #+#    #+#             */
-/*   Updated: 2025/01/29 00:31:13 by ygille           ###   ########.fr       */
+/*   Updated: 2025/01/29 01:49:16 by ygille           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@
 # define TEXT_MAGENTA		"\033[35m"
 # define TEXT_CYAN			"\033[36m"
 # define TEXT_WHITE			"\033[37m"
+# define TEXT_NULL_COLOR	"\0\0\0\0\0\0"
 # define TEXT_BOLD			"\033[1m"
 # define TEXT_DIM			"\033[2m"
 # define TEXT_ITALIC		"\033[3m"
@@ -29,7 +30,7 @@
 # define TEXT_REVERSE		"\033[7m"
 # define TEXT_HIDDEN		"\033[8m"
 # define TEXT_RESET			"\033[0m"
-# define TEXT_NULL			""
+# define TEXT_NULL_FORMAT	"\0\0\0\0\0"
 
 # define PROMPT_LEFT_COLOR	TEXT_GREEN
 # define PROMPT_RIGHT_COLOR	TEXT_MAGENTA

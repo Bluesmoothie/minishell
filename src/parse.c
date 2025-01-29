@@ -6,7 +6,7 @@
 /*   By: ygille <ygille@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/28 19:38:14 by ygille            #+#    #+#             */
-/*   Updated: 2025/01/29 01:28:23 by ygille           ###   ########.fr       */
+/*   Updated: 2025/01/29 01:54:07 by ygille           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,10 +19,15 @@ void	parse_line(char *line)
 	if (line == NULL)
 		return ;
 	args = ft_split(line, ' ');
-	add_history(line);
-	free(line);
 	if (args == NULL)
 		free_exit(args, E_SPLITFAIL);
+	if (args[0] == NULL)
+	{
+		free_split(args);
+		return ;
+	}
+	add_history(line);
+	free(line);
 	if (!builtin_functions(args))
 		try_launch(args);
 	free_split(args);
@@ -52,5 +57,6 @@ t_bool	builtin_functions(char **args)
 
 void	try_launch(char **args)
 {
-	(void)args;
+	display_text(args[0], TEXT_ITALIC, TEXT_NULL_COLOR);
+	display_text(" : Command not found\n", TEXT_NULL_FORMAT, TEXT_RED);
 }
