@@ -18,6 +18,7 @@ INCLUDE 		=	-Iinclude/ -I$(LIBFT)/include/
 SRC_FILES		=	minishell		\
 					mlist			\
 					parse			\
+					signals			\
 					struct			\
 					text			\
 					utils			\

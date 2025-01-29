@@ -6,7 +6,7 @@
 /*   By: ygille <ygille@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/28 17:52:27 by ygille            #+#    #+#             */
-/*   Updated: 2025/01/29 19:49:56 by ygille           ###   ########.fr       */
+/*   Updated: 2025/01/29 19:56:38 by ygille           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,8 @@
 # include <readline/readline.h>
 # include <readline/history.h>
 # include <sys/wait.h>
+# include <signal.h>
+# include <stdio.h>
 
 # include "text_formats.h"
 # include "error_messages.h"
@@ -48,6 +50,7 @@ typedef struct s_mlist
 }	t_mlist;
 
 //	minishell.c
+void	init_signals(void);
 void	error(char *message);
 void	free_exit(t_minishell *minishell, char **args, char *message);
 
@@ -63,6 +66,9 @@ t_bool	builtin_functions(t_minishell *minishell, char **args);
 void	try_launch(char **args);
 void	search_for_env(t_minishell *minishell, char ***args);
 char	*get_env_value(t_minishell *minishell, char *name);
+
+//	signals.c
+void	signal_handler(int sig);
 
 //	struct.c
 void	init_struct(t_minishell *minishell, char **envp);
