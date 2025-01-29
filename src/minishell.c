@@ -6,7 +6,7 @@
 /*   By: ygille <ygille@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/28 17:52:41 by ygille            #+#    #+#             */
-/*   Updated: 2025/01/29 00:51:13 by ygille           ###   ########.fr       */
+/*   Updated: 2025/01/29 01:24:20 by ygille           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,10 +43,14 @@ void	error(char *message)
 	exit(1);
 }
 
-void	free_exit(char *line)
+/*
+** Free args and exit the program
+*/
+void	free_exit(char **args, char *message)
 {
-	if (line)
-		free(line);
+	free_split(args);
 	rl_clear_history();
-	exit(0);
+	if (message)
+		error(message);
+	exit(EXIT_SUCCESS);
 }
