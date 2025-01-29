@@ -1,42 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   echo.c                                             :+:      :+:    :+:   */
+/*   mlist.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ygille <ygille@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/01/29 15:13:01 by ygille            #+#    #+#             */
-/*   Updated: 2025/01/29 18:31:35 by ygille           ###   ########.fr       */
+/*   Created: 2025/01/29 18:49:39 by ygille            #+#    #+#             */
+/*   Updated: 2025/01/29 18:50:42 by ygille           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	func_echo(t_minishell *minishell, char **args)
+t_mlist	*ft_mlstclear(t_mlist **lst)
 {
-	int		i;
-	t_bool	newline;
+	t_mlist	*tmp;
 
-	newline = TRUE;
-	i = 1;
-	(void)minishell;
-	if (args[i] == NULL)
+	while (*lst != NULL)
 	{
-		ft_putchar_fd('\n', 1);
-		return ;
+		tmp = (*lst)->next;
+		free((*lst)->name);
+		free((*lst)->content);
+		free(*lst);
+		*lst = tmp;
 	}
-	else if (ft_strcmp(args[i], "-n") == 0)
-	{
-		i++;
-		newline = FALSE;
-	}
-	while (args[i] != NULL)
-	{
-		ft_putstr_fd(args[i++], 1);
-		if (args[i] != NULL)
-			ft_putchar_fd(' ', 1);
-	}
-	if (newline)
-		ft_putchar_fd('\n', 1);
-	minishell->last_return_value = 0;
+	return (NULL);
 }

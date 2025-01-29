@@ -6,7 +6,7 @@
 /*   By: ygille <ygille@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/28 17:52:27 by ygille            #+#    #+#             */
-/*   Updated: 2025/01/29 17:23:22 by ygille           ###   ########.fr       */
+/*   Updated: 2025/01/29 18:59:09 by ygille           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,31 +25,45 @@
 # define FALSE		0
 # define TRUE		1
 
-typedef unsigned char	t_bool;
+typedef unsigned char		t_bool;
+typedef struct s_minishell	t_minishell;
+typedef struct s_mlist		t_mlist;
 
-typedef	struct	s_minishell
+typedef	struct s_minishell
 {
 	int		last_return_value;
 	char	*home;
 	char	*user;
 	char	*pwd;
-	char	**path;
 	char	**envp;
 	char	*prompt;
+	t_mlist	*extra_path;
 }	t_minishell;
+
+typedef struct s_mlist
+{
+	char	*name;
+	char	*content;
+	t_mlist	*next;
+}	t_mlist;
 
 
 //	minishell.c
 void	error(char *message);
 void	free_exit(t_minishell *minishell, char **args, char *message);
 
+//	mlist.c
+t_mlist	*ft_mlstclear(t_mlist **lst);
+
 //	parse.c
 void	parse_line(t_minishell *minishell, char *line);
 t_bool	builtin_functions(t_minishell *minishell, char **args);
 void	try_launch(char **args);
+void	search_for_env(t_minishell *minishell, char ***args);
+char	*get_env_value(t_minishell *minishell, char *name);
 
 //	struct.c
-void	init_struct(t_minishell *minishell);
+void	init_struct(t_minishell *minishell, char **envp);
 void	free_struct(t_minishell *minishell);
 void	update_infos(t_minishell *minishell);
 
@@ -70,7 +84,6 @@ void	func_cd(t_minishell *minishell, char **args);
 
 //	builtins/echo.c
 void	func_echo(t_minishell *minishell, char **args);
-void	echo_arg(t_minishell *minishell, char **args);
 
 //	builtins/env.c
 void	func_env(t_minishell *minishell);
