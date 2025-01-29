@@ -6,14 +6,11 @@
 /*   By: ygille <ygille@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/29 15:14:06 by ygille            #+#    #+#             */
-/*   Updated: 2025/01/29 19:32:28 by ygille           ###   ########.fr       */
+/*   Updated: 2025/01/29 19:44:31 by ygille           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-static char	*extract_name(char *arg);
-static char	*extract_content(char *arg);
 
 int	func_export(t_minishell *minishell, char **args)
 {
@@ -34,11 +31,11 @@ int	func_export(t_minishell *minishell, char **args)
 	new = ft_mlstcreate(name, content);
 	if (new == NULL)
 		free_exit(minishell, args, E_MALLOCFAIL);
-	minishell->extra_env = ft_mlstadd_front(minishell->extra_env, new);
+	minishell->env = ft_mlstadd_front(minishell->env, new);
 	return (0);
 }
 
-static char	*extract_name(char *arg)
+char	*extract_name(char *arg)
 {
 	int		i;
 	char	*name;
@@ -50,7 +47,7 @@ static char	*extract_name(char *arg)
 	return (name);
 }
 
-static char	*extract_content(char *arg)
+char	*extract_content(char *arg)
 {
 	int		i;
 	char	*content;

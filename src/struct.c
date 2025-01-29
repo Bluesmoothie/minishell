@@ -6,7 +6,7 @@
 /*   By: ygille <ygille@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/29 14:45:43 by ygille            #+#    #+#             */
-/*   Updated: 2025/01/29 19:20:45 by ygille           ###   ########.fr       */
+/*   Updated: 2025/01/29 19:48:51 by ygille           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	init_struct(t_minishell *minishell, char **envp)
 	minishell->pwd = getcwd(NULL, 0);
 	minishell->last_return_value = 0;
 	minishell->envp = envp;
-	minishell->extra_env = NULL;
+	minishell->env = init_env(envp);
 }
 
 void	free_struct(t_minishell *minishell)
@@ -29,8 +29,8 @@ void	free_struct(t_minishell *minishell)
 		free(minishell->pwd);
 		minishell->pwd = NULL;
 	}
-	if (minishell->extra_env)
-		minishell->extra_env = ft_mlstclear(minishell->extra_env);
+	if (minishell->env)
+		minishell->env = ft_mlstclear(minishell->env);
 }
 
 void	update_infos(t_minishell *minishell)
@@ -43,4 +43,23 @@ void	update_infos(t_minishell *minishell)
 		minishell->pwd = NULL;
 	}
 	minishell->pwd = getcwd(NULL, 0);
+}
+
+t_mlist	*init_env(char **envp)
+{
+	t_mlist	*env;
+	char	*name;
+	char	*content;
+	int		i;
+
+	i = 0;
+	env = NULL;
+	while (envp[i] != NULL)
+	{
+		name = extract_name(envp[i]);
+		content = extract_content(envp[i]);
+		env = ft_mlstadd_front(env, ft_mlstcreate(name, content));
+		i++;
+	}
+	return (env);
 }

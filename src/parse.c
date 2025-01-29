@@ -6,7 +6,7 @@
 /*   By: ygille <ygille@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/28 19:38:14 by ygille            #+#    #+#             */
-/*   Updated: 2025/01/29 19:19:57 by ygille           ###   ########.fr       */
+/*   Updated: 2025/01/29 19:41:24 by ygille           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,12 +85,12 @@ char	*get_env_value(t_minishell *minishell, char *arg)
 
 	if (ft_strcmp(arg, "?") == 0)
 		return (ft_itoa(minishell->last_return_value));
-	mlist = minishell->extra_env;
+	mlist = minishell->env;
 	while (mlist != NULL)
 	{
 		if (ft_strcmp(mlist->name, arg) == 0)
 			return (ft_strdup(mlist->content));
 		mlist = mlist->next;
 	}
-	return (ft_strdup(getenv(arg)));
+	return (NULL);
 }

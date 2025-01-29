@@ -6,7 +6,7 @@
 /*   By: ygille <ygille@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/28 17:52:27 by ygille            #+#    #+#             */
-/*   Updated: 2025/01/29 19:37:11 by ygille           ###   ########.fr       */
+/*   Updated: 2025/01/29 19:49:56 by ygille           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ typedef unsigned char		t_bool;
 typedef struct s_minishell	t_minishell;
 typedef struct s_mlist		t_mlist;
 
-typedef	struct s_minishell
+typedef struct s_minishell
 {
 	int		last_return_value;
 	char	*home;
@@ -37,7 +37,7 @@ typedef	struct s_minishell
 	char	*pwd;
 	char	**envp;
 	char	*prompt;
-	t_mlist	*extra_env;
+	t_mlist	*env;
 }	t_minishell;
 
 typedef struct s_mlist
@@ -46,7 +46,6 @@ typedef struct s_mlist
 	char	*content;
 	t_mlist	*next;
 }	t_mlist;
-
 
 //	minishell.c
 void	error(char *message);
@@ -69,6 +68,7 @@ char	*get_env_value(t_minishell *minishell, char *name);
 void	init_struct(t_minishell *minishell, char **envp);
 void	free_struct(t_minishell *minishell);
 void	update_infos(t_minishell *minishell);
+t_mlist	*init_env(char **envp);
 
 //	text.c
 void	display_text(char *text, char format[5], char color[6]);
@@ -93,6 +93,8 @@ int		func_env(t_minishell *minishell);
 
 //	builtins/export.c
 int		func_export(t_minishell *minishell, char **args);
+char	*extract_name(char *arg);
+char	*extract_content(char *arg);
 
 //	builtins/pwd.c
 int		func_pwd(t_minishell *minishell);
