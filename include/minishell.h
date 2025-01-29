@@ -6,7 +6,7 @@
 /*   By: ygille <ygille@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/28 17:52:27 by ygille            #+#    #+#             */
-/*   Updated: 2025/01/29 19:04:12 by ygille           ###   ########.fr       */
+/*   Updated: 2025/01/29 19:37:11 by ygille           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,10 @@ void	error(char *message);
 void	free_exit(t_minishell *minishell, char **args, char *message);
 
 //	mlist.c
-t_mlist	*ft_mlstclear(t_mlist **lst);
+t_mlist	*ft_mlstclear(t_mlist *lst);
+t_mlist	*ft_mlstcreate(char *name, char *content);
+t_mlist	*ft_mlstadd_front(t_mlist *lst, t_mlist *new);
+void	ft_mlstdelone(t_mlist *lst);
 
 //	parse.c
 void	parse_line(t_minishell *minishell, char *line);
@@ -80,21 +83,21 @@ char	*ft_strfcat(char *s1, char *s2, t_bool fs1, t_bool fs2);
 void	free_split(char ***split);
 
 //	builtins/cd.c
-void	func_cd(t_minishell *minishell, char **args);
+int		func_cd(t_minishell *minishell, char **args);
 
 //	builtins/echo.c
-void	func_echo(t_minishell *minishell, char **args);
+int		func_echo(t_minishell *minishell, char **args);
 
 //	builtins/env.c
-void	func_env(t_minishell *minishell);
+int		func_env(t_minishell *minishell);
 
 //	builtins/export.c
-void	func_export(t_minishell *minishell, char **args);
+int		func_export(t_minishell *minishell, char **args);
 
 //	builtins/pwd.c
-void	func_pwd(t_minishell *minishell);
+int		func_pwd(t_minishell *minishell);
 
 //	builtins/unset.c
-void	func_unset(t_minishell *minishell, char **args);
+int		func_unset(t_minishell *minishell, char **args);
 
 #endif

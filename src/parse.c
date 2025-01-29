@@ -6,7 +6,7 @@
 /*   By: ygille <ygille@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/28 19:38:14 by ygille            #+#    #+#             */
-/*   Updated: 2025/01/29 19:04:33 by ygille           ###   ########.fr       */
+/*   Updated: 2025/01/29 19:19:57 by ygille           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,17 +40,17 @@ t_bool	builtin_functions(t_minishell *minishell, char **args)
 	if (ft_strcmp(args[0], "exit") == 0)
 		free_exit(minishell, args, NULL);
 	else if (ft_strcmp(args[0], "echo") == 0)
-		func_echo(minishell, args);
+		minishell->last_return_value = func_echo(minishell, args);
 	else if (ft_strcmp(args[0], "cd") == 0)
-		func_cd(minishell, args);
+		minishell->last_return_value = func_cd(minishell, args);
 	else if (ft_strcmp(args[0], "pwd") == 0)
-		func_pwd(minishell);
+		minishell->last_return_value = func_pwd(minishell);
 	else if (ft_strcmp(args[0], "export") == 0)
-		func_export(minishell, args);
+		minishell->last_return_value = func_export(minishell, args);
 	else if (ft_strcmp(args[0], "unset") == 0)
-		func_unset(minishell, args);
+		minishell->last_return_value = func_unset(minishell, args);
 	else if (ft_strcmp(args[0], "env") == 0)
-		func_env(minishell);
+		minishell->last_return_value = func_env(minishell);
 	else
 		return (FALSE);
 	return (TRUE);

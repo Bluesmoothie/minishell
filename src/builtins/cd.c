@@ -6,13 +6,13 @@
 /*   By: ygille <ygille@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/29 15:13:17 by ygille            #+#    #+#             */
-/*   Updated: 2025/01/29 17:21:03 by ygille           ###   ########.fr       */
+/*   Updated: 2025/01/29 19:19:46 by ygille           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	func_cd(t_minishell *minishell, char **args)
+int	func_cd(t_minishell *minishell, char **args)
 {
 	char	*dir;
 	int		err;
@@ -30,5 +30,5 @@ void	func_cd(t_minishell *minishell, char **args)
 		err = chdir(args[1]);
 	if (err)
 		display_error(args[0], E_NOFILE, args[1]);
-	minishell->last_return_value = err;
+	return (err);
 }
