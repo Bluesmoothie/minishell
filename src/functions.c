@@ -6,7 +6,7 @@
 /*   By: ygille <ygille@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/29 00:43:02 by ygille            #+#    #+#             */
-/*   Updated: 2025/01/29 02:11:48 by ygille           ###   ########.fr       */
+/*   Updated: 2025/01/29 14:32:17 by ygille           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,11 +42,21 @@ void	func_echo(char **args)
 
 void	func_cd(char **args)
 {
-	if (args[1] == NULL)
+	char	*dir;
+
+	if (args[1] == NULL || (args[1][0] == '~'
+		&& ((args[1][1] == '/' && args[1][2] == '\0') || args[1][1] == '\0')))
 		chdir(getenv("HOME"));
-	else
-		if (chdir(args[1]))
-			display_error(args[0], E_NOFILE);
+	else if (args[1][0] == '~' && args[1][1] == '/' && args[1][2] != '\0')
+	{
+		dir = ft_strdup(getenv("HOME"));
+		dir = ft_strfcat(dir, &args[1][1], TRUE, FALSE);
+		if (chdir(dir))
+			display_error(args[0], E_NOFILE, args[1]);
+		free(dir);
+	}
+	else if (chdir(args[1]))
+		display_error(args[0], E_NOFILE, args[1]);
 }
 
 void	func_pwd(void)

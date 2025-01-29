@@ -6,7 +6,7 @@
 /*   By: ygille <ygille@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/28 19:38:14 by ygille            #+#    #+#             */
-/*   Updated: 2025/01/29 02:05:22 by ygille           ###   ########.fr       */
+/*   Updated: 2025/01/29 14:30:15 by ygille           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,5 +57,5 @@ t_bool	builtin_functions(char **args)
 
 void	try_launch(char **args)
 {
-	display_error(args[0], E_COMMANDNF);
+	display_error(args[0], E_COMMANDNF, NULL);
 }

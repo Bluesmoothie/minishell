@@ -6,7 +6,7 @@
 /*   By: ygille <ygille@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/28 17:52:27 by ygille            #+#    #+#             */
-/*   Updated: 2025/01/29 02:04:40 by ygille           ###   ########.fr       */
+/*   Updated: 2025/01/29 14:36:29 by ygille           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,8 @@
 
 # include "libft.h"
 
-# define FALSE 0
-# define TRUE 1
+# define FALSE		0
+# define TRUE		1
 
 typedef unsigned char	t_bool;
 
@@ -48,7 +48,7 @@ void	try_launch(char **args);
 
 //	text.c
 void	display_text(char *text, char format[5], char color[6]);
-void	display_error(char *command, char *error);
+void	display_error(char *command, char *error, char *arg);
 char	*calc_prompt(void);
 char	*get_relative_path(void);
 
