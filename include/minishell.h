@@ -6,7 +6,7 @@
 /*   By: ygille <ygille@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/28 17:52:27 by ygille            #+#    #+#             */
-/*   Updated: 2025/01/29 15:05:39 by ygille           ###   ########.fr       */
+/*   Updated: 2025/01/29 17:23:22 by ygille           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@ typedef	struct	s_minishell
 	char	*user;
 	char	*pwd;
 	char	**path;
+	char	**envp;
 	char	*prompt;
 }	t_minishell;
 
@@ -41,16 +42,6 @@ typedef	struct	s_minishell
 //	minishell.c
 void	error(char *message);
 void	free_exit(t_minishell *minishell, char **args, char *message);
-
-//	functions.c
-void	func_echo(t_minishell *minishell, char **args);
-void	func_cd(t_minishell *minishell, char **args);
-void	func_pwd(t_minishell *minishell);
-void	func_export(t_minishell *minishell, char **args);
-void	func_unset(t_minishell *minishell, char **args);
-
-//	functions2.c
-void	func_env(t_minishell *minishell);
 
 //	parse.c
 void	parse_line(t_minishell *minishell, char *line);
@@ -73,5 +64,24 @@ int		ft_strcmp(const char *s1, const char *s2);
 char	*ft_strcat(char *s1, char *s2);
 char	*ft_strfcat(char *s1, char *s2, t_bool fs1, t_bool fs2);
 void	free_split(char ***split);
+
+//	builtins/cd.c
+void	func_cd(t_minishell *minishell, char **args);
+
+//	builtins/echo.c
+void	func_echo(t_minishell *minishell, char **args);
+void	echo_arg(t_minishell *minishell, char **args);
+
+//	builtins/env.c
+void	func_env(t_minishell *minishell);
+
+//	builtins/export.c
+void	func_export(t_minishell *minishell, char **args);
+
+//	builtins/pwd.c
+void	func_pwd(t_minishell *minishell);
+
+//	builtins/unset.c
+void	func_unset(t_minishell *minishell, char **args);
 
 #endif
