@@ -6,7 +6,7 @@
 /*   By: ygille <ygille@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/29 18:49:39 by ygille            #+#    #+#             */
-/*   Updated: 2025/01/30 16:25:11 by ygille           ###   ########.fr       */
+/*   Updated: 2025/01/30 17:12:12 by ygille           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,4 +69,22 @@ void	ft_mlstdelone(t_mlist *lst)
 		free(lst->content);
 	if (lst)
 		free(lst);
+}
+
+/*
+** Return the size of the list
+*/
+int	ft_mlstsize(t_mlist *lst)
+{
+	int		i;
+	t_mlist	*tmp;
+
+	i = 0;
+	tmp = lst;
+	while (tmp != NULL)
+	{
+		i++;
+		tmp = tmp->next;
+	}
+	return (i);
 }

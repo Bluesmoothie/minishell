@@ -6,7 +6,7 @@
 /*   By: ygille <ygille@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/28 17:52:27 by ygille            #+#    #+#             */
-/*   Updated: 2025/01/30 16:16:29 by ygille           ###   ########.fr       */
+/*   Updated: 2025/01/30 17:14:10 by ygille           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@
 # include <termios.h>
 # include <signal.h>
 # include <stdio.h>
+# include <unistd.h>
 
 # include "text_formats.h"
 # include "error_messages.h"
@@ -60,16 +61,22 @@ void	init_signals(void);
 void	init_term(void);
 t_mlist	*init_env(char **envp);
 
+//	launch.c
+void	launch_bin(t_minishell *minishell, char *path, char **args);
+char	*search_binary(char **paths, char *bin);
+char	**create_new_envp(t_minishell *minishell);
+
 //	mlist.c
 t_mlist	*ft_mlstclear(t_mlist *lst);
 t_mlist	*ft_mlstcreate(char *name, char *content);
 t_mlist	*ft_mlstadd_front(t_mlist *lst, t_mlist *new);
 void	ft_mlstdelone(t_mlist *lst);
+int		ft_mlstsize(t_mlist *lst);
 
 //	parse.c
 void	parse_line(t_minishell *minishell, char *line);
 t_bool	builtin_functions(t_minishell *minishell, char **args);
-void	try_launch(char **args);
+void	try_launch(t_minishell *minishell, char **args);
 void	search_for_env(t_minishell *minishell, char ***args);
 char	*get_env_value(t_minishell *minishell, char *name);
 

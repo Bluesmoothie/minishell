@@ -6,7 +6,7 @@
 /*   By: ygille <ygille@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/28 19:38:14 by ygille            #+#    #+#             */
-/*   Updated: 2025/01/30 16:26:04 by ygille           ###   ########.fr       */
+/*   Updated: 2025/01/30 16:58:18 by ygille           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ void	parse_line(t_minishell *minishell, char *line)
 	free(line);
 	search_for_env(minishell, &args);
 	if (!builtin_functions(minishell, args))
-		try_launch(args);
+		try_launch(minishell, args);
 	free_split(&args);
 	return ;
 }
@@ -65,9 +65,26 @@ t_bool	builtin_functions(t_minishell *minishell, char **args)
 /*
 ** Try to launch the command from the PATH
 */
-void	try_launch(char **args)
+void	try_launch(t_minishell *minishell, char **args)
 {
-	display_error(args[0], E_COMMANDNF, NULL);
+	char	**paths;
+	char	*path;
+
+	paths = ft_split(get_env_value(minishell, "PATH"), ':');
+	if (paths == NULL)
+		free_exit(minishell, args, E_MALLOCFAIL);
+	path = search_binary(paths, args[0]);
+	if (path != NULL)
+	{
+		launch_bin(minishell, path, args);
+		free(path);
+	}
+	else
+	{
+		display_error(args[0], E_COMMANDNF, NULL);
+		minishell->last_return_value = 127;
+	}
+	free_split(&paths);
 }
 
 /*
