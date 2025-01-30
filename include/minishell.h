@@ -6,7 +6,7 @@
 /*   By: ygille <ygille@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/28 17:52:27 by ygille            #+#    #+#             */
-/*   Updated: 2025/01/29 19:56:38 by ygille           ###   ########.fr       */
+/*   Updated: 2025/01/30 16:16:29 by ygille           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 # include <readline/readline.h>
 # include <readline/history.h>
 # include <sys/wait.h>
+# include <termios.h>
 # include <signal.h>
 # include <stdio.h>
 
@@ -50,9 +51,14 @@ typedef struct s_mlist
 }	t_mlist;
 
 //	minishell.c
-void	init_signals(void);
 void	error(char *message);
 void	free_exit(t_minishell *minishell, char **args, char *message);
+
+//	init.c
+void	init_minishell(t_minishell *minishell, char **envp);
+void	init_signals(void);
+void	init_term(void);
+t_mlist	*init_env(char **envp);
 
 //	mlist.c
 t_mlist	*ft_mlstclear(t_mlist *lst);
@@ -74,7 +80,6 @@ void	signal_handler(int sig);
 void	init_struct(t_minishell *minishell, char **envp);
 void	free_struct(t_minishell *minishell);
 void	update_infos(t_minishell *minishell);
-t_mlist	*init_env(char **envp);
 
 //	text.c
 void	display_text(char *text, char format[5], char color[6]);

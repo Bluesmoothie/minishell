@@ -6,7 +6,7 @@
 /*   By: ygille <ygille@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/28 17:52:41 by ygille            #+#    #+#             */
-/*   Updated: 2025/01/29 19:54:32 by ygille           ###   ########.fr       */
+/*   Updated: 2025/01/30 16:14:01 by ygille           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,7 @@ int	main(int argc, char **argv, char **envp)
 		execve("/bin/clear", null_argv, envp);
 	if (waitpid(pid, NULL, 0) == -1)
 		error("waitpid failed");
-	init_struct(&minishell, envp);
-	init_signals();
+	init_minishell(&minishell, envp);
 	while (1)
 	{
 		minishell.prompt = calc_prompt(minishell);
@@ -38,11 +37,6 @@ int	main(int argc, char **argv, char **envp)
 	}
 	free_split(&null_argv);
 	return (0);
-}
-
-void	init_signals(void)
-{
-	signal(SIGINT, signal_handler);
 }
 
 /*

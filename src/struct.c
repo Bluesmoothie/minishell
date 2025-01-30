@@ -6,7 +6,7 @@
 /*   By: ygille <ygille@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/29 14:45:43 by ygille            #+#    #+#             */
-/*   Updated: 2025/01/29 19:48:51 by ygille           ###   ########.fr       */
+/*   Updated: 2025/01/30 16:12:14 by ygille           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,23 +43,4 @@ void	update_infos(t_minishell *minishell)
 		minishell->pwd = NULL;
 	}
 	minishell->pwd = getcwd(NULL, 0);
-}
-
-t_mlist	*init_env(char **envp)
-{
-	t_mlist	*env;
-	char	*name;
-	char	*content;
-	int		i;
-
-	i = 0;
-	env = NULL;
-	while (envp[i] != NULL)
-	{
-		name = extract_name(envp[i]);
-		content = extract_content(envp[i]);
-		env = ft_mlstadd_front(env, ft_mlstcreate(name, content));
-		i++;
-	}
-	return (env);
 }
