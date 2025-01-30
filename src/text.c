@@ -6,12 +6,15 @@
 /*   By: ygille <ygille@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/28 19:54:08 by ygille            #+#    #+#             */
-/*   Updated: 2025/01/29 14:53:21 by ygille           ###   ########.fr       */
+/*   Updated: 2025/01/30 16:27:06 by ygille           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
+/*
+** Display a text with a specific format and color
+*/
 void	display_text(char *text, char format[5], char color[6])
 {
 	ft_putstr_fd(format, 1);
@@ -20,6 +23,9 @@ void	display_text(char *text, char format[5], char color[6])
 	ft_putstr_fd(TEXT_RESET, 1);
 }
 
+/*
+** Display an error message
+*/
 void	display_error(char *command, char *error, char *arg)
 {
 	display_text(command, TEXT_ITALIC, TEXT_NULL_COLOR);
@@ -29,6 +35,9 @@ void	display_error(char *command, char *error, char *arg)
 	ft_putchar_fd('\n', 1);
 }
 
+/*
+** Calculate the prompt to display
+*/
 char	*calc_prompt(t_minishell minishell)
 {
 	char	*pwd;
@@ -46,6 +55,9 @@ char	*calc_prompt(t_minishell minishell)
 	return (prompt);
 }
 
+/*
+** Get the path relative to the home directory
+*/
 char	*get_relative_path(char *pwd, char *home)
 {
 	char	*relative_path;

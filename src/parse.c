@@ -6,12 +6,15 @@
 /*   By: ygille <ygille@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/28 19:38:14 by ygille            #+#    #+#             */
-/*   Updated: 2025/01/30 15:43:37 by ygille           ###   ########.fr       */
+/*   Updated: 2025/01/30 16:26:04 by ygille           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
+/*
+** Parse the line and execute the command
+*/
 void	parse_line(t_minishell *minishell, char *line)
 {
 	char	**args;
@@ -35,6 +38,9 @@ void	parse_line(t_minishell *minishell, char *line)
 	return ;
 }
 
+/*
+** Check if the command is a builtin function
+*/
 t_bool	builtin_functions(t_minishell *minishell, char **args)
 {
 	if (ft_strcmp(args[0], "exit") == 0)
@@ -56,11 +62,18 @@ t_bool	builtin_functions(t_minishell *minishell, char **args)
 	return (TRUE);
 }
 
+/*
+** Try to launch the command from the PATH
+*/
 void	try_launch(char **args)
 {
 	display_error(args[0], E_COMMANDNF, NULL);
 }
 
+/*
+** Search for environment variables in the arguments
+** and replace them with their value
+*/
 void	search_for_env(t_minishell *minishell, char ***args)
 {
 	int		i;
@@ -79,6 +92,9 @@ void	search_for_env(t_minishell *minishell, char ***args)
 	}
 }
 
+/*
+** Get the value of an environment variable
+*/
 char	*get_env_value(t_minishell *minishell, char *arg)
 {
 	t_mlist	*mlist;

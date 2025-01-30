@@ -6,12 +6,15 @@
 /*   By: ygille <ygille@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/29 15:14:29 by ygille            #+#    #+#             */
-/*   Updated: 2025/01/29 19:44:19 by ygille           ###   ########.fr       */
+/*   Updated: 2025/01/30 16:23:46 by ygille           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
+/*
+** Like the env command, display the environment variables
+*/
 int	func_env(t_minishell *minishell)
 {
 	int		i;

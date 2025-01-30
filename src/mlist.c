@@ -6,12 +6,15 @@
 /*   By: ygille <ygille@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/29 18:49:39 by ygille            #+#    #+#             */
-/*   Updated: 2025/01/29 19:36:54 by ygille           ###   ########.fr       */
+/*   Updated: 2025/01/30 16:25:11 by ygille           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
+/*
+** Free the memory of the list
+*/
 t_mlist	*ft_mlstclear(t_mlist *lst)
 {
 	t_mlist	*tmp;
@@ -27,6 +30,9 @@ t_mlist	*ft_mlstclear(t_mlist *lst)
 	return (NULL);
 }
 
+/*
+** Create a new element of the list
+*/
 t_mlist	*ft_mlstcreate(char *name, char *content)
 {
 	t_mlist	*new;
@@ -40,6 +46,9 @@ t_mlist	*ft_mlstcreate(char *name, char *content)
 	return (new);
 }
 
+/*
+** Add a new element at the beginning of the list
+*/
 t_mlist	*ft_mlstadd_front(t_mlist *lst, t_mlist *new)
 {
 	if (new == NULL)
@@ -49,6 +58,9 @@ t_mlist	*ft_mlstadd_front(t_mlist *lst, t_mlist *new)
 	return (lst);
 }
 
+/*
+** Delete an element of the list
+*/
 void	ft_mlstdelone(t_mlist *lst)
 {
 	if (lst->name)

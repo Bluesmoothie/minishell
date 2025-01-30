@@ -6,12 +6,15 @@
 /*   By: ygille <ygille@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/30 16:11:43 by ygille            #+#    #+#             */
-/*   Updated: 2025/01/30 16:18:49 by ygille           ###   ########.fr       */
+/*   Updated: 2025/01/30 16:23:09 by ygille           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
+/*
+** Launch all initializations
+*/
 void	init_minishell(t_minishell *minishell, char **envp)
 {
 	init_struct(minishell, envp);
@@ -19,12 +22,18 @@ void	init_minishell(t_minishell *minishell, char **envp)
 	init_term();
 }
 
+/*
+** Initialize signals handling
+*/
 void	init_signals(void)
 {
 	signal(SIGINT, signal_handler);
 	signal(SIGQUIT, signal_handler);
 }
 
+/*
+** Initialize terminal parameters
+*/
 void	init_term(void)
 {
 	struct termios	term;
@@ -34,6 +43,9 @@ void	init_term(void)
 	tcsetattr(STDIN_FILENO, TCSANOW, &term);
 }
 
+/*
+** Initialize the environment variables
+*/
 t_mlist	*init_env(char **envp)
 {
 	t_mlist	*env;

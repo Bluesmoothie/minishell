@@ -6,12 +6,15 @@
 /*   By: ygille <ygille@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/29 15:13:17 by ygille            #+#    #+#             */
-/*   Updated: 2025/01/29 19:19:46 by ygille           ###   ########.fr       */
+/*   Updated: 2025/01/30 16:23:28 by ygille           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
+/*
+** Like the cd command, change the current directory
+*/
 int	func_cd(t_minishell *minishell, char **args)
 {
 	char	*dir;

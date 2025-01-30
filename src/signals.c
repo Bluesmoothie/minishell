@@ -6,12 +6,15 @@
 /*   By: ygille <ygille@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/29 19:54:46 by ygille            #+#    #+#             */
-/*   Updated: 2025/01/30 16:06:29 by ygille           ###   ########.fr       */
+/*   Updated: 2025/01/30 16:26:13 by ygille           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
+/*
+** Signal handler for SIGINT and SIGQUIT
+*/
 void	signal_handler(int sig)
 {
 	if (sig == SIGINT)

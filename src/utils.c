@@ -6,7 +6,7 @@
 /*   By: ygille <ygille@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/28 23:29:21 by ygille            #+#    #+#             */
-/*   Updated: 2025/01/30 15:44:19 by ygille           ###   ########.fr       */
+/*   Updated: 2025/01/30 16:27:29 by ygille           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,9 @@ char	*ft_strcat(char *s1, char *s2)
 	return (str);
 }
 
+/*
+** Like strcat but can choose if a string needs to be freed
+*/
 char	*ft_strfcat(char *s1, char *s2, t_bool fs1, t_bool fs2)
 {
 	char	*str;
