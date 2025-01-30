@@ -6,7 +6,7 @@
 /*   By: ygille <ygille@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/28 23:29:21 by ygille            #+#    #+#             */
-/*   Updated: 2025/01/29 15:10:31 by ygille           ###   ########.fr       */
+/*   Updated: 2025/01/30 15:44:19 by ygille           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,8 @@ void	free_split(char ***split)
 	int	i;
 
 	i = 0;
+	if (*split == NULL)
+		return ;
 	while ((*split)[i])
 		free((*split)[i++]);
 	free(*split);
