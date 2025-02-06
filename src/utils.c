@@ -6,7 +6,7 @@
 /*   By: ygille <ygille@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/28 23:29:21 by ygille            #+#    #+#             */
-/*   Updated: 2025/01/30 16:27:29 by ygille           ###   ########.fr       */
+/*   Updated: 2025/02/06 15:30:42 by ygille           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,14 +33,18 @@ char	*ft_strcat(char *s1, char *s2)
 		return (NULL);
 	i = 0;
 	j = 0;
-	while (s1[j])
-		str[i++] = s1[j++];
+	if (s1 != NULL)
+		while (s1[j])
+			str[i++] = s1[j++];
 	j = 0;
-	while (s2[j])
-		str[i++] = s2[j++];
+	if (s2 != NULL)
+		while (s2[j])
+			str[i++] = s2[j++];
 	str[i] = '\0';
-	free(s1);
-	free(s2);
+	if (s1 != NULL)
+		free(s1);
+	if (s2 != NULL)
+		free(s2);
 	return (str);
 }
 
@@ -58,15 +62,17 @@ char	*ft_strfcat(char *s1, char *s2, t_bool fs1, t_bool fs2)
 		return (NULL);
 	i = 0;
 	j = 0;
-	while (s1[j])
-		str[i++] = s1[j++];
+	if (s1 != NULL)
+		while (s1[j])
+			str[i++] = s1[j++];
 	j = 0;
-	while (s2[j])
-		str[i++] = s2[j++];
+	if (s2 != NULL)
+		while (s2[j])
+			str[i++] = s2[j++];
 	str[i] = '\0';
-	if (fs1)
+	if (fs1 && s1 != NULL)
 		free(s1);
-	if (fs2)
+	if (fs2 && s2 != NULL)
 		free(s2);
 	return (str);
 }
