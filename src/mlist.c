@@ -6,7 +6,7 @@
 /*   By: ygille <ygille@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/29 18:49:39 by ygille            #+#    #+#             */
-/*   Updated: 2025/01/30 17:12:12 by ygille           ###   ########.fr       */
+/*   Updated: 2025/02/06 17:43:56 by ygille           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,8 +40,8 @@ t_mlist	*ft_mlstcreate(char *name, char *content)
 	new = malloc(sizeof(t_mlist));
 	if (new == NULL)
 		return (NULL);
-	new->name = ft_strdup(name);
-	new->content = ft_strdup(content);
+	new->name = name;
+	new->content = content;
 	new->next = NULL;
 	return (new);
 }

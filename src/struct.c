@@ -6,7 +6,7 @@
 /*   By: ygille <ygille@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/29 14:45:43 by ygille            #+#    #+#             */
-/*   Updated: 2025/01/30 16:12:14 by ygille           ###   ########.fr       */
+/*   Updated: 2025/02/06 17:35:17 by ygille           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,8 @@ void	free_struct(t_minishell *minishell)
 	}
 	if (minishell->env)
 		minishell->env = ft_mlstclear(minishell->env);
+	if (minishell->prompt)
+		free (minishell->prompt);
 }
 
 void	update_infos(t_minishell *minishell)
