@@ -6,7 +6,7 @@
 /*   By: ygille <ygille@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/28 17:52:27 by ygille            #+#    #+#             */
-/*   Updated: 2025/02/06 18:16:12 by ygille           ###   ########.fr       */
+/*   Updated: 2025/02/06 19:54:49 by ygille           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,8 +81,7 @@ int		ft_mlstsize(t_mlist *lst);
 void	parse_line(t_minishell *minishell, char *line);
 t_bool	builtin_functions(t_minishell *minishell, char **args);
 void	try_launch(t_minishell *minishell, char **args);
-void	local_launch(t_minishell *minishell, char **args);
-
+char	*calc_bin_path(t_minishell *minishell, char **args);
 
 //	signals.c
 void	signal_handler(int sig);

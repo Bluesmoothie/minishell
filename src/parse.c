@@ -6,7 +6,7 @@
 /*   By: ygille <ygille@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/28 19:38:14 by ygille            #+#    #+#             */
-/*   Updated: 2025/02/06 18:17:29 by ygille           ###   ########.fr       */
+/*   Updated: 2025/02/06 19:54:38 by ygille           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,17 +67,11 @@ t_bool	builtin_functions(t_minishell *minishell, char **args)
 */
 void	try_launch(t_minishell *minishell, char **args)
 {
-	char	**paths;
 	char	*path;
 
-	if (!ft_strncmp("./", args[0], 2))
-		return (local_launch(minishell, args));
 	if (!ft_strncmp("/", args[0], 1))
 		return (launch_bin(minishell, args[0], args));
-	paths = ft_split(get_env_value(minishell, "PATH"), ':');
-	if (paths == NULL)
-		free_exit(minishell, args, E_MALLOCFAIL);
-	path = search_binary(paths, args[0]);
+	path = calc_bin_path(minishell, args);
 	if (path != NULL)
 	{
 		launch_bin(minishell, path, args);
@@ -88,14 +82,24 @@ void	try_launch(t_minishell *minishell, char **args)
 		display_error(args[0], E_COMMANDNF, NULL);
 		minishell->last_return_value = 127;
 	}
-	free_split(&paths);
 }
 
-void	local_launch(t_minishell *minishell, char **args)
+char	*calc_bin_path(t_minishell *minishell, char **args)
 {
+	char	**paths;
 	char	*path;
 
-	path = ft_strfcat(minishell->pwd, &args[0][2], FALSE, FALSE);
-	launch_bin(minishell, path, args);
-	free(path);
+	if (!ft_strncmp("./", args[0], 2))
+		path = ft_strfcat(minishell->pwd, &args[0][2], FALSE, FALSE);
+	else if (!ft_strncmp("~/", args[0], 2))
+		path = ft_strfcat(minishell->home, &args[0][1], FALSE, FALSE);
+	else
+	{
+		paths = ft_split(get_env_value(minishell, "PATH"), ':');
+		if (paths == NULL)
+			free_exit(minishell, args, E_MALLOCFAIL);
+		path = search_binary(paths, args[0]);
+		free_split(&paths);
+	}
+	return (path);
 }
