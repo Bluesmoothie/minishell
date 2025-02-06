@@ -6,7 +6,7 @@
 /*   By: ygille <ygille@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/30 16:49:35 by ygille            #+#    #+#             */
-/*   Updated: 2025/01/30 17:15:32 by ygille           ###   ########.fr       */
+/*   Updated: 2025/02/06 18:21:30 by ygille           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,9 +31,8 @@ void	launch_bin(t_minishell *minishell, char *path, char **args)
 		free_exit(minishell, args, "fork failed");
 	}
 	if (pid == 0)
-		exit (execve(path, args, new_envp));
-	if (waitpid(pid, &minishell->last_return_value, 0) == -1)
-		error("waitpid failed");
+		execve(path, args, new_envp);
+	waitpid(pid, &minishell->last_return_value, 0);
 	free_split(&new_envp);
 }
 

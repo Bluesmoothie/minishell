@@ -6,7 +6,7 @@
 /*   By: ygille <ygille@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/28 17:52:27 by ygille            #+#    #+#             */
-/*   Updated: 2025/01/30 17:14:10 by ygille           ###   ########.fr       */
+/*   Updated: 2025/02/06 18:16:12 by ygille           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,10 @@ typedef struct s_mlist
 void	error(char *message);
 void	free_exit(t_minishell *minishell, char **args, char *message);
 
+// env.c
+void	search_for_env(t_minishell *minishell, char ***args);
+char	*get_env_value(t_minishell *minishell, char *name);
+
 //	init.c
 void	init_minishell(t_minishell *minishell, char **envp);
 void	init_signals(void);
@@ -77,8 +81,8 @@ int		ft_mlstsize(t_mlist *lst);
 void	parse_line(t_minishell *minishell, char *line);
 t_bool	builtin_functions(t_minishell *minishell, char **args);
 void	try_launch(t_minishell *minishell, char **args);
-void	search_for_env(t_minishell *minishell, char ***args);
-char	*get_env_value(t_minishell *minishell, char *name);
+void	local_launch(t_minishell *minishell, char **args);
+
 
 //	signals.c
 void	signal_handler(int sig);

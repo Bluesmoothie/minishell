@@ -6,7 +6,7 @@
 /*   By: ygille <ygille@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/28 19:38:14 by ygille            #+#    #+#             */
-/*   Updated: 2025/02/06 17:53:20 by ygille           ###   ########.fr       */
+/*   Updated: 2025/02/06 18:17:29 by ygille           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,10 @@ void	try_launch(t_minishell *minishell, char **args)
 	char	**paths;
 	char	*path;
 
+	if (!ft_strncmp("./", args[0], 2))
+		return (local_launch(minishell, args));
+	if (!ft_strncmp("/", args[0], 1))
+		return (launch_bin(minishell, args[0], args));
 	paths = ft_split(get_env_value(minishell, "PATH"), ':');
 	if (paths == NULL)
 		free_exit(minishell, args, E_MALLOCFAIL);
@@ -87,43 +91,11 @@ void	try_launch(t_minishell *minishell, char **args)
 	free_split(&paths);
 }
 
-/*
-** Search for environment variables in the arguments
-** and replace them with their value
-*/
-void	search_for_env(t_minishell *minishell, char ***args)
+void	local_launch(t_minishell *minishell, char **args)
 {
-	int		i;
-	char	*tmp;
+	char	*path;
 
-	i = 0;
-	while ((*args)[i] != NULL)
-	{
-		if ((*args)[i][0] == '$' && (*args)[i][1] != '\0')
-		{
-			tmp = (*args)[i];
-			(*args)[i] = get_env_value(minishell, &tmp[1]);
-			free(tmp);
-		}
-		i++;
-	}
-}
-
-/*
-** Get the value of an environment variable
-*/
-char	*get_env_value(t_minishell *minishell, char *arg)
-{
-	t_mlist	*mlist;
-
-	if (ft_strcmp(arg, "?") == 0)
-		return (ft_itoa(minishell->last_return_value));
-	mlist = minishell->env;
-	while (mlist != NULL)
-	{
-		if (ft_strcmp(mlist->name, arg) == 0)
-			return (mlist->content);
-		mlist = mlist->next;
-	}
-	return (NULL);
+	path = ft_strfcat(minishell->pwd, &args[0][2], FALSE, FALSE);
+	launch_bin(minishell, path, args);
+	free(path);
 }
