@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pwd.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ygille <ygille@student.42lyon.fr>          +#+  +:+       +#+        */
+/*   By: sithomas <sithomas@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/29 15:13:56 by ygille            #+#    #+#             */
-/*   Updated: 2025/01/30 16:24:17 by ygille           ###   ########.fr       */
+/*   Updated: 2025/02/07 13:08:57 by sithomas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,8 @@
 /*
 ** Like the pwd command, display the current directory
 */
-int	func_pwd(t_minishell *minishell)
+int	func_pwd(t_minishell *minishell, int fd)
 {
-	ft_putendl_fd(minishell->pwd, 1);
+	ft_putendl_fd(minishell->pwd, fd);
 	return (0);
 }

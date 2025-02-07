@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ygille <ygille@student.42lyon.fr>          +#+  +:+       +#+        */
+/*   By: sithomas <sithomas@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/29 15:14:06 by ygille            #+#    #+#             */
-/*   Updated: 2025/01/30 16:24:04 by ygille           ###   ########.fr       */
+/*   Updated: 2025/02/07 13:08:23 by sithomas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 ** Like the export command, display the environment variables
 ** or add a new one
 */
-int	func_export(t_minishell *minishell, char **args)
+int	func_export(t_minishell *minishell, char **args, int fd)
 {
 	t_mlist	*new;
 	char	*name;
@@ -24,7 +24,7 @@ int	func_export(t_minishell *minishell, char **args)
 
 	content = NULL;
 	if (args[1] == NULL)
-		return (func_env(minishell));
+		return (func_env(minishell, fd));
 	else if (ft_strchr(args[1], '=') == NULL)
 		name = args[1];
 	else

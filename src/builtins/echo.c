@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   echo.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ygille <ygille@student.42lyon.fr>          +#+  +:+       +#+        */
+/*   By: sithomas <sithomas@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/29 15:13:01 by ygille            #+#    #+#             */
-/*   Updated: 2025/01/30 16:23:36 by ygille           ###   ########.fr       */
+/*   Updated: 2025/02/07 13:07:24 by sithomas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 /*
 ** Like the echo command, display a message
 */
-int	func_echo(t_minishell *minishell, char **args)
+int	func_echo(t_minishell *minishell, char **args, int fd)
 {
 	int		i;
 	t_bool	newline;
@@ -25,7 +25,7 @@ int	func_echo(t_minishell *minishell, char **args)
 	(void)minishell;
 	if (args[i] == NULL)
 	{
-		ft_putchar_fd('\n', 1);
+		ft_putchar_fd('\n', fd);
 		return (0);
 	}
 	else if (ft_strcmp(args[i], "-n") == 0)
@@ -35,11 +35,11 @@ int	func_echo(t_minishell *minishell, char **args)
 	}
 	while (args[i] != NULL)
 	{
-		ft_putstr_fd(args[i++], 1);
+		ft_putstr_fd(args[i++], fd);
 		if (args[i] != NULL)
-			ft_putchar_fd(' ', 1);
+			ft_putchar_fd(' ', fd);
 	}
 	if (newline)
-		ft_putchar_fd('\n', 1);
+		ft_putchar_fd('\n', fd);
 	return (0);
 }

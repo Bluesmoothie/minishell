@@ -5,7 +5,7 @@ NAME			=   minishell
 #			GCC
 
 CC				=	cc
-CFLAGS			=	-Wall -Wextra -Werror -MMD -MP $(INCLUDE)
+CFLAGS			=	-Wall -Wextra -Werror -MMD -MP $(INCLUDE) -g3
 
 #			COMMON
 
@@ -31,6 +31,7 @@ SRC_FILES		=	minishell		\
 					builtins/export	\
 					builtins/pwd	\
 					builtins/unset	\
+					pipes			\
 
 SRC 			= 	$(addprefix $(SRC_DIR), $(addsuffix .c, $(SRC_FILES)))
 OBJ 			= 	$(addprefix $(BUILD_DIR), $(addsuffix .o, $(SRC_FILES)))

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ygille <ygille@student.42lyon.fr>          +#+  +:+       +#+        */
+/*   By: sithomas <sithomas@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/28 17:52:27 by ygille            #+#    #+#             */
-/*   Updated: 2025/02/06 19:54:49 by ygille           ###   ########.fr       */
+/*   Updated: 2025/02/07 17:26:29 by sithomas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@
 # include <signal.h>
 # include <stdio.h>
 # include <unistd.h>
+# include <fcntl.h>
 
 # include "text_formats.h"
 # include "error_messages.h"
@@ -79,7 +80,8 @@ int		ft_mlstsize(t_mlist *lst);
 
 //	parse.c
 void	parse_line(t_minishell *minishell, char *line);
-t_bool	builtin_functions(t_minishell *minishell, char **args);
+void	treat_arguments(t_minishell *minishell, char *line, int fd);
+t_bool	builtin_functions(t_minishell *minishell, char **args, int fd);
 void	try_launch(t_minishell *minishell, char **args);
 char	*calc_bin_path(t_minishell *minishell, char **args);
 
@@ -107,20 +109,23 @@ void	free_split(char ***split);
 int		func_cd(t_minishell *minishell, char **args);
 
 //	builtins/echo.c
-int		func_echo(t_minishell *minishell, char **args);
+int		func_echo(t_minishell *minishell, char **args, int fd);
 
 //	builtins/env.c
-int		func_env(t_minishell *minishell);
+int		func_env(t_minishell *minishell, int fd);
 
 //	builtins/export.c
-int		func_export(t_minishell *minishell, char **args);
+int		func_export(t_minishell *minishell, char **args, int fd);
 char	*extract_name(char *arg);
 char	*extract_content(char *arg);
 
 //	builtins/pwd.c
-int		func_pwd(t_minishell *minishell);
+int		func_pwd(t_minishell *minishell, int fd);
 
 //	builtins/unset.c
 int		func_unset(t_minishell *minishell, char **args);
+
+//pipes.c
+void	unpipe(t_minishell *minishell, char *line);
 
 #endif
