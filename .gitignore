@@ -1,0 +1,9 @@
+*.o
+*.a
+*.d
+minishell
+notes
+notes\ valgrind
+callgrind*
+bashr
+minishellr
