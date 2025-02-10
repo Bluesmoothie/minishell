@@ -1,4 +1,4 @@
-.PHONY			:	clean fclean re all norme FORCE
+.PHONY			:	clean fclean re all norme FORCE check
 
 NAME			=   minishell
 
@@ -19,8 +19,11 @@ SRC_FILES		=	minishell		\
 					env				\
 					init			\
 					launch			\
+					miniparse		\
 					mlist			\
+					mlist2			\
 					parse			\
+					pipes			\
 					signals			\
 					struct			\
 					text			\
@@ -31,7 +34,6 @@ SRC_FILES		=	minishell		\
 					builtins/export	\
 					builtins/pwd	\
 					builtins/unset	\
-					pipes			\
 
 SRC 			= 	$(addprefix $(SRC_DIR), $(addsuffix .c, $(SRC_FILES)))
 OBJ 			= 	$(addprefix $(BUILD_DIR), $(addsuffix .o, $(SRC_FILES)))
@@ -65,6 +67,11 @@ FORCE			:
 
 norme			:
 				norminette $(SRC_DIR) include
+
+check			:
+				chmod +x tests/launch_tests.sh
+				chmod +x tests/tests.sh
+				bash tests/launch_tests.sh
 
 clean			:
 				$(MAKE) clean -C $(LIBFT)

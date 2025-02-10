@@ -3,15 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   parse.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sithomas <sithomas@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: ygille <ygille@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/28 19:38:14 by ygille            #+#    #+#             */
-/*   Updated: 2025/02/07 17:49:56 by sithomas         ###   ########.fr       */
+/*   Updated: 2025/02/10 18:31:31 by ygille           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
 
 /*
 ** Parse the line
@@ -33,7 +32,7 @@ void	treat_arguments(t_minishell *minishell, char *line, int fd)
 {
 	char	**args;
 
-	args = ft_split(line, ' ');
+	args = miniparse(minishell, line);
 	if (args == NULL)
 		free_exit(minishell, args, E_SPLITFAIL);
 	if (args[0] == NULL)
@@ -42,7 +41,6 @@ void	treat_arguments(t_minishell *minishell, char *line, int fd)
 		return ;
 	}
 	free(line);
-	search_for_env(minishell, &args);
 	if (!builtin_functions(minishell, args, fd))
 		try_launch(minishell, args);
 	free_split(&args);

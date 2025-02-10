@@ -6,7 +6,7 @@
 /*   By: ygille <ygille@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/06 18:13:22 by ygille            #+#    #+#             */
-/*   Updated: 2025/02/06 18:13:40 by ygille           ###   ########.fr       */
+/*   Updated: 2025/02/10 18:32:04 by ygille           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,22 +16,49 @@
 ** Search for environment variables in the arguments
 ** and replace them with their value
 */
-void	search_for_env(t_minishell *minishell, char ***args)
+void	search_for_env(t_minishell *minishell, t_mlist *args)
+{
+	char	*start;
+	char	*env_name;
+	char	*val;
+
+	while (args != NULL)
+	{
+		if (args->mask != '\'' && ft_strchr(args->content, '$') != NULL)
+		{
+			args->name = args->content;
+			args->content = NULL;
+			start = ft_strchr(args->name, '$');
+			while (start != NULL)
+			{
+				env_name = get_env_name(minishell, &start[1]);
+				val = get_env_value(minishell, env_name);
+				replace_env_value(minishell, args, val);
+				start = ft_strchr(args->name, '$');
+			}
+			free (args->name);
+			start = NULL;
+			val = NULL;
+		}
+		args = args->next;
+	}
+}
+
+char	*get_env_name(t_minishell *minishell, char *arg)
 {
 	int		i;
-	char	*tmp;
+	char	*result;
 
 	i = 0;
-	while ((*args)[i] != NULL)
-	{
-		if ((*args)[i][0] == '$' && (*args)[i][1] != '\0')
-		{
-			tmp = (*args)[i];
-			(*args)[i] = get_env_value(minishell, &tmp[1]);
-			free(tmp);
-		}
+	while (arg[i] != '\0' && arg[i] != '$')
 		i++;
-	}
+	result = malloc(sizeof(char) * i);
+	if (result == NULL)
+		free_exit(minishell, NULL, E_MALLOCFAIL);
+	result[i] = '\0';
+	while (i--)
+		result[i] = arg[i];
+	return (result);
 }
 
 /*
@@ -51,4 +78,52 @@ char	*get_env_value(t_minishell *minishell, char *arg)
 		mlist = mlist->next;
 	}
 	return (NULL);
+}
+
+void	replace_env_value(t_minishell *minishell, t_mlist *node, char *value)
+{
+	int		i;
+	char	*result;
+
+	i = 0;
+	while (node->name[i] != '$')
+		i++;
+	if (i > 0)
+	{
+		result = ft_substr(node->name, 0, i);
+		if (result == NULL)
+			free_exit(minishell, NULL, E_MALLOCFAIL);
+		result = ft_strfcat(result, value, TRUE, FALSE);
+		if (result == NULL)
+			free_exit(minishell, NULL, E_MALLOCFAIL);
+	}
+	else
+	{
+		result = ft_strdup(value);
+		if (result == NULL)
+			free_exit(minishell, NULL, E_MALLOCFAIL);
+	}
+	node->content = ft_strjoin(node->content, result);
+	if (node->content == NULL)
+		free_exit(minishell, NULL, E_MALLOCFAIL);
+	node->name = update_searching(minishell, node->name, i + 1);
+}
+
+char	*update_searching(t_minishell *minishell, char *name, int i)
+{
+	char	*result;
+
+	result = NULL;
+	while (name[i] != '\0' && name[i] != '$')
+		i++;
+	if (name[i] == '\0')
+		free(name);
+	else
+	{
+		result = ft_substr(name, i, ft_strlen(&name[i]) + 1);
+		free(name);
+		if (result == NULL)
+			free_exit(minishell, NULL, E_MALLOCFAIL);
+	}
+	return (result);
 }

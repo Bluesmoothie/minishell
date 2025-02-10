@@ -6,7 +6,7 @@
 /*   By: ygille <ygille@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/29 18:49:39 by ygille            #+#    #+#             */
-/*   Updated: 2025/02/06 17:43:56 by ygille           ###   ########.fr       */
+/*   Updated: 2025/02/10 14:59:36 by ygille           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,10 @@ t_mlist	*ft_mlstclear(t_mlist *lst)
 	while (lst != NULL)
 	{
 		tmp = lst->next;
-		free(lst->name);
-		free(lst->content);
+		if (lst->name)
+			free(lst->name);
+		if (lst->content)
+			free(lst->content);
 		free(lst);
 		lst = tmp;
 	}

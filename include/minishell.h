@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sithomas <sithomas@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: ygille <ygille@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/28 17:52:27 by ygille            #+#    #+#             */
-/*   Updated: 2025/02/07 17:26:29 by sithomas         ###   ########.fr       */
+/*   Updated: 2025/02/10 18:22:29 by ygille           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,7 @@ typedef struct s_minishell
 
 typedef struct s_mlist
 {
+	char	mask;
 	char	*name;
 	char	*content;
 	t_mlist	*next;
@@ -57,8 +58,11 @@ void	error(char *message);
 void	free_exit(t_minishell *minishell, char **args, char *message);
 
 // env.c
-void	search_for_env(t_minishell *minishell, char ***args);
+void	search_for_env(t_minishell *minishell, t_mlist	*args);
+char	*get_env_name(t_minishell *minishell, char *arg);
 char	*get_env_value(t_minishell *minishell, char *name);
+void	replace_env_value(t_minishell *minishell, t_mlist *node, char *value);
+char	*update_searching(t_minishell *minishell, char *name, int i);
 
 //	init.c
 void	init_minishell(t_minishell *minishell, char **envp);
@@ -71,6 +75,13 @@ void	launch_bin(t_minishell *minishell, char *path, char **args);
 char	*search_binary(char **paths, char *bin);
 char	**create_new_envp(t_minishell *minishell);
 
+//	miniparse.c
+char	**miniparse(t_minishell *minishell, char *line);
+int		skip_whitespaces(char *line);
+int		extract_arg(t_minishell *minishell, char *line, t_mlist **args);
+char	**rebuild_args(t_minishell *minishell, t_mlist *args);
+t_mlist	*extract_helper(t_minishell *minishell, char *line, int i, char sep);
+
 //	mlist.c
 t_mlist	*ft_mlstclear(t_mlist *lst);
 t_mlist	*ft_mlstcreate(char *name, char *content);
@@ -78,12 +89,19 @@ t_mlist	*ft_mlstadd_front(t_mlist *lst, t_mlist *new);
 void	ft_mlstdelone(t_mlist *lst);
 int		ft_mlstsize(t_mlist *lst);
 
+//	mlist2.c
+t_mlist	*ft_mlstadd_back(t_mlist *lst, t_mlist *new);
+t_mlist	*ft_mlstlast(t_mlist *lst);
+
 //	parse.c
 void	parse_line(t_minishell *minishell, char *line);
 void	treat_arguments(t_minishell *minishell, char *line, int fd);
 t_bool	builtin_functions(t_minishell *minishell, char **args, int fd);
 void	try_launch(t_minishell *minishell, char **args);
 char	*calc_bin_path(t_minishell *minishell, char **args);
+
+//	pipes.c
+void	unpipe(t_minishell *minishell, char *line);
 
 //	signals.c
 void	signal_handler(int sig);
@@ -124,8 +142,5 @@ int		func_pwd(t_minishell *minishell, int fd);
 
 //	builtins/unset.c
 int		func_unset(t_minishell *minishell, char **args);
-
-//pipes.c
-void	unpipe(t_minishell *minishell, char *line);
 
 #endif
