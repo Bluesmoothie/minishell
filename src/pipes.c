@@ -6,11 +6,13 @@
 /*   By: sithomas <sithomas@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/07 11:07:02 by sithomas          #+#    #+#             */
-/*   Updated: 2025/02/10 13:53:07 by sithomas         ###   ########.fr       */
+/*   Updated: 2025/02/10 14:43:47 by sithomas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+void	treat_pipe(t_minishell *minishell, char **unpiped, int i);
 
 /*
 Split line with pipes
@@ -21,9 +23,7 @@ execute result
 void	unpipe(t_minishell *minishell, char *line)
 {
 	char	**unpiped;
-	int		pipefd[2];
 	int		in;
-	int		pid;
 	int		i;
 
 	if (line == NULL)
@@ -35,31 +35,39 @@ void	unpipe(t_minishell *minishell, char *line)
 		return (free_split(&unpiped));
 	if (!unpiped[1])
 		return (free_split(&unpiped), treat_arguments(minishell, line, 1));
-	i = 0;
 	in = dup(STDIN_FILENO);
+	i = 0;
 	while (unpiped[i])
 	{
-		pipe(pipefd);
-		pid = fork();
-		// if pid == -1
-		// return (error);
-		if (pid == 0)
-		{
-			close(pipefd[0]);
-			if (unpiped[i + 1])
-				dup2(pipefd[1], STDOUT_FILENO);
-			treat_arguments(minishell, unpiped[i], STDOUT_FILENO);
-			close(pipefd[1]);
-			exit(EXIT_SUCCESS);
-		}
-		else
-		{
-			close(pipefd[1]);
-			if (unpiped[i + 1])
-				dup2(pipefd[0], STDIN_FILENO);
-			waitpid(pid, NULL, 0);
-		}
+		treat_pipe(minishell, unpiped, i);
 		i++;
 	}
 	dup2(in, STDIN_FILENO);
+}
+
+void	treat_pipe(t_minishell *minishell, char **unpiped, int i)
+{
+	int	pipefd[2];
+	int	pid;
+
+	pipe(pipefd);
+	pid = fork();
+	if (pid == -1)
+		return (free_exit(minishell, unpiped, E_FORKFAIL));
+	if (pid == 0)
+	{
+		close(pipefd[0]);
+		if (unpiped[i + 1])
+			dup2(pipefd[1], STDOUT_FILENO);
+		treat_arguments(minishell, unpiped[i], STDOUT_FILENO);
+		close(pipefd[1]);
+		exit(EXIT_SUCCESS);
+	}
+	else
+	{
+		close(pipefd[1]);
+		if (unpiped[i + 1])
+			dup2(pipefd[0], STDIN_FILENO);
+		waitpid(pid, NULL, 0);
+	}
 }
