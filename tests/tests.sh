@@ -30,8 +30,6 @@ echo "Double quotes $HOME"
 echo 'Single quotes $HOME'
 echo Backslash $HOME
 echo "Mixed 'quotes'"
-echo Hello ; ls ; pwd
-cd /tmp && touch testfile && ls -l testfile
 non_existent_command
 ls non_existent_file
 cd /root
@@ -46,6 +44,5 @@ VAR=test
 echo $VAR
 unset VAR
 echo $?
-echo "Bonjour ; ls"
 echo Bonjour > test\ 1
 cat /dev/random | head -n 1 | cat -e
