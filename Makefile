@@ -41,8 +41,32 @@ DEPS 			= 	$(addprefix $(BUILD_DIR), $(addsuffix .d, $(SRC_FILES)))
 
 #			LIBFT
 
-LIBFT		=	libft
-LIBFT_A		=	$(LIBFT)/libft_ex.a
+LIBFT			=	libft
+LIBFT_A			=	$(LIBFT)/libft_ex.a
+
+#			TESTS
+
+TESTS_DIR		=	tests/
+TESTS			=	$(addprefix $(TESTS_DIR), $(addsuffix .sh, $(TESTS_FILES)))
+TESTS_FILES		=	chevron			\
+					echo			\
+					env				\
+					launch_tests	\
+					others			\
+					pipes			\
+					quotes			\
+
+TESTS_GARBAGE	=	error.log				\
+					file\ with\ spaces.txt 	\
+					file.txt				\
+					file1.txt				\
+					file2.txt				\
+					file3.txt				\
+					heredoc.txt				\
+					ls_output.txt			\
+					non_existent_file.txt	\
+					output.txt				\
+					quoted_heredoc.txt		\
 
 #			RULES
 
@@ -69,9 +93,9 @@ norme			:
 				norminette $(SRC_DIR) include
 
 check			:
-				chmod +x tests/launch_tests.sh
-				chmod +x tests/tests.sh
+				chmod +x $(TESTS)
 				bash tests/launch_tests.sh
+				rm	$(TESTS_GARBAGE)
 
 clean			:
 				$(MAKE) clean -C $(LIBFT)
