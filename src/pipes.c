@@ -6,19 +6,17 @@
 /*   By: sithomas <sithomas@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/07 11:07:02 by sithomas          #+#    #+#             */
-/*   Updated: 2025/02/10 14:43:47 by sithomas         ###   ########.fr       */
+/*   Updated: 2025/02/10 14:59:19 by sithomas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	treat_pipe(t_minishell *minishell, char **unpiped, int i);
+static void	treat_pipe(t_minishell *minishell, char **unpiped, int i);
 
 /*
 Split line with pipes
-creates child and executes first command inside
-continue until no more pipes
-execute result
+creates children and executes commands inside
 */
 void	unpipe(t_minishell *minishell, char *line)
 {
@@ -45,7 +43,7 @@ void	unpipe(t_minishell *minishell, char *line)
 	dup2(in, STDIN_FILENO);
 }
 
-void	treat_pipe(t_minishell *minishell, char **unpiped, int i)
+static void	treat_pipe(t_minishell *minishell, char **unpiped, int i)
 {
 	int	pipefd[2];
 	int	pid;
@@ -56,18 +54,20 @@ void	treat_pipe(t_minishell *minishell, char **unpiped, int i)
 		return (free_exit(minishell, unpiped, E_FORKFAIL));
 	if (pid == 0)
 	{
-		close(pipefd[0]);
-		if (unpiped[i + 1])
-			dup2(pipefd[1], STDOUT_FILENO);
+		if (close(pipefd[0]) == -1)
+			return (free_exit(minishell, unpiped, "Close failed"));
+		if (unpiped[i + 1] && (dup2(pipefd[1], STDOUT_FILENO) == -1))
+			return (free_exit(minishell, unpiped, "dup2 failed"));
 		treat_arguments(minishell, unpiped[i], STDOUT_FILENO);
-		close(pipefd[1]);
 		exit(EXIT_SUCCESS);
 	}
 	else
 	{
-		close(pipefd[1]);
-		if (unpiped[i + 1])
-			dup2(pipefd[0], STDIN_FILENO);
-		waitpid(pid, NULL, 0);
+		if (unpiped[i + 1] && (dup2(pipefd[0], STDIN_FILENO) == -1))
+			return (free_exit(minishell, unpiped, "dup2 failed"));
+		if (waitpid(pid, NULL, 0) == -1)
+			return (free_exit(minishell, unpiped, "waitpid failed"));
 	}
+	if (close(pipefd[1]) == -1)
+		return (free_exit(minishell, unpiped, "close failed"));
 }
