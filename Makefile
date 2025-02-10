@@ -67,6 +67,8 @@ TESTS_GARBAGE	=	error.log				\
 					non_existent_file.txt	\
 					output.txt				\
 					quoted_heredoc.txt		\
+					minishellr				\
+					bashr					\
 
 #			RULES
 
@@ -100,6 +102,7 @@ check			:
 clean			:
 				$(MAKE) clean -C $(LIBFT)
 				rm -rf $(BUILD_DIR)
+				rm	$(TESTS_GARBAGE)
 
 fclean			:	clean
 				$(MAKE) fclean -C $(LIBFT)
