@@ -5,7 +5,11 @@ NAME			=   minishell
 #			GCC
 
 CC				=	cc
-CFLAGS			=	-Wall -Wextra -Werror -MMD -MP $(INCLUDE) -g3
+CFLAGS			=	-Wall -Wextra -Werror
+CFLAGS			+=	-MMD -MP
+CFLAGS			+=	$(INCLUDE)
+CFLAGS			+=	-g3
+LIBSFLAGS		=	-L$(LIBFT) -lft_ex -lreadline
 
 #			COMMON
 
@@ -75,7 +79,7 @@ TESTS_GARBAGE	=	error.log				\
 all				:	$(NAME)
 
 $(NAME)			:	$(BUILD_DIR) $(OBJ) $(LIBFT_A)
-				$(CC) $(CFLAGS) $(OBJ) -L$(LIBFT) -lft_ex -lreadline -o $(NAME)
+				$(CC) $(CFLAGS) $(OBJ) $(LIBSFLAGS) -o $(NAME)
 
 $(BUILD_DIR)	:
 				mkdir -p $(BUILD_DIR)
