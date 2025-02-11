@@ -6,7 +6,7 @@
 /*   By: sithomas <sithomas@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/07 11:07:02 by sithomas          #+#    #+#             */
-/*   Updated: 2025/02/11 12:42:12 by sithomas         ###   ########.fr       */
+/*   Updated: 2025/02/11 13:09:29 by sithomas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,8 +45,8 @@ void	unpipe(t_minishell *minishell, char *line)
 		treat_arguments(minishell, (*unpiped)->content, STDOUT_FILENO);
 		dup2(tmp_in, STDIN_FILENO);
 		dup2(tmp_out, STDOUT_FILENO);
-	}		
-	while (*unpiped)
+	}	
+	else while (*unpiped)
 	{	
 		tmp_in = dup(STDIN_FILENO);
 		tmp_out = dup(STDOUT_FILENO);
