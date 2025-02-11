@@ -6,7 +6,7 @@
 /*   By: ygille <ygille@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/28 17:52:27 by ygille            #+#    #+#             */
-/*   Updated: 2025/02/11 19:45:30 by ygille           ###   ########.fr       */
+/*   Updated: 2025/02/11 22:14:22 by ygille           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@
 # include "get_next_line.h"
 
 //	minishell.c
+char	*get_line(t_minishell *minishell);
 void	error(char *message);
 void	free_exit(t_minishell *minishell, char **args, char *message);
 
