@@ -6,7 +6,7 @@
 /*   By: ygille <ygille@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/28 17:52:27 by ygille            #+#    #+#             */
-/*   Updated: 2025/02/11 14:10:50 by ygille           ###   ########.fr       */
+/*   Updated: 2025/02/11 14:33:01 by ygille           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,10 +27,6 @@
 
 # include "libft.h"
 
-# define FALSE		0
-# define TRUE		1
-
-typedef unsigned char		t_bool;
 typedef struct s_minishell	t_minishell;
 typedef struct s_mlist		t_mlist;
 
@@ -53,7 +49,7 @@ typedef struct s_mlist
 	t_mlist	*next;
 }	t_mlist;
 
-typedef struct	s_pipes
+typedef struct s_pipes
 {
 	int				fd_in;
 	int				fd_out;
@@ -125,12 +121,6 @@ void	display_text(char *text, char format[5], char color[6]);
 void	display_error(char *command, char *error, char *arg);
 char	*calc_prompt(t_minishell minishell);
 char	*get_relative_path(char *pwd, char *home);
-
-//	utils.c
-int		ft_strcmp(const char *s1, const char *s2);
-char	*ft_strcat(char *s1, char *s2);
-char	*ft_strfcat(char *s1, char *s2, t_bool fs1, t_bool fs2);
-void	free_split(char ***split);
 
 //	builtins/cd.c
 int		func_cd(t_minishell *minishell, char **args);

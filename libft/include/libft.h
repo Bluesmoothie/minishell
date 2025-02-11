@@ -6,7 +6,7 @@
 /*   By: ygille <ygille@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/12 14:04:31 by ygille            #+#    #+#             */
-/*   Updated: 2025/02/07 20:58:02 by ygille           ###   ########.fr       */
+/*   Updated: 2025/02/11 14:31:37 by ygille           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,12 +54,24 @@ void	*ft_memmove(void *dest, const void *src, size_t n);
 void	*ft_memset(void *s, int c, size_t n);
 
 // string
+# ifndef FALSE
+#  define FALSE	0
+# endif
+# ifndef TRUE
+#  define TRUE	1
+# endif
+
+typedef unsigned char	t_bool;
+
 int		ft_atoi(const char *nptr);
-void	ft_free_split(char **split);
+void	free_split(char ***split);
 char	*ft_itoa(int n);
 char	**ft_split(char const *s, char c);
+char	*ft_strcat(char *s1, char *s2);
 char	*ft_strchr(const char *s, int c);
+int		ft_strcmp(const char *s1, const char *s2);
 char	*ft_strdup(const char *s);
+char	*ft_strfcat(char *s1, char *s2, t_bool fs1, t_bool fs2);
 void	ft_striteri(char *s, void (*f)(unsigned int, char*));
 char	*ft_strjoin(char const *s1, char const *s2);
 size_t	ft_strlcat(char *dst, const char *src, size_t size);

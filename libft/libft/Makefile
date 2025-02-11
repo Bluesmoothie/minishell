@@ -42,8 +42,11 @@ SRC_FILES	=	char/ft_isalnum 		\
 				string/ft_free_split	\
 				string/ft_itoa 			\
 				string/ft_split 		\
+				string/ft_strcat		\
 				string/ft_strchr 		\
+				string/ft_strcmp		\
 				string/ft_strdup 		\
+				string/ft_strfcat		\
 				string/ft_striteri 		\
 				string/ft_strjoin 		\
 				string/ft_strlcat 		\
