@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipes.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sithomas <sithomas@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: ygille <ygille@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/07 11:07:02 by sithomas          #+#    #+#             */
-/*   Updated: 2025/02/11 09:08:05 by sithomas         ###   ########.fr       */
+/*   Updated: 2025/02/11 11:14:38 by ygille           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,6 @@ void	unpipe(t_minishell *minishell, char *line)
 {
 	t_pipes	**unpiped;
 	int		in;
-	int		i;
 
 	if (line == NULL)
 		free_exit(minishell, NULL, NULL);
@@ -32,7 +31,6 @@ void	unpipe(t_minishell *minishell, char *line)
 	if (!unpiped)
 		free_exit(minishell, NULL, E_SPLITFAIL);
 	in = dup(STDIN_FILENO);
-	i = 0;
 	while (*unpiped)
 	{	
 		treat_pipe(minishell, *unpiped);
