@@ -6,7 +6,7 @@
 /*   By: ygille <ygille@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/28 17:52:27 by ygille            #+#    #+#             */
-/*   Updated: 2025/02/11 14:33:01 by ygille           ###   ########.fr       */
+/*   Updated: 2025/02/11 16:52:07 by ygille           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,38 +24,9 @@
 
 # include "text_formats.h"
 # include "error_messages.h"
+# include "struct.h"
 
 # include "libft.h"
-
-typedef struct s_minishell	t_minishell;
-typedef struct s_mlist		t_mlist;
-
-typedef struct s_minishell
-{
-	int		last_return_value;
-	char	*home;
-	char	*user;
-	char	*pwd;
-	char	**envp;
-	char	*prompt;
-	t_mlist	*env;
-}	t_minishell;
-
-typedef struct s_mlist
-{
-	char	mask;
-	char	*name;
-	char	*content;
-	t_mlist	*next;
-}	t_mlist;
-
-typedef struct s_pipes
-{
-	int				fd_in;
-	int				fd_out;
-	char			*content;
-	struct s_pipes	*next;
-}				t_pipes;
 
 //	minishell.c
 void	error(char *message);
@@ -148,7 +119,7 @@ t_pipes	*pipeclear(t_pipes *lst);
 t_pipes	*pipecreate(char *content);
 void	pipeadd_back(t_pipes **lst, t_pipes *new);
 void	pipedelone(t_pipes *lst);
-int	pipelstsize(t_mlist *lst);
+int		pipelstsize(t_mlist *lst);
 t_pipes	*pipelast(t_pipes *lst);
 
 #endif
