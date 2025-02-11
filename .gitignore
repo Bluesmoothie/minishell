@@ -9,3 +9,9 @@ bashr
 minishellr
 *.txt
 *.log
+.vscode/
+tmp/
+*.out
+fichier
+fichier2
+grep

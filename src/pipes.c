@@ -6,7 +6,7 @@
 /*   By: sithomas <sithomas@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/07 11:07:02 by sithomas          #+#    #+#             */
-/*   Updated: 2025/02/11 11:49:37 by sithomas         ###   ########.fr       */
+/*   Updated: 2025/02/11 12:21:44 by sithomas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -148,10 +148,8 @@ static int	right_pipe(t_pipes *new, int pos)
 static int	left_pipe(t_pipes *new, int pos)
 {
 	int 	j;
-	void 	*buf;
 
 	j = pos;
-	buf = NULL;
 	if (new->content[pos + 1] == '>')
 	{
 		pos++;
@@ -169,14 +167,9 @@ static int	left_pipe(t_pipes *new, int pos)
 			j++;
 		if (new->content[j])
 			j--;
-		new->fd_out = open(ft_strtrim(ft_substr(new->content, pos + 1, j - pos), " >"), O_CREAT | O_RDWR, 00700);
 		if (!access(ft_strtrim(ft_substr(new->content, pos + 1, j - pos), " >"), F_OK))
-		{
-			new->fd_out = open(ft_strtrim(ft_substr(new->content, pos + 1, j - pos), " >"), O_CREAT | O_RDWR, 00700);
-			while (read(new->fd_out, buf, 1))
-				write(new->fd_out, "\0", 1);
-			new->fd_out = open(ft_strtrim(ft_substr(new->content, pos + 1, j - pos), " >"), O_CREAT | O_RDWR, 00700);
-		}
+			unlink(ft_strtrim(ft_substr(new->content, pos + 1, j - pos), " >"));
+		new->fd_out = open(ft_strtrim(ft_substr(new->content, pos + 1, j - pos), " >"), O_CREAT | O_RDWR, 00700);
 	}
 	return (pos);
 }
