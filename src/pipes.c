@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipes.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sithomas <sithomas@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: ygille <ygille@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/07 11:07:02 by sithomas          #+#    #+#             */
-/*   Updated: 2025/02/11 12:42:12 by sithomas         ###   ########.fr       */
+/*   Updated: 2025/02/11 13:03:29 by ygille           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,19 +34,9 @@ void	unpipe(t_minishell *minishell, char *line)
 	unpiped = create_pipe_list(line);
 	if (!unpiped)
 		free_exit(minishell, NULL, E_SPLITFAIL);
-	if (!(*unpiped)->next)
-	{	
-		tmp_in = dup(STDIN_FILENO);
-		tmp_out = dup(STDOUT_FILENO);
-		if ((*unpiped)->fd_in != STDIN_FILENO)
-			dup2((*unpiped)->fd_in, STDIN_FILENO);
-		if ((*unpiped)->fd_out != STDOUT_FILENO)
-			dup2((*unpiped)->fd_out, STDOUT_FILENO);		
-		treat_arguments(minishell, (*unpiped)->content, STDOUT_FILENO);
-		dup2(tmp_in, STDIN_FILENO);
-		dup2(tmp_out, STDOUT_FILENO);
-	}		
-	while (*unpiped)
+	if (!(*unpiped)->next)		
+		treat_arguments(minishell, (*unpiped)->content, STDOUT_FILENO);	
+	else while (*unpiped)
 	{	
 		tmp_in = dup(STDIN_FILENO);
 		tmp_out = dup(STDOUT_FILENO);
