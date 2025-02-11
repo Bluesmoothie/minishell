@@ -1,25 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   hex.c                                              :+:      :+:    :+:   */
+/*   ft_isdigit.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ygille <ygille@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/11/15 14:11:31 by ygille            #+#    #+#             */
-/*   Updated: 2025/02/07 19:53:55 by ygille           ###   ########.fr       */
+/*   Created: 2024/11/12 14:17:40 by ygille            #+#    #+#             */
+/*   Updated: 2025/02/07 16:31:00 by ygille           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf.h"
+#include "libft_char.h"
 
-void	hex(unsigned long long val, char format, int *i)
+/*
+** Return 1 if c is numeric
+** 0 if not
+*/
+int	ft_isdigit(int c)
 {
-	if (val / 16)
-		hex(val / 16, format, i);
-	if (format == UP)
-		ft_putchar_fd(UP_BASE_HEX[val % 16], 1);
-	else
-		ft_putchar_fd(LOW_BASE_HEX[val % 16], 1);
-	(*i) += 1;
-	return ;
+	return (c >= '0' && c <= '9');
 }

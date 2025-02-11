@@ -1,25 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   hex.c                                              :+:      :+:    :+:   */
+/*   ft_strlcpy.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ygille <ygille@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/11/15 14:11:31 by ygille            #+#    #+#             */
-/*   Updated: 2025/02/07 19:53:55 by ygille           ###   ########.fr       */
+/*   Created: 2024/11/12 18:29:55 by ygille            #+#    #+#             */
+/*   Updated: 2025/02/07 16:32:23 by ygille           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf.h"
+#include "libft_string.h"
 
-void	hex(unsigned long long val, char format, int *i)
+/*
+** Copy up to size bytes of src to dst
+** returning the size of src
+*/
+size_t	ft_strlcpy(char *dst, const char *src, size_t size)
 {
-	if (val / 16)
-		hex(val / 16, format, i);
-	if (format == UP)
-		ft_putchar_fd(UP_BASE_HEX[val % 16], 1);
-	else
-		ft_putchar_fd(LOW_BASE_HEX[val % 16], 1);
-	(*i) += 1;
-	return ;
+	size_t	count;
+
+	count = 0;
+	if (size == 0)
+		return (ft_strlen(src));
+	while (count < size - 1 && src[count] != '\0')
+	{
+		dst[count] = src[count];
+		count++;
+	}
+	dst[count] = '\0';
+	return (ft_strlen(src));
 }

@@ -1,25 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   hex.c                                              :+:      :+:    :+:   */
+/*   ft_smalloc.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ygille <ygille@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/11/15 14:11:31 by ygille            #+#    #+#             */
-/*   Updated: 2025/02/07 19:53:55 by ygille           ###   ########.fr       */
+/*   Created: 2025/02/07 21:13:41 by ygille            #+#    #+#             */
+/*   Updated: 2025/02/07 21:17:13 by ygille           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf.h"
+#include "libft_memory.h"
 
-void	hex(unsigned long long val, char format, int *i)
+void	*ft_smalloc(int	nmemb, int size, void *param, void (free_exit)(void *param)(char *message))
 {
-	if (val / 16)
-		hex(val / 16, format, i);
-	if (format == UP)
-		ft_putchar_fd(UP_BASE_HEX[val % 16], 1);
-	else
-		ft_putchar_fd(LOW_BASE_HEX[val % 16], 1);
-	(*i) += 1;
-	return ;
+	size_t	overflow;
+	void	*array;
+
+	overflow = nmemb * size;
+	array = NULL;
+	if (overflow / size == nmemb)
+		array = malloc (overflow);
+	return (array);
 }

@@ -1,25 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   hex.c                                              :+:      :+:    :+:   */
+/*   ft_lstnew.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ygille <ygille@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/11/15 14:11:31 by ygille            #+#    #+#             */
-/*   Updated: 2025/02/07 19:53:55 by ygille           ###   ########.fr       */
+/*   Created: 2024/11/14 11:22:26 by ygille            #+#    #+#             */
+/*   Updated: 2025/02/07 16:55:40 by ygille           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf.h"
+#include "libft_list.h"
 
-void	hex(unsigned long long val, char format, int *i)
+/*
+** Allocate a new node, initialize it's content to content
+** returning it's adress or NULL on error
+*/
+t_list	*ft_lstnew(void *content)
 {
-	if (val / 16)
-		hex(val / 16, format, i);
-	if (format == UP)
-		ft_putchar_fd(UP_BASE_HEX[val % 16], 1);
-	else
-		ft_putchar_fd(LOW_BASE_HEX[val % 16], 1);
-	(*i) += 1;
-	return ;
+	t_list	*new;
+
+	new = malloc (sizeof(t_list));
+	if (new != NULL)
+	{
+		new->content = content;
+		new->next = NULL;
+	}
+	return (new);
 }

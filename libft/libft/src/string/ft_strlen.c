@@ -1,25 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   hex.c                                              :+:      :+:    :+:   */
+/*   ft_strlen.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ygille <ygille@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/11/15 14:11:31 by ygille            #+#    #+#             */
-/*   Updated: 2025/02/07 19:53:55 by ygille           ###   ########.fr       */
+/*   Created: 2024/11/12 14:24:26 by ygille            #+#    #+#             */
+/*   Updated: 2025/02/07 16:32:29 by ygille           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf.h"
+#include "libft_string.h"
 
-void	hex(unsigned long long val, char format, int *i)
+/*
+** Return the size of s
+*/
+size_t	ft_strlen(const char *s)
 {
-	if (val / 16)
-		hex(val / 16, format, i);
-	if (format == UP)
-		ft_putchar_fd(UP_BASE_HEX[val % 16], 1);
-	else
-		ft_putchar_fd(LOW_BASE_HEX[val % 16], 1);
-	(*i) += 1;
-	return ;
+	size_t	len;
+
+	len = 0;
+	if (s == NULL)
+		return (0);
+	while (s[len] != '\0')
+		len++;
+	return (len);
 }

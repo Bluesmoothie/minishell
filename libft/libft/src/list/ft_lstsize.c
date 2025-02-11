@@ -1,41 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   printer_2.c                                        :+:      :+:    :+:   */
+/*   ft_lstsize.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ygille <ygille@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/11/15 13:34:33 by ygille            #+#    #+#             */
-/*   Updated: 2025/02/07 19:54:05 by ygille           ###   ########.fr       */
+/*   Created: 2024/11/14 11:58:37 by ygille            #+#    #+#             */
+/*   Updated: 2025/02/07 16:31:34 by ygille           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf.h"
+#include "libft_list.h"
 
-int	print_integer(int *i, va_list *ap)
+/*
+** Return the size of lst
+*/
+int	ft_lstsize(t_list *lst)
 {
-	return (print_decimal(i, ap));
-}
+	int	size;
 
-int	print_unsigned_decimal(int *i, va_list *ap)
-{
-	char	*num;
-	int		size;
-
-	(*i) += 1;
-	num = ft_uitoa(va_arg(*ap, unsigned int));
-	ft_putstr_fd(num, 1);
-	size = ft_strlen(num);
-	free(num);
+	size = 0;
+	while (lst)
+	{
+		lst = lst->next;
+		size++;
+	}
 	return (size);
-}
-
-int	print_hex(int *i, va_list *ap, char format)
-{
-	int	j;
-
-	(*i) += 1;
-	j = 0;
-	hex(va_arg(*ap, unsigned int), format, &j);
-	return (j);
 }

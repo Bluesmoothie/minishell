@@ -1,25 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   hex.c                                              :+:      :+:    :+:   */
+/*   ft_memcpy.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ygille <ygille@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/11/15 14:11:31 by ygille            #+#    #+#             */
-/*   Updated: 2025/02/07 19:53:55 by ygille           ###   ########.fr       */
+/*   Created: 2024/11/12 15:37:39 by ygille            #+#    #+#             */
+/*   Updated: 2025/02/07 18:00:47 by ygille           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf.h"
+#include "libft_memory.h"
 
-void	hex(unsigned long long val, char format, int *i)
+/*
+** Copy n bytes from src to dest
+** return dest
+*/
+void	*ft_memcpy(void *dest, const void *src, size_t n)
 {
-	if (val / 16)
-		hex(val / 16, format, i);
-	if (format == UP)
-		ft_putchar_fd(UP_BASE_HEX[val % 16], 1);
-	else
-		ft_putchar_fd(LOW_BASE_HEX[val % 16], 1);
-	(*i) += 1;
-	return ;
+	size_t		count;
+
+	if (dest == NULL || src == NULL)
+		return (dest);
+	count = 0;
+	while (count < n)
+	{
+		((char *)dest)[count] = ((const char *)src)[count];
+		count++;
+	}
+	return (dest);
 }

@@ -19,7 +19,6 @@ SRC_FILES	=	libftprintf	\
 				printer_1	\
 				printer_2	\
 				hex			\
-				ft_uitoa	\
 
 SRC 		= 	$(addprefix $(SRC_DIR), $(addsuffix .c, $(SRC_FILES)))
 OBJ 		= 	$(addprefix $(BUILD_DIR), $(addsuffix .o, $(SRC_FILES)))

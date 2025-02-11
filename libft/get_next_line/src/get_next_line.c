@@ -6,12 +6,17 @@
 /*   By: ygille <ygille@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/15 17:23:06 by ygille            #+#    #+#             */
-/*   Updated: 2024/12/18 18:20:10 by ygille           ###   ########.fr       */
+/*   Updated: 2025/02/07 19:57:09 by ygille           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
+/*
+** Return the first line from fd
+** then when recalled return lines in order
+** NULL on error or no line left to read
+*/
 char	*get_next_line(int fd)
 {
 	static char	*mem[OPEN_MAX];
@@ -122,110 +127,3 @@ int	check_mem(char **mem)
 	}
 	return (0);
 }
-
-// int	read_t(int fd, char *buff, int size);
-// int	next_read_error = 0;
-// #include <fcntl.h>
-// #include <stdio.h>
-// int	main(int argc, char *argv[])
-// {
-// 	int		fd;
-// 	int		i;
-// 	char	*str;
-
-// 	(void) argc;
-// 	fd = open(argv[1], O_RDONLY);
-// 	str = get_next_line(fd);
-// 	printf("|%s|\n", str);
-// 	free(str);
-// 	str = get_next_line(fd);
-// 	printf("|%s|\n", str);
-// 	free(str);
-// 	next_read_error = 1;
-// 	if (BUFFER_SIZE > 100) {
-// 			char *temp;
-// 			do {
-// 				temp = get_next_line(fd);
-// 				free(temp);
-// 			} while (temp != NULL);
-// 		}
-// 	str = get_next_line(fd);
-// 	printf("|%s|\n", str);
-// 	free(str);
-// 	next_read_error = 0;
-// 	close(fd);
-// 	fd = open(argv[1], O_RDONLY);
-// 	str = get_next_line(fd);
-// 	printf("|%s|\n", str);
-// 	free(str);
-// 	str = get_next_line(fd);
-// 	printf("|%s|\n", str);
-// 	free(str);
-// 	str = get_next_line(fd);
-// 	printf("|%s|\n", str);
-// 	free(str);
-// 	str = get_next_line(fd);
-// 	printf("|%s|\n", str);
-// 	free(str);
-// 	str = get_next_line(fd);
-// 	printf("|%s|\n", str);
-// 	free(str);
-// 	// str = get_next_line(fd);
-// 	// i = 1;
-// 	// while (str)
-// 	// {
-// 	// 	printf("Line %d = |%s|\n", i, str);
-// 	// 	free(str);
-// 	// 	str = get_next_line(fd);
-// 	// 	i++;
-// 	// }
-// 	// printf("End");
-// 	// close(fd);
-// 	// fd = open(argv[1], O_RDONLY);
-// 	// str = get_next_line(fd);
-// 	// i = 1;
-// 	// while (str)
-// 	// {
-// 	// 	printf("Line %d = |%s|\n", i, str);
-// 	// 	free(str);
-// 	// 	str = get_next_line(fd);
-// 	// 	i++;
-// 	// }
-// 	printf("End");
-// 	close(fd);
-// 	return (0);
-// }
-// int	read_t(int fd, char *buff, int size)
-// {
-// 	int		state;
-
-// 	if (next_read_error)
-// 		return (-1);
-// 	state = read(fd, buff, size);
-// 	if (state < 0)
-// 		return (-1);
-// 	return (state);
-// }
-
-// #include <fcntl.h>
-// #include <stdio.h>
-// int	main(int argc, char *argv[])
-// {
-// 	int		fd;
-// 	int		i;
-// 	char	*str;
-
-// 	(void) argc;
-// 	fd = 42 ;//open(argv[1], O_RDONLY);
-// 	str = get_next_line(fd);
-// 	i = 1;
-// 	while (i < 10)
-// 	{
-// 		printf("Line %d = |%s|\n", i, str);
-// 		free(str);
-// 		str = get_next_line(fd);
-// 		i++;
-// 	}
-// 	close(fd);
-// 	return (0);
-// }

@@ -11,53 +11,55 @@ CFLAGS		= 	-Wall -Wextra -Werror -MMD -MP -I $(INCLUDE)
 
 BUILD_DIR	=	.build/
 SRC_DIR		=	src/
-INCLUDE		=	include
+INCLUDE		=	include/
 
 #			SRC
 
-SRC_FILES	= 	ft_isalpha 		\
-				ft_isdigit 		\
-				ft_isalnum 		\
-				ft_isascii 		\
-				ft_isprint 		\
-				ft_strlen 		\
-				ft_memset 		\
-				ft_bzero 		\
-				ft_memcpy 		\
-				ft_memmove 		\
-				ft_strlcpy 		\
-				ft_strlcat 		\
-				ft_toupper 		\
-				ft_tolower 		\
-				ft_strchr 		\
-				ft_strrchr 		\
-				ft_strncmp 		\
-				ft_memchr		\
-				ft_memcmp 		\
-				ft_strnstr 		\
-				ft_atoi 		\
-				ft_calloc 		\
-				ft_strdup 		\
-				ft_substr 		\
-				ft_strjoin 		\
-				ft_strtrim 		\
-				ft_split 		\
-				ft_itoa 		\
-				ft_strmapi 		\
-				ft_striteri 	\
-				ft_putchar_fd 	\
-				ft_pustr_fd 	\
-				ft_putendl_fd 	\
-				ft_putnbr_fd 	\
-				ft_lstnew 		\
-				ft_lstadd_front \
-				ft_lstsize 		\
-				ft_lstlast 		\
-				ft_lstadd_back 	\
-				ft_lstdelone 	\
-				ft_lstclear 	\
-				ft_lstiter 		\
-				ft_lstmap		\
+SRC_FILES	=	char/ft_isalnum 		\
+ 				char/ft_isalpha 		\
+				char/ft_isascii 		\
+				char/ft_isdigit 		\
+				char/ft_isprint 		\
+				char/ft_tolower 		\
+				char/ft_toupper 		\
+				list/ft_lstadd_back 	\
+				list/ft_lstadd_front	\
+				list/ft_lstclear		\
+				list/ft_lstdelone		\
+				list/ft_lstiter			\
+				list/ft_lstlast			\
+				list/ft_lstmap			\
+				list/ft_lstnew			\
+				list/ft_lstsize			\
+				memory/ft_bzero 		\
+				memory/ft_calloc 		\
+				memory/ft_memchr		\
+				memory/ft_memcmp 		\
+				memory/ft_memcpy 		\
+				memory/ft_memmove 		\
+				memory/ft_memset 		\
+				string/ft_atoi 			\
+				string/ft_free_split	\
+				string/ft_itoa 			\
+				string/ft_split 		\
+				string/ft_strchr 		\
+				string/ft_strdup 		\
+				string/ft_striteri 		\
+				string/ft_strjoin 		\
+				string/ft_strlcat 		\
+				string/ft_strlcpy 		\
+				string/ft_strlen 		\
+				string/ft_strmapi 		\
+				string/ft_strncmp 		\
+				string/ft_strnstr 		\
+				string/ft_strrchr 		\
+				string/ft_strtrim 		\
+				string/ft_substr 		\
+				string/ft_uitoa			\
+				write/ft_pustr_fd 		\
+				write/ft_putchar_fd 	\
+				write/ft_putendl_fd 	\
+				write/ft_putnbr_fd 		\
 
 SRC 		= 	$(addprefix $(SRC_DIR), $(addsuffix .c, $(SRC_FILES)))
 OBJ 		= 	$(addprefix $(BUILD_DIR), $(addsuffix .o, $(SRC_FILES)))
@@ -71,7 +73,11 @@ $(NAME)			: $(BUILD_DIR) $(OBJ)
 				ar -rcs $(NAME) $(OBJ)
 
 $(BUILD_DIR)	:
-				mkdir -p $(BUILD_DIR)
+				mkdir -p $(BUILD_DIR)/char
+				mkdir -p $(BUILD_DIR)/list
+				mkdir -p $(BUILD_DIR)/memory
+				mkdir -p $(BUILD_DIR)/string
+				mkdir -p $(BUILD_DIR)/write
 
 $(BUILD_DIR)%.o	: $(SRC_DIR)%.c
 				$(CC) $(CFLAGS) -c $< -o $@

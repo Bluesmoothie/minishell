@@ -1,25 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   hex.c                                              :+:      :+:    :+:   */
+/*   ft_strncmp.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ygille <ygille@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/11/15 14:11:31 by ygille            #+#    #+#             */
-/*   Updated: 2025/02/07 19:53:55 by ygille           ###   ########.fr       */
+/*   Created: 2024/11/12 19:54:24 by ygille            #+#    #+#             */
+/*   Updated: 2025/02/07 16:32:33 by ygille           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf.h"
+#include "libft_string.h"
 
-void	hex(unsigned long long val, char format, int *i)
+/*
+** Compare the first n bytes of s1 and s2
+** return 0 if equals
+*/
+int	ft_strncmp(const char *s1, const char *s2, size_t n)
 {
-	if (val / 16)
-		hex(val / 16, format, i);
-	if (format == UP)
-		ft_putchar_fd(UP_BASE_HEX[val % 16], 1);
-	else
-		ft_putchar_fd(LOW_BASE_HEX[val % 16], 1);
-	(*i) += 1;
-	return ;
+	size_t	count;
+
+	count = 0;
+	if (n == 0)
+		return (0);
+	while (s1[count] != '\0' && s1[count] == s2[count] && count < n - 1)
+		count++;
+	return ((unsigned char)s1[count] - (unsigned char)s2[count]);
 }

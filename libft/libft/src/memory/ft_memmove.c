@@ -1,25 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   hex.c                                              :+:      :+:    :+:   */
+/*   ft_memmove.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ygille <ygille@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/11/15 14:11:31 by ygille            #+#    #+#             */
-/*   Updated: 2025/02/07 19:53:55 by ygille           ###   ########.fr       */
+/*   Created: 2024/11/12 16:36:03 by ygille            #+#    #+#             */
+/*   Updated: 2025/02/07 17:08:43 by ygille           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf.h"
+#include "libft_memory.h"
 
-void	hex(unsigned long long val, char format, int *i)
+/*
+** Copy n bytes from src to dest
+** src and dest can overlap each other
+*/
+void	*ft_memmove(void *dest, const void *src, size_t n)
 {
-	if (val / 16)
-		hex(val / 16, format, i);
-	if (format == UP)
-		ft_putchar_fd(UP_BASE_HEX[val % 16], 1);
+	if (dest == NULL || src == NULL)
+		return (dest);
+	if (dest < src)
+		ft_memcpy (dest, src, n);
 	else
-		ft_putchar_fd(LOW_BASE_HEX[val % 16], 1);
-	(*i) += 1;
-	return ;
+	{
+		while (n--)
+			((char *)dest)[n] = ((const char *)src)[n];
+	}
+	return (dest);
 }

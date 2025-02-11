@@ -6,14 +6,19 @@
 /*   By: ygille <ygille@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/14 17:42:13 by ygille            #+#    #+#             */
-/*   Updated: 2024/11/27 13:08:36 by ygille           ###   ########.fr       */
+/*   Updated: 2025/02/07 19:54:32 by ygille           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <ft_printf.h>
+#include "ft_printf.h"
 
 static int	handle_percent(const char *format, va_list *ap, int *i);
 
+/*
+** Like the real printf
+** actually supported flags
+** %% c s p d i u x X
+*/
 int	ft_printf(const char *format, ...)
 {
 	va_list	ap;
@@ -59,16 +64,3 @@ static int	handle_percent(const char *format, va_list *ap, int *i)
 		return (print_hex(i, ap, format[*i]));
 	return (0);
 }
-
-// #include <stdio.h>
-// #include <limits.h>
-// int	main(void)
-// {
-// 	int	a;
-// 	int	b;
-
-// 	a = printf(" %p %p \n", (void *)LONG_MIN, (void *)LONG_MAX);
-// 	b = ft_printf(" %p %p \n", (void *)LONG_MIN, (void *)LONG_MAX);
-// 	printf("return    printf = %d\nreturn ft_printf = %d\n", a, b);
-// 	return (0);
-// }

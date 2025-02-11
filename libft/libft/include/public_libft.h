@@ -1,17 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   libft.h                                            :+:      :+:    :+:   */
+/*   public_libft.h                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ygille <ygille@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/12 14:04:31 by ygille            #+#    #+#             */
-/*   Updated: 2025/02/07 20:58:09 by ygille           ###   ########.fr       */
+/*   Updated: 2025/02/07 20:57:52 by ygille           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef LIBFT_H
-# define LIBFT_H
+#ifndef PUBLIC_LIBFT_H
+# define PUBLIC_LIBFT_H
 
 // common
 # include <stdlib.h>

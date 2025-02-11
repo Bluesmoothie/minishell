@@ -1,25 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   hex.c                                              :+:      :+:    :+:   */
+/*   ft_strdup.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ygille <ygille@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/11/15 14:11:31 by ygille            #+#    #+#             */
-/*   Updated: 2025/02/07 19:53:55 by ygille           ###   ########.fr       */
+/*   Created: 2024/11/13 14:27:04 by ygille            #+#    #+#             */
+/*   Updated: 2025/02/07 16:32:16 by ygille           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf.h"
+#include "libft_string.h"
 
-void	hex(unsigned long long val, char format, int *i)
+/*
+** Duplicate s and return a pointer to the new allocated memory
+*/
+char	*ft_strdup(const char *s)
 {
-	if (val / 16)
-		hex(val / 16, format, i);
-	if (format == UP)
-		ft_putchar_fd(UP_BASE_HEX[val % 16], 1);
-	else
-		ft_putchar_fd(LOW_BASE_HEX[val % 16], 1);
-	(*i) += 1;
-	return ;
+	char	*dup;
+	size_t	size;
+
+	size = ft_strlen(s) + 1;
+	dup = malloc(sizeof(char) * size);
+	if (dup == NULL)
+		return (NULL);
+	ft_strlcpy(dup, s, size);
+	return (dup);
 }

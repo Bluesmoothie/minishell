@@ -1,25 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   hex.c                                              :+:      :+:    :+:   */
+/*   ft_strjoin.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ygille <ygille@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/11/15 14:11:31 by ygille            #+#    #+#             */
-/*   Updated: 2025/02/07 19:53:55 by ygille           ###   ########.fr       */
+/*   Created: 2024/11/13 14:59:56 by ygille            #+#    #+#             */
+/*   Updated: 2025/02/07 16:32:20 by ygille           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf.h"
+#include "libft_string.h"
 
-void	hex(unsigned long long val, char format, int *i)
+/*
+** Return a new string with s1 and s2 concatenated
+*/
+char	*ft_strjoin(char const *s1, char const *s2)
 {
-	if (val / 16)
-		hex(val / 16, format, i);
-	if (format == UP)
-		ft_putchar_fd(UP_BASE_HEX[val % 16], 1);
-	else
-		ft_putchar_fd(LOW_BASE_HEX[val % 16], 1);
-	(*i) += 1;
-	return ;
+	size_t	size;
+	char	*join;
+
+	size = ft_strlen(s1) + ft_strlen(s2) + 1;
+	join = malloc(sizeof(char) * size);
+	if (join == NULL)
+		return (NULL);
+	join[0] = '\0';
+	ft_strlcat(join, s1, ft_strlen(s1) + 1);
+	ft_strlcat(join, s2, size);
+	return (join);
 }
