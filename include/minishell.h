@@ -6,7 +6,7 @@
 /*   By: ygille <ygille@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/28 17:52:27 by ygille            #+#    #+#             */
-/*   Updated: 2025/02/11 16:52:07 by ygille           ###   ########.fr       */
+/*   Updated: 2025/02/11 17:07:12 by ygille           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,9 +22,11 @@
 # include <unistd.h>
 # include <fcntl.h>
 
-# include "text_formats.h"
-# include "error_messages.h"
 # include "struct.h"
+# include "builtins.h"
+# include "error_messages.h"
+# include "text_formats.h"
+# include "types.h"
 
 # include "libft.h"
 
@@ -44,6 +46,7 @@ void	init_minishell(t_minishell *minishell, char **envp);
 void	init_signals(void);
 void	init_term(void);
 t_mlist	*init_env(char **envp);
+void	signal_handler(int sig);
 
 //	launch.c
 void	launch_bin(t_minishell *minishell, char *path, char **args);
@@ -57,18 +60,6 @@ int		extract_arg(t_minishell *minishell, char *line, t_mlist **args);
 char	**rebuild_args(t_minishell *minishell, t_mlist *args);
 t_mlist	*extract_helper(t_minishell *minishell, char *line, int i, char sep);
 
-//	mlist.c
-t_mlist	*ft_mlstclear(t_mlist *lst);
-t_mlist	*ft_mlstcreate(char *name, char *content);
-t_mlist	*ft_mlstadd_front(t_mlist *lst, t_mlist *new);
-void	ft_mlstdelone(t_mlist *lst);
-int		ft_mlstsize(t_mlist *lst);
-
-//	mlist2.c
-t_mlist	*ft_mlstadd_back(t_mlist *lst, t_mlist *new);
-t_mlist	*ft_mlstlast(t_mlist *lst);
-t_mlist	*ft_mlstsearch(t_mlist *lst, char *find);
-
 //	parse.c
 void	parse_line(t_minishell *minishell, char *line);
 void	treat_arguments(t_minishell *minishell, char *line, int fd);
@@ -79,40 +70,11 @@ char	*calc_bin_path(t_minishell *minishell, char **args);
 //	pipes.c
 void	unpipe(t_minishell *minishell, char *line);
 
-//	signals.c
-void	signal_handler(int sig);
-
-//	struct.c
-void	init_struct(t_minishell *minishell, char **envp);
-void	free_struct(t_minishell *minishell);
-void	update_infos(t_minishell *minishell);
-
 //	text.c
 void	display_text(char *text, char format[5], char color[6]);
 void	display_error(char *command, char *error, char *arg);
 char	*calc_prompt(t_minishell minishell);
 char	*get_relative_path(char *pwd, char *home);
-
-//	builtins/cd.c
-int		func_cd(t_minishell *minishell, char **args);
-
-//	builtins/echo.c
-int		func_echo(t_minishell *minishell, char **args, int fd);
-
-//	builtins/env.c
-int		func_env(t_minishell *minishell, int fd);
-
-//	builtins/export.c
-int		func_export(t_minishell *minishell, char **args, int fd);
-void	replace_env(t_minishell *minishell, char *name, char *content);
-char	*extract_name(char *arg);
-char	*extract_content(char *arg);
-
-//	builtins/pwd.c
-int		func_pwd(t_minishell *minishell, int fd);
-
-//	builtins/unset.c
-int		func_unset(t_minishell *minishell, char **args);
 
 //t_pipes.c 
 t_pipes	*pipeclear(t_pipes *lst);

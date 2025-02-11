@@ -20,20 +20,19 @@ SRC_FILES		=	minishell		\
 					init			\
 					launch			\
 					miniparse		\
-					mlist			\
-					mlist2			\
 					parse			\
 					pipes			\
-					signals			\
-					struct			\
-					text			\
 					t_pipes			\
+					text			\
 					builtins/cd		\
 					builtins/echo	\
 					builtins/env	\
 					builtins/export	\
 					builtins/pwd	\
 					builtins/unset	\
+					types/mlist		\
+					types/mlist2	\
+					types/minishell	\
 
 SRC 			= 	$(addprefix $(SRC_DIR), $(addsuffix .c, $(SRC_FILES)))
 OBJ 			= 	$(addprefix $(BUILD_DIR), $(addsuffix .o, $(SRC_FILES)))
@@ -80,6 +79,7 @@ $(NAME)			:	$(BUILD_DIR) $(OBJ) $(LIBFT_A)
 $(BUILD_DIR)	:
 				mkdir -p $(BUILD_DIR)
 				mkdir -p $(BUILD_DIR)builtins
+				mkdir -p $(BUILD_DIR)types
 
 $(BUILD_DIR)%.o	: 	$(SRC_DIR)%.c
 				$(CC) $(CFLAGS) -c $< -o $@

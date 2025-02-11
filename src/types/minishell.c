@@ -1,17 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   struct.c                                           :+:      :+:    :+:   */
+/*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ygille <ygille@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/29 14:45:43 by ygille            #+#    #+#             */
-/*   Updated: 2025/02/06 17:50:33 by ygille           ###   ########.fr       */
+/*   Updated: 2025/02/11 17:00:55 by ygille           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
+/*
+** Init minishell struct
+*/
 void	init_struct(t_minishell *minishell, char **envp)
 {
 	minishell->home = getenv("HOME");
@@ -22,7 +25,9 @@ void	init_struct(t_minishell *minishell, char **envp)
 	minishell->env = init_env(envp);
 	minishell->prompt = calc_prompt(*minishell);
 }
-
+/*
+** Free minishell struct
+*/
 void	free_struct(t_minishell *minishell)
 {
 	if (minishell->pwd)
@@ -36,6 +41,9 @@ void	free_struct(t_minishell *minishell)
 		free (minishell->prompt);
 }
 
+/*
+** Update minishell struct
+*/
 void	update_infos(t_minishell *minishell)
 {
 	minishell->home = getenv("HOME");

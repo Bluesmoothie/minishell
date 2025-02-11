@@ -6,7 +6,7 @@
 /*   By: ygille <ygille@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/10 14:23:54 by ygille            #+#    #+#             */
-/*   Updated: 2025/02/11 16:50:36 by ygille           ###   ########.fr       */
+/*   Updated: 2025/02/11 16:57:52 by ygille           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,10 @@ t_mlist	*ft_mlstlast(t_mlist *lst)
 	return (lst);
 }
 
+/*
+** Search for find in all nodes of lst
+** return the node if found or NULL if not
+*/
 t_mlist	*ft_mlstsearch(t_mlist *lst, char *find)
 {
 	while (lst != NULL)

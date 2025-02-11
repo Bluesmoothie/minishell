@@ -6,7 +6,7 @@
 /*   By: ygille <ygille@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/06 18:13:22 by ygille            #+#    #+#             */
-/*   Updated: 2025/02/10 18:32:04 by ygille           ###   ########.fr       */
+/*   Updated: 2025/02/11 16:55:04 by ygille           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,9 @@ void	search_for_env(t_minishell *minishell, t_mlist *args)
 	}
 }
 
+/*
+** Return the frist found env name from the passed arg
+*/
 char	*get_env_name(t_minishell *minishell, char *arg)
 {
 	int		i;
@@ -80,6 +83,9 @@ char	*get_env_value(t_minishell *minishell, char *arg)
 	return (NULL);
 }
 
+/*
+** Replace value in node by it's found value in the env variables
+*/
 void	replace_env_value(t_minishell *minishell, t_mlist *node, char *value)
 {
 	int		i;
@@ -109,6 +115,9 @@ void	replace_env_value(t_minishell *minishell, t_mlist *node, char *value)
 	node->name = update_searching(minishell, node->name, i + 1);
 }
 
+/*
+** Update name to permit others env var to be found
+*/
 char	*update_searching(t_minishell *minishell, char *name, int i)
 {
 	char	*result;

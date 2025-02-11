@@ -6,7 +6,7 @@
 /*   By: ygille <ygille@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/29 15:14:06 by ygille            #+#    #+#             */
-/*   Updated: 2025/02/11 14:11:48 by ygille           ###   ########.fr       */
+/*   Updated: 2025/02/11 16:55:56 by ygille           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,9 @@ int	func_export(t_minishell *minishell, char **args, int fd)
 	return (0);
 }
 
+/*
+** Replace a env if it exist
+*/
 void	replace_env(t_minishell *minishell, char *name, char *content)
 {
 	t_mlist	*target;
@@ -54,6 +57,9 @@ void	replace_env(t_minishell *minishell, char *name, char *content)
 	target->content = content;
 }
 
+/*
+** Return the left side of name=content
+*/
 char	*extract_name(char *arg)
 {
 	int		i;
@@ -66,6 +72,9 @@ char	*extract_name(char *arg)
 	return (name);
 }
 
+/*
+** Return the right side of name=content
+*/
 char	*extract_content(char *arg)
 {
 	int		i;
