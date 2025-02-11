@@ -27,7 +27,6 @@ SRC_FILES		=	minishell		\
 					signals			\
 					struct			\
 					text			\
-					utils			\
 					t_pipes			\
 					builtins/cd		\
 					builtins/echo	\
@@ -98,12 +97,12 @@ norme			:
 check			:
 				chmod +x $(TESTS)
 				bash tests/launch_tests.sh
-				rm	$(TESTS_GARBAGE)
+				rm	-f $(TESTS_GARBAGE)
 
 clean			:
 				$(MAKE) clean -C $(LIBFT)
 				rm -rf $(BUILD_DIR)
-				rm	$(TESTS_GARBAGE)
+				rm	-f $(TESTS_GARBAGE)
 
 fclean			:	clean
 				$(MAKE) fclean -C $(LIBFT)
