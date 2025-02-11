@@ -6,7 +6,7 @@
 /*   By: sithomas <sithomas@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/07 11:07:02 by sithomas          #+#    #+#             */
-/*   Updated: 2025/02/11 09:08:05 by sithomas         ###   ########.fr       */
+/*   Updated: 2025/02/11 11:26:11 by sithomas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,9 @@
 
 static void			treat_pipe(t_minishell *minishell, t_pipes *unpiped);
 static t_pipes		**create_pipe_list(char *line);
+void				treat_piped_element(t_pipes	*new);
+static int			right_pipe(t_pipes *new, int pos);
+static int			left_pipe(t_pipes *new, int pos);
 
 /*
 Split line with pipes
@@ -23,7 +26,8 @@ creates children and executes commands inside
 void	unpipe(t_minishell *minishell, char *line)
 {
 	t_pipes	**unpiped;
-	int		in;
+	int		tmp_in;
+	int		tmp_out;
 	int		i;
 
 	if (line == NULL)
@@ -31,14 +35,20 @@ void	unpipe(t_minishell *minishell, char *line)
 	unpiped = create_pipe_list(line);
 	if (!unpiped)
 		free_exit(minishell, NULL, E_SPLITFAIL);
-	in = dup(STDIN_FILENO);
 	i = 0;
 	while (*unpiped)
 	{	
+		tmp_in = dup(STDIN_FILENO);
+		tmp_out = dup(STDOUT_FILENO);
+		if ((*unpiped)->fd_in != STDIN_FILENO)
+			return ;
+		if ((*unpiped)->fd_out != STDOUT_FILENO)
+			dup2((*unpiped)->fd_out, STDOUT_FILENO);
 		treat_pipe(minishell, *unpiped);
 		*unpiped = (*unpiped)->next;
+		dup2(tmp_in, STDIN_FILENO);
+		dup2(tmp_out, STDOUT_FILENO);
 	}
-	dup2(in, STDIN_FILENO);
 }
 
 static void	treat_pipe(t_minishell *minishell, t_pipes *unpiped)
@@ -54,14 +64,14 @@ static void	treat_pipe(t_minishell *minishell, t_pipes *unpiped)
 	{
 		if (close(pipefd[0]) == -1)
 			return (free_exit(minishell, NULL, "Close failed"));
-		if (unpiped->next && (dup2(pipefd[1], STDOUT_FILENO) == -1))
+		if (unpiped->next && (dup2(pipefd[1], unpiped->fd_out) == -1))
 			return (free_exit(minishell, NULL, "dup2 failed"));
-		treat_arguments(minishell, unpiped->content, STDOUT_FILENO);
+		treat_arguments(minishell, unpiped->content, unpiped->fd_out);
 		exit(EXIT_SUCCESS);
 	}
 	else
 	{
-		if (unpiped->next && (dup2(pipefd[0], STDIN_FILENO) == -1))
+		if (unpiped->next && (dup2(pipefd[0], unpiped->fd_in) == -1))
 			return (free_exit(minishell, NULL, "dup2 failed"));
 		if (waitpid(pid, NULL, 0) == -1)
 			return (free_exit(minishell, NULL, "waitpid failed"));
@@ -89,59 +99,85 @@ static t_pipes		**create_pipe_list(char *line)
 		new = pipecreate(splitted[i]);
 		if (!new)
 			return(pipeclear(*list), NULL);
+		treat_piped_element(new);
 		pipeadd_back(list, new);
 		i++;
 	}
 	return (list);
 }
 
-// void	treat_piped_element(t_pipes	*new)
-// {
-// 	int		i;
-// 	int		j;
-// 	char	*first;
-// 	char	*second;
+void	treat_piped_element(t_pipes	*new)
+{
+	int		i;
 
-// 	i = 0;
-// 	while (new->content[i])
-// 	{
-// 		if (new->content[i] == '<' || new->content[i] == '>')
-// 		{
-// 			first = ft_substr(new->content, i, ft_strlen(new->content) - i);
-// 			if (!first)
-// 				return ;
-// 			ft_bzero(new->content + i, ft_strlen(new->content) - i);
-// 		}
-// 		i++;
-// 	}
-// }
+	i = 0;
+	while (new->content[i])
+	{
+		if (new->content[i] == '<')
+			i = right_pipe(new, i);
+		if (new->content[i] == '>')
+			i = left_pipe(new, i);
+		i++;
+	}
+	i = 0;
+	while (new->content[i])
+	{
+		if (new->content[i] == '<' || new->content[i] == '>')
+			break;
+		i++;
+	}
+	ft_bzero(&new->content[i], ft_strlen(new->content) - i);
+}
+
+static int	right_pipe(t_pipes *new, int pos)
+{
+	int	j;
+
+	j = pos;
+	if (new->content[pos + 1] == '<')
+		return (0); //A TRAITER HEREDOC
+	j++;
+	while (new->content [j] && new->content[j] != '>')
+		j++;
+	if (new->content[j])
+		j--;
+	new->fd_in = open(ft_strtrim(ft_substr(new->content, pos + 1, j - pos), "< "), O_CREAT | O_RDONLY, 00400);
+	return (pos);
+}
+
+static int	left_pipe(t_pipes *new, int pos)
+{
+	int 	j;
+
+	j = pos;
+	if (new->content[pos + 1] == '>')
+	{
+		pos++;
+		j++;
+		while (new->content [j] && new->content[j] != '<' && new->content[j] != '>')
+			j++;
+		if (new->content[j])
+			j--;
+		new->fd_out = open(ft_strtrim(ft_substr(new->content, pos + 1, j - pos), " >"), O_CREAT | O_APPEND | O_RDWR, 00700);
+	}	
+	else
+	{
+		j++;
+		while (new->content [j] && new->content[j] != '<')
+			j++;
+		if (new->content[j])
+			j--;
+		new->fd_out = open(ft_strtrim(ft_substr(new->content, pos + 1, j - pos), " >"), O_CREAT | O_RDWR, 00700);
+	}
+	return (pos);
+}
 
 /*
-How I will do --> 
-When I have a pipe, I split
-then I do all the checks to put all the pipes inside a struct
-and I perform the redirection depending on the pipes
+TODO Chevrons : 
+> if fd not empty, clear it before
+*/
 
 
-
-
-CASES
-< -->
-	< --> 
-		\0 BREAK
-		> -->
-			\0	
-
-
-
-< then >> 
-<< then > 
-<< then >> 
-
-> then < 
-> then >> 
->> then <
->> then <<
-
+/*
 garage-blanc0@orange.fr 
 */
