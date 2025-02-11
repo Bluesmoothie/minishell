@@ -28,6 +28,7 @@ SRC_FILES		=	minishell		\
 					struct			\
 					text			\
 					utils			\
+					t_pipes			\
 					builtins/cd		\
 					builtins/echo	\
 					builtins/env	\

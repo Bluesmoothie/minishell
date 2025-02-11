@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ygille <ygille@student.42lyon.fr>          +#+  +:+       +#+        */
+/*   By: sithomas <sithomas@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/28 17:52:27 by ygille            #+#    #+#             */
-/*   Updated: 2025/02/10 18:22:29 by ygille           ###   ########.fr       */
+/*   Updated: 2025/02/11 09:11:43 by sithomas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,14 @@ typedef struct s_mlist
 	char	*content;
 	t_mlist	*next;
 }	t_mlist;
+
+typedef struct	s_pipes
+{
+	int				fd_in;
+	int				fd_out;
+	char			*content;
+	struct s_pipes	*next;
+}				t_pipes;
 
 //	minishell.c
 void	error(char *message);
@@ -142,5 +150,13 @@ int		func_pwd(t_minishell *minishell, int fd);
 
 //	builtins/unset.c
 int		func_unset(t_minishell *minishell, char **args);
+
+//t_pipes.c 
+t_pipes	*pipeclear(t_pipes *lst);
+t_pipes	*pipecreate(char *content);
+void	pipeadd_back(t_pipes **lst, t_pipes *new);
+void	pipedelone(t_pipes *lst);
+int	pipelstsize(t_mlist *lst);
+t_pipes	*pipelast(t_pipes *lst);
 
 #endif
