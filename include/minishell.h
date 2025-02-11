@@ -6,7 +6,7 @@
 /*   By: ygille <ygille@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/28 17:52:27 by ygille            #+#    #+#             */
-/*   Updated: 2025/02/11 17:07:12 by ygille           ###   ########.fr       */
+/*   Updated: 2025/02/11 17:15:17 by ygille           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,13 +75,5 @@ void	display_text(char *text, char format[5], char color[6]);
 void	display_error(char *command, char *error, char *arg);
 char	*calc_prompt(t_minishell minishell);
 char	*get_relative_path(char *pwd, char *home);
-
-//t_pipes.c 
-t_pipes	*pipeclear(t_pipes *lst);
-t_pipes	*pipecreate(char *content);
-void	pipeadd_back(t_pipes **lst, t_pipes *new);
-void	pipedelone(t_pipes *lst);
-int		pipelstsize(t_mlist *lst);
-t_pipes	*pipelast(t_pipes *lst);
 
 #endif

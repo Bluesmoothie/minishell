@@ -6,7 +6,7 @@
 /*   By: ygille <ygille@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/11 17:02:55 by ygille            #+#    #+#             */
-/*   Updated: 2025/02/11 17:03:21 by ygille           ###   ########.fr       */
+/*   Updated: 2025/02/11 17:15:37 by ygille           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,5 +29,15 @@ t_mlist	*ft_mlstsearch(t_mlist *lst, char *find);
 void	init_struct(t_minishell *minishell, char **envp);
 void	free_struct(t_minishell *minishell);
 void	update_infos(t_minishell *minishell);
+
+//	types/pipes.c 
+t_pipes	*pipeclear(t_pipes *lst);
+t_pipes	*pipecreate(char *content);
+void	pipeadd_back(t_pipes **lst, t_pipes *new);
+void	pipedelone(t_pipes *lst);
+int		pipelstsize(t_mlist *lst);
+
+//	types/pipes2.c
+t_pipes	*pipelast(t_pipes *lst);
 
 #endif

@@ -1,15 +1,14 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   t_pipes.c                                          :+:      :+:    :+:   */
+/*   pipes.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sithomas <sithomas@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: ygille <ygille@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/10 16:39:09 by sithomas          #+#    #+#             */
-/*   Updated: 2025/02/11 08:44:58 by sithomas         ###   ########.fr       */
+/*   Updated: 2025/02/11 17:16:43 by ygille           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
 
 #include "minishell.h"
 
@@ -91,13 +90,4 @@ int	pipelstsize(t_mlist *lst)
 		tmp = tmp->next;
 	}
 	return (i);
-}
-
-t_pipes	*pipelast(t_pipes *lst)
-{
-	if (lst == NULL)
-		return (lst);
-	while (lst->next != NULL)
-		lst = lst->next;
-	return (lst);
 }

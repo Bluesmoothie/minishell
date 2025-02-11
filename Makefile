@@ -22,7 +22,6 @@ SRC_FILES		=	minishell		\
 					miniparse		\
 					parse			\
 					pipes			\
-					t_pipes			\
 					text			\
 					builtins/cd		\
 					builtins/echo	\
@@ -33,6 +32,8 @@ SRC_FILES		=	minishell		\
 					types/mlist		\
 					types/mlist2	\
 					types/minishell	\
+					types/pipes		\
+					types/pipes2	\
 
 SRC 			= 	$(addprefix $(SRC_DIR), $(addsuffix .c, $(SRC_FILES)))
 OBJ 			= 	$(addprefix $(BUILD_DIR), $(addsuffix .o, $(SRC_FILES)))
