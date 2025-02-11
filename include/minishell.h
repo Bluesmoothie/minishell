@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sithomas <sithomas@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: ygille <ygille@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/28 17:52:27 by ygille            #+#    #+#             */
-/*   Updated: 2025/02/11 09:11:43 by sithomas         ###   ########.fr       */
+/*   Updated: 2025/02/11 14:10:50 by ygille           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,6 +100,7 @@ int		ft_mlstsize(t_mlist *lst);
 //	mlist2.c
 t_mlist	*ft_mlstadd_back(t_mlist *lst, t_mlist *new);
 t_mlist	*ft_mlstlast(t_mlist *lst);
+t_mlist	*ft_mlstsearch(t_mlist *lst, char *find);
 
 //	parse.c
 void	parse_line(t_minishell *minishell, char *line);
@@ -142,6 +143,7 @@ int		func_env(t_minishell *minishell, int fd);
 
 //	builtins/export.c
 int		func_export(t_minishell *minishell, char **args, int fd);
+void	replace_env(t_minishell *minishell, char *name, char *content);
 char	*extract_name(char *arg);
 char	*extract_content(char *arg);
 

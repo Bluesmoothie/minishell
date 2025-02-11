@@ -6,7 +6,7 @@
 /*   By: ygille <ygille@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/10 14:23:54 by ygille            #+#    #+#             */
-/*   Updated: 2025/02/10 14:27:14 by ygille           ###   ########.fr       */
+/*   Updated: 2025/02/11 14:09:54 by ygille           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,5 +35,16 @@ t_mlist	*ft_mlstlast(t_mlist *lst)
 {
 	while (lst->next != NULL)
 		lst = lst->next;
+	return (lst);
+}
+
+t_mlist	*ft_mlstsearch(t_mlist *lst, char *find)
+{
+	while (lst !=NULL)
+	{
+		if (ft_strcmp(lst->name, find) == 0)
+			break ;
+		lst = lst->next;
+	}
 	return (lst);
 }
