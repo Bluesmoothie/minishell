@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sithomas <sithomas@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: ygille <ygille@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/28 17:52:27 by ygille            #+#    #+#             */
-/*   Updated: 2025/02/11 17:54:36 by sithomas         ###   ########.fr       */
+/*   Updated: 2025/02/11 19:45:30 by ygille           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@
 # include "struct.h"
 # include "builtins.h"
 # include "error_messages.h"
+# include "pipes.h"
 # include "text_formats.h"
 # include "types.h"
 
@@ -67,15 +68,6 @@ void	treat_arguments(t_minishell *minishell, char *line, int fd);
 t_bool	builtin_functions(t_minishell *minishell, char **args, int fd);
 void	try_launch(t_minishell *minishell, char **args);
 char	*calc_bin_path(t_minishell *minishell, char **args);
-
-//	pipes.c
-void	unpipe(t_minishell *minishell, char *line);
-
-// parse_pipes.c 
-void	parse_pipe(t_pipes	*new);
-
-// treat_pipes.c
-void	treat_pipe(t_minishell *minishell, t_pipes *unpiped);
 
 //	text.c
 void	display_text(char *text, char format[5], char color[6]);

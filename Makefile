@@ -25,9 +25,6 @@ SRC_FILES		=	minishell		\
 					launch			\
 					miniparse		\
 					parse			\
-					parse_pipes		\
-					treat_pipes		\
-					pipes			\
 					text			\
 					builtins/cd		\
 					builtins/echo	\
@@ -35,6 +32,9 @@ SRC_FILES		=	minishell		\
 					builtins/export	\
 					builtins/pwd	\
 					builtins/unset	\
+					pipes/parse		\
+					pipes/pipes		\
+					pipes/treat		\
 					types/mlist		\
 					types/mlist2	\
 					types/minishell	\
@@ -86,6 +86,7 @@ $(NAME)			:	$(BUILD_DIR) $(OBJ) $(LIBFT_A)
 $(BUILD_DIR)	:
 				mkdir -p $(BUILD_DIR)
 				mkdir -p $(BUILD_DIR)builtins
+				mkdir -p $(BUILD_DIR)pipes
 				mkdir -p $(BUILD_DIR)types
 
 $(BUILD_DIR)%.o	: 	$(SRC_DIR)%.c
