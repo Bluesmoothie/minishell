@@ -6,7 +6,7 @@
 /*   By: ygille <ygille@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/10 12:39:29 by ygille            #+#    #+#             */
-/*   Updated: 2025/02/10 18:32:20 by ygille           ###   ########.fr       */
+/*   Updated: 2025/02/11 13:19:58 by ygille           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ char	**rebuild_args(t_minishell *minishell, t_mlist *args)
 	char	**result;
 	int		i;
 
-	result = malloc(sizeof(char *) * ft_mlstsize(args) + 1);
+	result = malloc(sizeof(char *) * (ft_mlstsize(args) + 1));
 	if (result == NULL)
 		free_exit(minishell, NULL, E_MALLOCFAIL);
 	i = 0;
