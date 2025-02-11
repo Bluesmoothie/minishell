@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sithomas <sithomas@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: ygille <ygille@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/29 15:14:06 by ygille            #+#    #+#             */
-/*   Updated: 2025/02/07 13:08:23 by sithomas         ###   ########.fr       */
+/*   Updated: 2025/02/11 16:55:56 by ygille           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,13 +32,34 @@ int	func_export(t_minishell *minishell, char **args, int fd)
 		name = extract_name(args[1]);
 		content = extract_content(args[1]);
 	}
-	new = ft_mlstcreate(name, content);
-	if (new == NULL)
-		free_exit(minishell, args, E_MALLOCFAIL);
-	minishell->env = ft_mlstadd_front(minishell->env, new);
+	if (!ft_mlstsearch(minishell->env, name))
+	{
+		new = ft_mlstcreate(name, content);
+		if (new == NULL)
+			free_exit(minishell, args, E_MALLOCFAIL);
+		minishell->env = ft_mlstadd_front(minishell->env, new);
+	}
+	else
+		replace_env(minishell, name, content);
 	return (0);
 }
 
+/*
+** Replace a env if it exist
+*/
+void	replace_env(t_minishell *minishell, char *name, char *content)
+{
+	t_mlist	*target;
+
+	target = ft_mlstsearch(minishell->env, name);
+	if (target->content)
+		free(target->content);
+	target->content = content;
+}
+
+/*
+** Return the left side of name=content
+*/
 char	*extract_name(char *arg)
 {
 	int		i;
@@ -51,6 +72,9 @@ char	*extract_name(char *arg)
 	return (name);
 }
 
+/*
+** Return the right side of name=content
+*/
 char	*extract_content(char *arg)
 {
 	int		i;

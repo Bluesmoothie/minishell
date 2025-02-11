@@ -1,0 +1,33 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   types.h                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ygille <ygille@student.42lyon.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/02/11 17:02:55 by ygille            #+#    #+#             */
+/*   Updated: 2025/02/11 17:03:21 by ygille           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#ifndef TYPES_H
+# define TYPES_H
+
+//	types/mlist.c
+t_mlist	*ft_mlstclear(t_mlist *lst);
+t_mlist	*ft_mlstcreate(char *name, char *content);
+t_mlist	*ft_mlstadd_front(t_mlist *lst, t_mlist *new);
+void	ft_mlstdelone(t_mlist *lst);
+int		ft_mlstsize(t_mlist *lst);
+
+//	types/mlist2.c
+t_mlist	*ft_mlstadd_back(t_mlist *lst, t_mlist *new);
+t_mlist	*ft_mlstlast(t_mlist *lst);
+t_mlist	*ft_mlstsearch(t_mlist *lst, char *find);
+
+//	types/minishell.c
+void	init_struct(t_minishell *minishell, char **envp);
+void	free_struct(t_minishell *minishell);
+void	update_infos(t_minishell *minishell);
+
+#endif

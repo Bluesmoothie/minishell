@@ -43,7 +43,7 @@ $(LIBFT)		:	FORCE
 FORCE			:
 
 norme			:
-				norminette includes
+				norminette include
 				$(MAKE) -C $(FT_PRINTF) norme
 				$(MAKE) -C $(GNL) norme
 				$(MAKE) -C $(FT) norme

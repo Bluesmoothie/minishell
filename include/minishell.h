@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sithomas <sithomas@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: ygille <ygille@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/28 17:52:27 by ygille            #+#    #+#             */
-/*   Updated: 2025/02/11 09:11:43 by sithomas         ###   ########.fr       */
+/*   Updated: 2025/02/11 17:07:12 by ygille           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,44 +22,13 @@
 # include <unistd.h>
 # include <fcntl.h>
 
-# include "text_formats.h"
+# include "struct.h"
+# include "builtins.h"
 # include "error_messages.h"
+# include "text_formats.h"
+# include "types.h"
 
 # include "libft.h"
-
-# define FALSE		0
-# define TRUE		1
-
-typedef unsigned char		t_bool;
-typedef struct s_minishell	t_minishell;
-typedef struct s_mlist		t_mlist;
-
-typedef struct s_minishell
-{
-	int		last_return_value;
-	char	*home;
-	char	*user;
-	char	*pwd;
-	char	**envp;
-	char	*prompt;
-	t_mlist	*env;
-}	t_minishell;
-
-typedef struct s_mlist
-{
-	char	mask;
-	char	*name;
-	char	*content;
-	t_mlist	*next;
-}	t_mlist;
-
-typedef struct	s_pipes
-{
-	int				fd_in;
-	int				fd_out;
-	char			*content;
-	struct s_pipes	*next;
-}				t_pipes;
 
 //	minishell.c
 void	error(char *message);
@@ -77,6 +46,7 @@ void	init_minishell(t_minishell *minishell, char **envp);
 void	init_signals(void);
 void	init_term(void);
 t_mlist	*init_env(char **envp);
+void	signal_handler(int sig);
 
 //	launch.c
 void	launch_bin(t_minishell *minishell, char *path, char **args);
@@ -90,17 +60,6 @@ int		extract_arg(t_minishell *minishell, char *line, t_mlist **args);
 char	**rebuild_args(t_minishell *minishell, t_mlist *args);
 t_mlist	*extract_helper(t_minishell *minishell, char *line, int i, char sep);
 
-//	mlist.c
-t_mlist	*ft_mlstclear(t_mlist *lst);
-t_mlist	*ft_mlstcreate(char *name, char *content);
-t_mlist	*ft_mlstadd_front(t_mlist *lst, t_mlist *new);
-void	ft_mlstdelone(t_mlist *lst);
-int		ft_mlstsize(t_mlist *lst);
-
-//	mlist2.c
-t_mlist	*ft_mlstadd_back(t_mlist *lst, t_mlist *new);
-t_mlist	*ft_mlstlast(t_mlist *lst);
-
 //	parse.c
 void	parse_line(t_minishell *minishell, char *line);
 void	treat_arguments(t_minishell *minishell, char *line, int fd);
@@ -111,52 +70,18 @@ char	*calc_bin_path(t_minishell *minishell, char **args);
 //	pipes.c
 void	unpipe(t_minishell *minishell, char *line);
 
-//	signals.c
-void	signal_handler(int sig);
-
-//	struct.c
-void	init_struct(t_minishell *minishell, char **envp);
-void	free_struct(t_minishell *minishell);
-void	update_infos(t_minishell *minishell);
-
 //	text.c
 void	display_text(char *text, char format[5], char color[6]);
 void	display_error(char *command, char *error, char *arg);
 char	*calc_prompt(t_minishell minishell);
 char	*get_relative_path(char *pwd, char *home);
 
-//	utils.c
-int		ft_strcmp(const char *s1, const char *s2);
-char	*ft_strcat(char *s1, char *s2);
-char	*ft_strfcat(char *s1, char *s2, t_bool fs1, t_bool fs2);
-void	free_split(char ***split);
-
-//	builtins/cd.c
-int		func_cd(t_minishell *minishell, char **args);
-
-//	builtins/echo.c
-int		func_echo(t_minishell *minishell, char **args, int fd);
-
-//	builtins/env.c
-int		func_env(t_minishell *minishell, int fd);
-
-//	builtins/export.c
-int		func_export(t_minishell *minishell, char **args, int fd);
-char	*extract_name(char *arg);
-char	*extract_content(char *arg);
-
-//	builtins/pwd.c
-int		func_pwd(t_minishell *minishell, int fd);
-
-//	builtins/unset.c
-int		func_unset(t_minishell *minishell, char **args);
-
 //t_pipes.c 
 t_pipes	*pipeclear(t_pipes *lst);
 t_pipes	*pipecreate(char *content);
 void	pipeadd_back(t_pipes **lst, t_pipes *new);
 void	pipedelone(t_pipes *lst);
-int	pipelstsize(t_mlist *lst);
+int		pipelstsize(t_mlist *lst);
 t_pipes	*pipelast(t_pipes *lst);
 
 #endif
