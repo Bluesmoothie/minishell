@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ygille <ygille@student.42lyon.fr>          +#+  +:+       +#+        */
+/*   By: sithomas <sithomas@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/28 17:52:27 by ygille            #+#    #+#             */
-/*   Updated: 2025/02/11 17:15:17 by ygille           ###   ########.fr       */
+/*   Updated: 2025/02/11 17:54:36 by sithomas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@
 # include "types.h"
 
 # include "libft.h"
+# include "get_next_line.h"
 
 //	minishell.c
 void	error(char *message);
@@ -69,6 +70,12 @@ char	*calc_bin_path(t_minishell *minishell, char **args);
 
 //	pipes.c
 void	unpipe(t_minishell *minishell, char *line);
+
+// parse_pipes.c 
+void	parse_pipe(t_pipes	*new);
+
+// treat_pipes.c
+void	treat_pipe(t_minishell *minishell, t_pipes *unpiped);
 
 //	text.c
 void	display_text(char *text, char format[5], char color[6]);

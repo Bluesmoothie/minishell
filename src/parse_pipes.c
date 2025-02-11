@@ -6,7 +6,7 @@
 /*   By: sithomas <sithomas@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/11 17:44:17 by sithomas          #+#    #+#             */
-/*   Updated: 2025/02/11 19:01:56 by sithomas         ###   ########.fr       */
+/*   Updated: 2025/02/11 19:13:03 by sithomas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,7 +98,6 @@ static int	left_pipe(t_pipes *new, int pos)
 
 static void	left_pipe_helper(t_pipes *new, int pos)
 {
-	char	*tmp;
 	int		j;
 	
 	j = pos++;

@@ -25,6 +25,8 @@ SRC_FILES		=	minishell		\
 					launch			\
 					miniparse		\
 					parse			\
+					parse_pipes		\
+					treat_pipes		\
 					pipes			\
 					text			\
 					builtins/cd		\
