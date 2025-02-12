@@ -1,24 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   error_messages.h                                   :+:      :+:    :+:   */
+/*   tests.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ygille <ygille@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/01/29 01:27:49 by ygille            #+#    #+#             */
-/*   Updated: 2025/02/12 12:41:01 by ygille           ###   ########.fr       */
+/*   Created: 2025/02/12 13:42:24 by ygille            #+#    #+#             */
+/*   Updated: 2025/02/12 15:10:48 by ygille           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef ERROR_MESSAGES_H
-# define ERROR_MESSAGES_H
+#ifndef TESTS_H
+# define TESTS_H
 
-# define E_SPLITFAIL	"Error : split failed"
-# define E_NOFILE		" : no such file or directory : "
-# define E_COMMANDNF	" : command not found"
-# define E_MALLOCFAIL	"Error : malloc failed"
-# define E_FORKFAIL		"Error : fork failed"
-# define E_TMARGS		"Error : too many arguments"
-# define E_OPENFILE		"Error : can't open file"
+# include "minishell.h"
+# include "ft_printf.h"
+
+char	**init_list(void);
+int		launch_test(int fd[2], char *test, char **envp);
+int		launch_ref(int fd[2], char *test, char **envp);
 
 #endif

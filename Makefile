@@ -58,7 +58,6 @@ TESTS			=	$(addprefix $(TESTS_DIR), $(addsuffix .sh, $(TESTS_FILES)))
 TESTS_FILES		=	chevron			\
 					echo			\
 					env				\
-					launch_tests	\
 					others			\
 					pipes			\
 					quotes			\
@@ -74,8 +73,11 @@ TESTS_GARBAGE	=	error.log				\
 					non_existent_file.txt	\
 					output.txt				\
 					quoted_heredoc.txt		\
-					minishellr				\
-					bashr					\
+					checker					\
+					checker.d 				\
+					out.txt					\
+					ref.txt					\
+					"file with spaces.txt"	\
 
 #			RULES
 
@@ -100,13 +102,13 @@ $(LIBFT_A)		:	FORCE
 
 FORCE			:
 
+check			:
+				$(CC) $(CFLAGS) tests/tests.c $(LIBSFLAGS) -o checker
+				./checker
+				rm	-f $(TESTS_GARBAGE)
+
 norme			:
 				norminette $(SRC_DIR) include
-
-check			:
-				chmod +x $(TESTS)
-				bash tests/launch_tests.sh
-				rm	-f $(TESTS_GARBAGE)
 
 clean			:
 				$(MAKE) clean -C $(LIBFT)

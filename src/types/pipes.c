@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipes.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ygille <ygille@student.42lyon.fr>          +#+  +:+       +#+        */
+/*   By: sithomas <sithomas@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/10 16:39:09 by sithomas          #+#    #+#             */
-/*   Updated: 2025/02/11 17:16:43 by ygille           ###   ########.fr       */
+/*   Updated: 2025/02/12 15:51:38 by sithomas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,10 +77,10 @@ void	pipedelone(t_pipes *lst)
 /*
 ** Return the size of the list
 */
-int	pipelstsize(t_mlist *lst)
+int	pipelstsize(t_pipes *lst)
 {
 	int		i;
-	t_mlist	*tmp;
+	t_pipes	*tmp;
 
 	i = 0;
 	tmp = lst;
