@@ -62,22 +62,22 @@ TESTS_FILES		=	chevron			\
 					pipes			\
 					quotes			\
 
-TESTS_GARBAGE	=	error.log				\
-					file\ with\ spaces.txt 	\
-					file.txt				\
-					file1.txt				\
-					file2.txt				\
-					file3.txt				\
-					heredoc.txt				\
-					ls_output.txt			\
-					non_existent_file.txt	\
-					output.txt				\
-					quoted_heredoc.txt		\
-					checker					\
-					checker.d 				\
-					out.txt					\
-					ref.txt					\
-					"file with spaces.txt"	\
+TESTS_GARBAGE	=	error.log					\
+					file\ with\ spaces.txt 		\
+					file.txt					\
+					file1.txt					\
+					file2.txt					\
+					file3.txt					\
+					heredoc.txt					\
+					ls_output.txt				\
+					non_existent_file.txt		\
+					output.txt					\
+					quoted_heredoc.txt			\
+					checker						\
+					checker.d 					\
+					out.txt						\
+					ref.txt						\
+					\"file with spaces.txt\"	\
 
 #			RULES
 

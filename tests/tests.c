@@ -6,7 +6,7 @@
 /*   By: ygille <ygille@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/12 13:36:28 by ygille            #+#    #+#             */
-/*   Updated: 2025/02/12 17:21:45 by ygille           ###   ########.fr       */
+/*   Updated: 2025/02/12 17:26:37 by ygille           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ int	main(int argc, char **argv, char **envp)
 		result[1] = launch_ref(fd, *test_list, envp);
 		close (fd[0]);
 		close (fd[1]);
-		if (result != bash)
+		if (result[0] != result[1])
 			ft_printf("Diff in return values\nbash = %d mini = %d\n",
 				result[1], result[0]);
 		test_list++;
