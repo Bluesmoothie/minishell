@@ -6,7 +6,7 @@
 /*   By: ygille <ygille@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/28 17:52:41 by ygille            #+#    #+#             */
-/*   Updated: 2025/02/12 12:40:54 by ygille           ###   ########.fr       */
+/*   Updated: 2025/02/12 12:46:00 by ygille           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,5 +86,7 @@ void	free_exit(t_minishell *minishell, char **args, char *message)
 		close (minishell->input_file);
 	if (message)
 		error(message);
+	if (minishell->mode != TTY_MODE)
+		exit(minishell->last_return_value);
 	exit(EXIT_SUCCESS);
 }
