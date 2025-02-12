@@ -6,7 +6,7 @@
 /*   By: ygille <ygille@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/28 17:52:41 by ygille            #+#    #+#             */
-/*   Updated: 2025/02/11 22:18:39 by ygille           ###   ########.fr       */
+/*   Updated: 2025/02/12 12:40:54 by ygille           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,21 +14,10 @@
 
 int	main(int argc, char **argv, char **envp)
 {
-	// int			pid;
-	// char		**null_argv;
 	char		*line;
 	t_minishell	minishell;
 
-	(void)argc;
-	(void)argv;
-	// null_argv = (char *[]){"", NULL};
-	// pid = fork();
-	// if (pid == -1)
-	// 	error("fork failed");
-	// if (pid == 0)
-	// 	execve("/bin/clear", null_argv, envp);
-	// if (waitpid(pid, NULL, 0) == -1)
-	// 	error("waitpid failed");
+	define_mode(&minishell, argc, argv);
 	init_minishell(&minishell, envp);
 	while (1)
 	{
@@ -39,14 +28,34 @@ int	main(int argc, char **argv, char **envp)
 	return (0);
 }
 
+void	define_mode(t_minishell *minishell, int argc, char **argv)
+{
+	if (argc > 2)
+		return (error(E_TMARGS));
+	if (argc == 2)
+	{
+		minishell->mode = SCRIPT_MODE;
+		minishell->input_file = open(argv[1], O_RDONLY);
+		if (minishell->input_file == -1)
+			return (error(E_OPENFILE));
+	}
+	else if (isatty(STDIN_FILENO))
+		minishell->mode = TTY_MODE;
+	else
+	{
+		minishell->mode = NO_TTY_MODE;
+		minishell->input_file = STDIN_FILENO;
+	}
+}
+
 char	*get_line(t_minishell *minishell)
 {
 	char	*line;
 	char	*tmp;
 
-	if (isatty(STDIN_FILENO))
+	if (minishell->mode == TTY_MODE)
 		return (readline(minishell->prompt));
-	line = get_next_line(STDIN_FILENO);
+	line = get_next_line(minishell->input_file);
 	if (line)
 	{
 		tmp = line;
@@ -73,6 +82,8 @@ void	free_exit(t_minishell *minishell, char **args, char *message)
 	free_struct(minishell);
 	free_split(&args);
 	rl_clear_history();
+	if (minishell->mode == SCRIPT_MODE)
+		close (minishell->input_file);
 	if (message)
 		error(message);
 	exit(EXIT_SUCCESS);

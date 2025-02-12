@@ -6,7 +6,7 @@
 /*   By: ygille <ygille@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/11 16:51:17 by ygille            #+#    #+#             */
-/*   Updated: 2025/02/11 17:06:50 by ygille           ###   ########.fr       */
+/*   Updated: 2025/02/12 12:33:32 by ygille           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,8 @@ typedef struct s_pipes		t_pipes;
 typedef struct s_minishell
 {
 	int		last_return_value;
+	int		mode;
+	int		input_file;
 	char	*home;
 	char	*user;
 	char	*pwd;
@@ -43,5 +45,12 @@ typedef struct s_pipes
 	char			*content;
 	struct s_pipes	*next;
 }				t_pipes;
+
+enum	e_modes
+{
+	TTY_MODE,
+	SCRIPT_MODE,
+	NO_TTY_MODE
+};
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: ygille <ygille@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/28 17:52:27 by ygille            #+#    #+#             */
-/*   Updated: 2025/02/11 22:14:22 by ygille           ###   ########.fr       */
+/*   Updated: 2025/02/12 12:36:31 by ygille           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,9 @@
 # include <unistd.h>
 # include <fcntl.h>
 
+# include "libft.h"
+# include "get_next_line.h"
+
 # include "struct.h"
 # include "builtins.h"
 # include "error_messages.h"
@@ -29,10 +32,8 @@
 # include "text_formats.h"
 # include "types.h"
 
-# include "libft.h"
-# include "get_next_line.h"
-
 //	minishell.c
+void	define_mode(t_minishell *minishell, int argc, char **argv);
 char	*get_line(t_minishell *minishell);
 void	error(char *message);
 void	free_exit(t_minishell *minishell, char **args, char *message);
