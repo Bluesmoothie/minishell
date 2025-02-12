@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parse_pipes.c                                      :+:      :+:    :+:   */
+/*   parse.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sithomas <sithomas@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/11 17:44:17 by sithomas          #+#    #+#             */
-/*   Updated: 2025/02/11 19:13:03 by sithomas         ###   ########.fr       */
+/*   Updated: 2025/02/12 10:05:56 by sithomas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 
 static int	right_pipe(t_pipes *new, int pos);
 static int	left_pipe(t_pipes *new, int pos);
-static int	fill_here_doc(t_pipes *new, char *tmp);
 static void	left_pipe_helper(t_pipes *new, int pos);
 
 /*
@@ -110,41 +109,4 @@ static void	left_pipe_helper(t_pipes *new, int pos)
 	if (!access(ft_strtrim(ft_substr(new->content, pos + 1, j - pos), " >"), F_OK))
 		unlink(ft_strtrim(ft_substr(new->content, pos + 1, j - pos), " >"));
 	new->fd_out = open(ft_strtrim(ft_substr(new->content, pos + 1, j - pos), " >"), O_CREAT | O_RDWR, 00700);
-}
-
-static int	fill_here_doc(t_pipes *new, char *tmp)
-{
-	int		pipefd[2];
-	int		pid;
-	char	*last_line;
-
-	pipe(pipefd);
-	pid = fork();
-	if (pid == 0)
-	{
-		if (close(pipefd[0]) == -1)
-			return (-1) ;
-		while (1)
-		{
-			write(STDOUT_FILENO, "heredoc >", 9);
-			last_line = get_next_line(STDIN_FILENO);
-			if (!ft_strncmp(last_line, tmp, ft_strlen(tmp)))
-			{	
-				close(pipefd[1]);
-				break ;
-			}
-			write(pipefd[1], last_line, ft_strlen(last_line));
-			free(last_line);
-		}
-		close(pipefd[1]);
-		exit(EXIT_SUCCESS);
-	}
-	else
-	{
-		close(pipefd[1]);
-		waitpid(pid, NULL, 0);
-		dup2(pipefd[0], new->fd_in);
-		close(pipefd[0]);
-	}
-	return(pipefd[0]);
 }
