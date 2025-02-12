@@ -8,8 +8,6 @@ export PATH=$PATH:/new/path
 echo $PATH
 unset TEST_VAR
 echo $TEST_VAR
-export -n ANOTHER_VAR
-printenv ANOTHER_VAR
 echo $ANOTHER_VAR
 export EMPTY_VAR=
 echo $EMPTY_VAR

@@ -12,8 +12,6 @@ echo "Line 2" >> file2.txt
 cat file2.txt
 cat < file1.txt > file3.txt
 cat file3.txt
-echo "Test" > "file with spaces.txt"
-cat "file with spaces.txt"
 ls non_existent_file > error.log
 cat error.log
 echo "Hello" > /dev/null

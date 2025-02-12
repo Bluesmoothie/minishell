@@ -1,4 +1,4 @@
-.PHONY			:	clean fclean re all norme FORCE check
+.PHONY			:	clean fclean re all norme FORCE check test
 
 NAME			=   minishell
 
@@ -102,10 +102,12 @@ $(LIBFT_A)		:	FORCE
 
 FORCE			:
 
-check			:
-				$(CC) $(CFLAGS) tests/tests.c $(LIBSFLAGS) -o checker
+check			:	test
 				./checker
 				rm	-f $(TESTS_GARBAGE)
+
+test			:
+				$(CC) $(CFLAGS) tests/tests.c tests/tests2.c $(LIBSFLAGS) -o checker
 
 norme			:
 				norminette $(SRC_DIR) include
