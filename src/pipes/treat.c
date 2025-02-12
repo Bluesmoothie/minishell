@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   treat.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sithomas <sithomas@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: ygille <ygille@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/11 17:49:10 by sithomas          #+#    #+#             */
-/*   Updated: 2025/02/12 10:05:13 by sithomas         ###   ########.fr       */
+/*   Updated: 2025/02/12 17:25:32 by ygille           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ void	treat_pipe(t_minishell *minishell, t_pipes *unpiped)
 			return (free_exit(minishell, NULL, "dup2 failed"));
 		treat_arguments(minishell, unpiped->content, unpiped->fd_out);
 		if (close(pipefd[1]) == -1)
-			return (free_exit(minishell, NULL, "close failed"));		
+			return (free_exit(minishell, NULL, "close failed"));
 		exit(EXIT_SUCCESS);
 	}
 	else
@@ -55,7 +55,7 @@ int	fill_here_doc(t_pipes *new, char *tmp)
 	if (pid == 0)
 	{
 		if (close(pipefd[0]) == -1)
-			return (-1) ;
+			return (-1);
 		run_heredoc(tmp, pipefd[1]);
 		close(pipefd[1]);
 		exit(EXIT_SUCCESS);
@@ -67,19 +67,19 @@ int	fill_here_doc(t_pipes *new, char *tmp)
 		dup2(pipefd[0], new->fd_in);
 		close(pipefd[0]);
 	}
-	return(pipefd[0]);
+	return (pipefd[0]);
 }
 
 static void	run_heredoc(char *tmp, int pipefd1)
 {
 	char	*last_line;
-	
+
 	while (1)
 	{
 		write(STDOUT_FILENO, "heredoc >", 9);
 		last_line = get_next_line(STDIN_FILENO);
 		if (!ft_strncmp(last_line, tmp, ft_strlen(tmp)))
-		{	
+		{
 			close(pipefd1);
 			free(last_line);
 			return ;
