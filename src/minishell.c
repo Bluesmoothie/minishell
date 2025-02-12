@@ -6,7 +6,7 @@
 /*   By: ygille <ygille@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/28 17:52:41 by ygille            #+#    #+#             */
-/*   Updated: 2025/02/12 12:46:00 by ygille           ###   ########.fr       */
+/*   Updated: 2025/02/12 15:11:49 by ygille           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ char	*get_line(t_minishell *minishell)
 		line = ft_strtrim(line, "\n");
 		free(tmp);
 	}
-	return(line);
+	return (line);
 }
 
 /*
