@@ -6,12 +6,15 @@
 /*   By: ygille <ygille@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/10 12:39:29 by ygille            #+#    #+#             */
-/*   Updated: 2025/02/13 13:41:03 by ygille           ###   ########.fr       */
+/*   Updated: 2025/02/13 14:05:10 by ygille           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
+/*
+** Hormone boosted parsing
+*/
 char	**miniparse(t_minishell *minishell, char *line)
 {
 	t_mlist	*args;
@@ -40,6 +43,11 @@ char	**miniparse(t_minishell *minishell, char *line)
 	return (out);
 }
 
+/*
+** Skip whitespaces
+** just like the name
+** no secrets here
+*/
 int	skip_whitespaces(char *line)
 {
 	int	i;
@@ -50,6 +58,9 @@ int	skip_whitespaces(char *line)
 	return (i);
 }
 
+/*
+** Create a node with an arg
+*/
 int	extract_arg(t_minishell *minishell, char *line,
 	t_mlist **args, t_mlist **node)
 {
@@ -73,6 +84,9 @@ int	extract_arg(t_minishell *minishell, char *line,
 	return (i);
 }
 
+/*
+** Recreate the **tab from the nodes
+*/
 char	**rebuild_args(t_minishell *minishell, t_mlist *args)
 {
 	char	**result;
@@ -101,6 +115,10 @@ char	**rebuild_args(t_minishell *minishell, t_mlist *args)
 	return (result);
 }
 
+/*
+** Extract the exact portion needed for
+** extract_arg
+*/
 t_mlist	*extract_helper(t_minishell *minishell, char *line, int i, char sep)
 {
 	t_mlist	*node;

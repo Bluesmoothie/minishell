@@ -6,12 +6,16 @@
 /*   By: ygille <ygille@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/28 17:52:41 by ygille            #+#    #+#             */
-/*   Updated: 2025/02/12 15:11:49 by ygille           ###   ########.fr       */
+/*   Updated: 2025/02/13 14:07:37 by ygille           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
+/*
+** Init and launch a loop
+** waiting for user input
+*/
 int	main(int argc, char **argv, char **envp)
 {
 	char		*line;
@@ -28,6 +32,10 @@ int	main(int argc, char **argv, char **envp)
 	return (0);
 }
 
+/*
+** Detect if we are in interact mode, non-interact mode
+** or script mode, in this case open the file
+*/
 void	define_mode(t_minishell *minishell, int argc, char **argv)
 {
 	if (argc > 2)
@@ -48,6 +56,11 @@ void	define_mode(t_minishell *minishell, int argc, char **argv)
 	}
 }
 
+/*
+** Minishell get_next_line
+** use gnl if we are in script or non interact mode
+** use readline if in interact mode
+*/
 char	*get_line(t_minishell *minishell)
 {
 	char	*line;
