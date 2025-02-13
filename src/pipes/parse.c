@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sithomas <sithomas@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: ygille <ygille@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/11 17:44:17 by sithomas          #+#    #+#             */
-/*   Updated: 2025/02/12 10:05:56 by sithomas         ###   ########.fr       */
+/*   Updated: 2025/02/12 17:23:46 by ygille           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ void	parse_pipe(t_pipes	*new)
 	while (new->content[i])
 	{
 		if (new->content[i] == '<' || new->content[i] == '>')
-			break;
+			break ;
 		i++;
 	}
 	ft_bzero(&new->content[i], ft_strlen(new->content) - i);
@@ -73,7 +73,7 @@ static int	right_pipe(t_pipes *new, int pos)
 
 static int	left_pipe(t_pipes *new, int pos)
 {
-	int 	j;
+	int	j;
 
 	j = pos;
 	if (new->content[pos + 1] == '>')
@@ -87,7 +87,7 @@ static int	left_pipe(t_pipes *new, int pos)
 		if (new->content[j])
 			j--;
 		new->fd_out = open(ft_strtrim(ft_substr(new->content, pos + 1, j - pos), " >"), O_CREAT | O_APPEND | O_RDWR, 00700);
-	}	
+	}
 	else
 	{
 		left_pipe_helper(new, pos++);
@@ -98,7 +98,7 @@ static int	left_pipe(t_pipes *new, int pos)
 static void	left_pipe_helper(t_pipes *new, int pos)
 {
 	int		j;
-	
+
 	j = pos++;
 	while (new->content [j] && new->content[j] != '<' && new->content[j] != '>')
 		j++;

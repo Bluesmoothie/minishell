@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   pipes.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sithomas <sithomas@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: ygille <ygille@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/07 11:07:02 by sithomas          #+#    #+#             */
-/*   Updated: 2025/02/12 15:43:18 by sithomas         ###   ########.fr       */
+/*   Updated: 2025/02/12 17:25:11 by ygille           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static void	nopipe(t_minishell *minishell, t_pipes **unpiped);
+static void		nopipe(t_minishell *minishell, t_pipes **unpiped);
 static t_pipes	**create_pipe_list(char *line);
 
 void	unpipe(t_minishell *minishell, char *line)
@@ -39,7 +39,6 @@ void	unpipe(t_minishell *minishell, char *line)
 	dup2(tmp_in, STDIN_FILENO);
 	dup2(tmp_out, STDOUT_FILENO);
 }
-
 
 static t_pipes	**create_pipe_list(char *line)
 {

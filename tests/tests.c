@@ -6,7 +6,7 @@
 /*   By: ygille <ygille@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/12 13:36:28 by ygille            #+#    #+#             */
-/*   Updated: 2025/02/12 15:10:43 by ygille           ###   ########.fr       */
+/*   Updated: 2025/02/12 17:58:47 by ygille           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,55 +14,58 @@
 
 int	main(int argc, char **argv, char **envp)
 {
-	char	**test_list;
-	int		result;
-	int		bash;
-	int		fd[2];
+	char	*test;
 
-	(void)argc;
-	(void)argv;
+	if (argc < 2)
+		launch_all(envp);
+	else if (argc > 2)
+		exit (ft_printf("Choose a test or nothing for all\n"));
+	else
+	{
+		test = ft_strjoin(ft_strjoin("tests/", argv[1]), ".sh");
+		if (test == NULL)
+			exit (1);
+		launch_one(test, envp);
+		launch_diff(envp);
+	}
+}
+
+int	launch_all(char **envp)
+{
+	char	**test_list;
+
 	test_list = init_list();
 	while (*test_list != NULL)
 	{
-		ft_printf("Test %s : \n", *test_list);
-		fd[0] = open(*test_list, O_RDONLY);
-		fd[1] = open("out.txt", O_CREAT | O_RDWR, 00777);
-		result = launch_test(fd, *test_list, envp);
-		close (fd[0]);
-		close (fd[1]);
-		fd[0] = open(*test_list, O_RDONLY);
-		fd[1] = open("ref.txt", O_CREAT | O_RDWR, 00777);
-		bash = launch_ref(fd, *test_list, envp);
-		close (fd[0]);
-		close (fd[1]);
-		if (result != bash)
-			ft_printf("Diff in return values\nbash = %d mini = %d\n", bash, result);
+		launch_loop(*test_list, envp);
+		launch_diff(envp);
 		test_list++;
 	}
+	return (0);
 }
 
 char	**init_list(void)
 {
-	static char *tests[] = {
-        "tests/chevron.sh",
-        "tests/echo.sh",
-        "tests/env.sh",
-        "tests/others.sh",
-        "tests/pipes.sh",
-        "tests/quotes.sh",
+	static char	*tests[] = {
+		"tests/chevron.sh",
+		"tests/echo.sh",
+		"tests/env.sh",
+		"tests/others.sh",
+		"tests/pipes.sh",
+		"tests/quotes",
 		"tests/return.sh",
-        NULL
-    };
+		NULL};
+
 	return (tests);
 }
 
 int	launch_test(int fd[2], char *test, char **envp)
 {
-	int 	pid;
+	int		pid;
 	int		return_val;
 	char	**args;
 
-	args = (char *[]){test, NULL};
+	args = (char *[]){"./minishell", test, NULL};
 	pid = fork();
 	if (pid == 0)
 	{
@@ -76,11 +79,11 @@ int	launch_test(int fd[2], char *test, char **envp)
 
 int	launch_ref(int fd[2], char *test, char **envp)
 {
-	int 	pid;
+	int		pid;
 	int		return_val;
 	char	**args;
 
-	args = (char *[]){test, NULL};
+	args = (char *[]){"/bin/bash", test, NULL};
 	pid = fork();
 	if (pid == 0)
 	{
