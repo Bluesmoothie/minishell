@@ -6,7 +6,7 @@
 /*   By: ygille <ygille@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/10 12:39:29 by ygille            #+#    #+#             */
-/*   Updated: 2025/02/11 13:19:58 by ygille           ###   ########.fr       */
+/*   Updated: 2025/02/13 13:41:03 by ygille           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 char	**miniparse(t_minishell *minishell, char *line)
 {
 	t_mlist	*args;
+	t_mlist	*act;
 	char	**out;
 	int		i;
 
@@ -24,7 +25,14 @@ char	**miniparse(t_minishell *minishell, char *line)
 	{
 		i += skip_whitespaces(&line[i]);
 		if (line[i] != '\0')
-			i += extract_arg(minishell, &line[i], &args);
+		{
+			i += extract_arg(minishell, &line[i], &args, &act);
+			if (line[i] != '\0' && line[i] != ' '
+				&& (line[i] <= '\t' || line[i] >= '\r'))
+				act->glue = TRUE;
+			else
+				act->glue = FALSE;
+		}
 	}
 	search_for_env(minishell, args);
 	out = rebuild_args(minishell, args);
@@ -42,11 +50,11 @@ int	skip_whitespaces(char *line)
 	return (i);
 }
 
-int	extract_arg(t_minishell *minishell, char *line, t_mlist **args)
+int	extract_arg(t_minishell *minishell, char *line,
+	t_mlist **args, t_mlist **node)
 {
 	int		i;
 	char	sep;
-	t_mlist	*node;
 
 	i = 1;
 	if (line[0] == '\"' && ft_strchr(&line[1], '\"') != NULL)
@@ -55,12 +63,13 @@ int	extract_arg(t_minishell *minishell, char *line, t_mlist **args)
 		sep = '\'';
 	else
 		sep = ' ';
-	while (line[i] != '\0' && line[i] != sep)
+	while (line[i] != '\0' && line[i] != sep
+		&& line[i] != '\"' && line[i] != '\'')
 		i++;
 	if (sep != ' ' && line[i] == sep)
 		i++;
-	node = extract_helper(minishell, line, i, sep);
-	*args = ft_mlstadd_back(*args, node);
+	*node = extract_helper(minishell, line, i, sep);
+	*args = ft_mlstadd_back(*args, *node);
 	return (i);
 }
 
@@ -78,6 +87,13 @@ char	**rebuild_args(t_minishell *minishell, t_mlist *args)
 		result[i] = ft_strdup(args->content);
 		if (result[i] == NULL)
 			free_exit(minishell, NULL, E_MALLOCFAIL);
+		while (args->glue == TRUE)
+		{
+			result[i] = ft_strfcat(result[i], args->content, TRUE, FALSE);
+			if (result[i] == NULL)
+				free_exit(minishell, NULL, E_MALLOCFAIL);
+			args = args->next;
+		}
 		args = args->next;
 		i++;
 	}

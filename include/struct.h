@@ -6,7 +6,7 @@
 /*   By: ygille <ygille@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/11 16:51:17 by ygille            #+#    #+#             */
-/*   Updated: 2025/02/12 12:33:32 by ygille           ###   ########.fr       */
+/*   Updated: 2025/02/13 13:24:08 by ygille           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ typedef struct s_minishell
 typedef struct s_mlist
 {
 	char	mask;
+	t_bool	glue;
 	char	*name;
 	char	*content;
 	t_mlist	*next;

@@ -6,7 +6,7 @@
 /*   By: ygille <ygille@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/28 17:52:27 by ygille            #+#    #+#             */
-/*   Updated: 2025/02/12 12:36:31 by ygille           ###   ########.fr       */
+/*   Updated: 2025/02/13 13:34:08 by ygille           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,8 @@ char	**create_new_envp(t_minishell *minishell);
 //	miniparse.c
 char	**miniparse(t_minishell *minishell, char *line);
 int		skip_whitespaces(char *line);
-int		extract_arg(t_minishell *minishell, char *line, t_mlist **args);
+int		extract_arg(t_minishell *minishell, char *line,
+			t_mlist **args, t_mlist **node);
 char	**rebuild_args(t_minishell *minishell, t_mlist *args);
 t_mlist	*extract_helper(t_minishell *minishell, char *line, int i, char sep);
 
