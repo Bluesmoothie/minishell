@@ -6,13 +6,14 @@
 /*   By: sithomas <sithomas@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/12 10:17:46 by sithomas          #+#    #+#             */
-/*   Updated: 2025/02/12 15:46:49 by sithomas         ###   ########.fr       */
+/*   Updated: 2025/02/13 13:41:44 by sithomas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
 static void	father(int *pipefd, int *pid, int size, t_minishell *minishell);
+static void	treat_n_exit(t_minishell *minishell, char *line, int fd);
 static void son(int i, t_pipes *current, int size, int *pipefd);
 static int	pipe_and_fork(int *pipefd, int i);
 
@@ -37,8 +38,7 @@ void	multiple_pipes(t_minishell *minishell, t_pipes **unpiped, int size)
 		if (pid[i] == 0)
 		{
 			son(i, current, size, pipefd);
-			treat_arguments(minishell, current->content, current->fd_out);
-			exit(EXIT_SUCCESS);
+			treat_n_exit(minishell, current->content, current->fd_out);
 		}
 		current = current->next;
 		i++;
@@ -61,15 +61,21 @@ static int	pipe_and_fork(int *pipefd, int i)
 static void	father(int *pipefd, int *pid, int size, t_minishell *minishell)
 {
 	int	i;
+	int j;
 
 	i = 0;
+	(void)minishell;
 	while (i < 2 * size)
 	{
 		if (close(pipefd[i]) == -1)
 			return ;
-		if (i % 2 != 0)
-			waitpid(pid[i / 2], &minishell->last_return_value, 0);
 		i++;
+	}
+	j = 0;
+	while (j < size)
+	{
+		waitpid(pid[j], NULL, 0);
+		j++;
 	}
 	free(pipefd);
 	free(pid);
@@ -94,6 +100,12 @@ static void son(int i, t_pipes *current, int size, int *pipefd)
 	else if (dup2(pipefd[2 * (i - 1)], current->fd_in) == -1)
 			exit (EXIT_FAILURE); //A TRAITER
 	j = 0;
-	while (j < 2 * size)
+	while (j < 2 * i + 2)
 		close(pipefd[j++]);
+}
+
+static void	treat_n_exit(t_minishell *minishell, char *line, int fd)
+{
+	treat_arguments(minishell, line, fd);
+	exit(EXIT_SUCCESS);
 }
