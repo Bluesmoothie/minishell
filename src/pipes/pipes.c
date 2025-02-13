@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipes.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ygille <ygille@student.42lyon.fr>          +#+  +:+       +#+        */
+/*   By: sithomas <sithomas@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/07 11:07:02 by sithomas          #+#    #+#             */
-/*   Updated: 2025/02/12 17:25:11 by ygille           ###   ########.fr       */
+/*   Updated: 2025/02/13 18:27:58 by sithomas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,12 +52,12 @@ static t_pipes	**create_pipe_list(char *line)
 		return (NULL);
 	i = 0;
 	list = (t_pipes **)malloc(sizeof(t_pipes *));
-	*list = NULL;
 	if (!list)
 		return (NULL);
+	*list = NULL;
 	while (splitted[i])
 	{
-		new = pipecreate(splitted[i]);
+		new = pipecreate(ft_strdup(splitted[i]));
 		if (!new)
 			return (pipeclear(*list), NULL);
 		parse_pipe(new);

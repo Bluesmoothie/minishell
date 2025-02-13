@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ygille <ygille@student.42lyon.fr>          +#+  +:+       +#+        */
+/*   By: sithomas <sithomas@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/28 17:52:27 by ygille            #+#    #+#             */
-/*   Updated: 2025/02/13 13:34:08 by ygille           ###   ########.fr       */
+/*   Updated: 2025/02/13 17:10:27 by sithomas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,5 +77,8 @@ void	display_text(char *text, char format[5], char color[6]);
 void	display_error(char *command, char *error, char *arg);
 char	*calc_prompt(t_minishell minishell);
 char	*get_relative_path(char *pwd, char *home);
+
+//	utils.c
+char **extract_str(char *str, int beg, int end);
 
 #endif

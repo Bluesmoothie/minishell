@@ -26,6 +26,7 @@ SRC_FILES		=	minishell				\
 					miniparse				\
 					parse					\
 					text					\
+					utils					\
 					builtins/cd				\
 					builtins/echo			\
 					builtins/env			\
