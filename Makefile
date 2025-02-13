@@ -33,6 +33,7 @@ SRC_FILES		=	minishell				\
 					builtins/pwd			\
 					builtins/unset			\
 					garbage/garbage			\
+					garbage/lst_protectors	\
 					garbage/m_protectors	\
 					garbage/s_protectors	\
 					garbage/s_protectors2	\

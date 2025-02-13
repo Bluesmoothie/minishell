@@ -6,7 +6,7 @@
 /*   By: ygille <ygille@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/28 17:52:41 by ygille            #+#    #+#             */
-/*   Updated: 2025/02/13 15:22:35 by ygille           ###   ########.fr       */
+/*   Updated: 2025/02/13 17:20:39 by ygille           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,9 +43,7 @@ void	define_mode(t_minishell *minishell, int argc, char **argv)
 	if (argc == 2)
 	{
 		minishell->mode = SCRIPT_MODE;
-		minishell->input_file = open(argv[1], O_RDONLY);
-		if (minishell->input_file == -1)
-			return (error(E_OPENFILE));
+		minishell->input_file = protec_open(minishell, argv[1], O_RDONLY);
 	}
 	else if (isatty(STDIN_FILENO))
 		minishell->mode = TTY_MODE;
@@ -67,13 +65,20 @@ char	*get_line(t_minishell *minishell)
 	char	*tmp;
 
 	if (minishell->mode == TTY_MODE)
-		return (readline(minishell->prompt));
+	{
+		line = readline(minishell->prompt);
+		if (line != NULL)
+			garbage_add(minishell, line);
+		return (line);
+	}
 	line = get_next_line(minishell->input_file);
+	if (line != NULL)
+		garbage_add(minishell, line);
 	if (line)
 	{
 		tmp = line;
-		line = ft_strtrim(line, "\n");
-		free(tmp);
+		line = garbage_strtrim(minishell, line, "\n");
+		garbage_release(minishell, tmp);
 	}
 	return (line);
 }

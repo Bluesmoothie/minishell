@@ -6,7 +6,7 @@
 /*   By: ygille <ygille@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/30 16:49:35 by ygille            #+#    #+#             */
-/*   Updated: 2025/02/13 16:17:48 by ygille           ###   ########.fr       */
+/*   Updated: 2025/02/13 17:05:45 by ygille           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,25 +22,23 @@ void	launch_bin(t_minishell *minishell, char *path, char **args)
 	int		pid;
 
 	new_envp = create_new_envp(minishell);
-	if (new_envp == NULL)
-		free_exit(minishell, E_MALLOC);
 	pid = fork();
 	if (pid == -1)
 	{
-		free_split(&new_envp);
+		garbage_release_split(minishell, &new_envp);
 		free_exit(minishell, E_FORK);
 	}
 	if (pid == 0)
 		execve(path, args, new_envp);
 	waitpid(pid, &minishell->last_return_value, 0);
-	free_split(&new_envp);
+	garbage_release_split(minishell, &new_envp);
 }
 
 /*
 ** Search the binary in the PATH
 ** if found, return the path or NULL if not found
 */
-char	*search_binary(char **paths, char *bin)
+char	*search_binary(t_minishell *minishell, char **paths, char *bin)
 {
 	char	*path;
 	int		i;
@@ -48,11 +46,11 @@ char	*search_binary(char **paths, char *bin)
 	i = 0;
 	while (paths[i] != NULL)
 	{
-		path = ft_strfcat(ft_strfcat(paths[i], "/", FALSE, FALSE),
-				bin, TRUE, FALSE);
+		path = garbage_strfcat(minishell, garbage_strfcat(minishell, paths[i], "/", 0),
+				bin, 10);
 		if (access(path, F_OK | X_OK) == 0)
 			return (path);
-		free(path);
+		garbage_release(minishell, (void *)path);
 		i++;
 	}
 	return (NULL);
@@ -68,18 +66,16 @@ char	**create_new_envp(t_minishell *minishell)
 	int		size;
 
 	size = ft_mlstsize(minishell->env);
-	new_envp = malloc(sizeof(char *) * (size + 1));
-	if (new_envp == NULL)
-		return (NULL);
+	new_envp = garbage_malloc(minishell, sizeof(char *) * (size + 1));
 	new_envp[size] = NULL;
 	list = minishell->env;
 	while (list != NULL)
 	{
-		new_envp[--size] = ft_strfcat(ft_strfcat(list->name, "=", FALSE, FALSE),
-				list->content, TRUE, FALSE);
+		new_envp[--size] = garbage_strfcat(minishell, garbage_strfcat(minishell, list->name, "=", 0),
+				list->content, 10);
 		if (new_envp[size] == NULL)
 		{
-			free_split(&new_envp);
+			garbage_release_split(minishell, &new_envp);
 			return (NULL);
 		}
 		list = list->next;

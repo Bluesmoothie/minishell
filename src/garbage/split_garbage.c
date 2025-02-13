@@ -6,7 +6,7 @@
 /*   By: ygille <ygille@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/13 15:34:55 by ygille            #+#    #+#             */
-/*   Updated: 2025/02/13 16:23:57 by ygille           ###   ########.fr       */
+/*   Updated: 2025/02/13 17:46:47 by ygille           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,20 +63,20 @@ void	garbage_release_split(t_minishell *minishell, void *ptr)
 		return ;
 	next = to_del->next;
 	prev->next = next;
-	ft_lstdelone(to_del, &garbage_free_split);
+	garbage_lstdelone(to_del, minishell);
 }
 
-void	garbage_destroy_split(t_list *list)
+void	garbage_destroy_split(t_minishell *minishell, t_list *list)
 {
-	ft_lstclear(&list, &garbage_free_split);
+	garbage_lstclear(minishell, &list);
 }
 
-void	garbage_free_split(void *list)
+void	garbage_free_split_acc(t_minishell *minishell, void *list)
 {
 	char	**split;
 	t_list	*lst;
 
 	lst = (t_list *)list;
 	split = (char **)lst->content;
-	free_split(&split);
+	garbage_free_split(minishell, split);
 }

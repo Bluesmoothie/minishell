@@ -6,7 +6,7 @@
 /*   By: ygille <ygille@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/13 14:52:14 by ygille            #+#    #+#             */
-/*   Updated: 2025/02/13 16:19:08 by ygille           ###   ########.fr       */
+/*   Updated: 2025/02/13 17:48:22 by ygille           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,11 @@ char	*garbage_strfcat(t_minishell *minishell, char *s1, char *s2, int del)
 
 	del_s1 = del / 10;
 	del_s2 = del % 10;
-	result = ft_strfcat(s1, s2, del_s1, del_s2);
+	result = ft_strfcat(s1, s2, FALSE, FALSE);
+	if (del_s1)
+		garbage_release(minishell, s1);
+	if(del_s2)
+		garbage_release(minishell, s2);
 	garbage_add(minishell, (void *)result);
 	return (result);
 }

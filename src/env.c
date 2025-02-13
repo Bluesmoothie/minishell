@@ -6,7 +6,7 @@
 /*   By: ygille <ygille@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/06 18:13:22 by ygille            #+#    #+#             */
-/*   Updated: 2025/02/13 16:13:13 by ygille           ###   ########.fr       */
+/*   Updated: 2025/02/13 17:21:59 by ygille           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ void	search_for_env(t_minishell *minishell, t_mlist *args)
 				replace_env_value(minishell, args, val);
 				start = ft_strchr(args->name, '$');
 			}
-			free (args->name);
+			garbage_release (minishell, args->name);
 			start = NULL;
 			val = NULL;
 		}
@@ -55,9 +55,7 @@ char	*get_env_name(t_minishell *minishell, char *arg)
 	i = 0;
 	while (arg[i] != '\0' && arg[i] != '$')
 		i++;
-	result = malloc(sizeof(char) * i);
-	if (result == NULL)
-		free_exit(minishell, E_MALLOC);
+	result = garbage_malloc(minishell, sizeof(char) * i);
 	result[i] = '\0';
 	while (i--)
 		result[i] = arg[i];
@@ -72,7 +70,7 @@ char	*get_env_value(t_minishell *minishell, char *arg)
 	t_mlist	*mlist;
 
 	if (ft_strcmp(arg, "?") == 0)
-		return (ft_itoa(minishell->last_return_value));
+		return (garbage_itoa(minishell, minishell->last_return_value));
 	mlist = minishell->env;
 	while (mlist != NULL)
 	{
@@ -96,22 +94,12 @@ void	replace_env_value(t_minishell *minishell, t_mlist *node, char *value)
 		i++;
 	if (i > 0)
 	{
-		result = ft_substr(node->name, 0, i);
-		if (result == NULL)
-			free_exit(minishell, E_MALLOC);
-		result = ft_strfcat(result, value, TRUE, FALSE);
-		if (result == NULL)
-			free_exit(minishell, E_MALLOC);
+		result = garbage_substr(minishell, node->name, 0, i);
+		result = garbage_strfcat(minishell, result, value, 10);
 	}
 	else
-	{
-		result = ft_strdup(value);
-		if (result == NULL)
-			free_exit(minishell, E_MALLOC);
-	}
-	node->content = ft_strjoin(node->content, result);
-	if (node->content == NULL)
-		free_exit(minishell, E_MALLOC);
+		result = garbage_strdup(minishell, value);
+	node->content = garbage_strjoin(minishell, node->content, result);
 	node->name = update_searching(minishell, node->name, i + 1);
 }
 
@@ -126,13 +114,11 @@ char	*update_searching(t_minishell *minishell, char *name, int i)
 	while (name[i] != '\0' && name[i] != '$')
 		i++;
 	if (name[i] == '\0')
-		free(name);
+		garbage_release(minishell, name);
 	else
 	{
-		result = ft_substr(name, i, ft_strlen(&name[i]) + 1);
-		free(name);
-		if (result == NULL)
-			free_exit(minishell, E_MALLOC);
+		result = garbage_substr(minishell, name, i, ft_strlen(&name[i]) + 1);
+		garbage_release(minishell, name);
 	}
 	return (result);
 }

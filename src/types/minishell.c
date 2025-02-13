@@ -6,7 +6,7 @@
 /*   By: ygille <ygille@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/29 14:45:43 by ygille            #+#    #+#             */
-/*   Updated: 2025/02/13 15:32:10 by ygille           ###   ########.fr       */
+/*   Updated: 2025/02/13 17:51:17 by ygille           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void	init_struct(t_minishell *minishell, char **envp)
 	minishell->pwd = getcwd(NULL, 0);
 	minishell->last_return_value = 0;
 	minishell->envp = envp;
-	minishell->env = init_env(envp);
+	minishell->env = init_env(minishell, envp);
 	minishell->prompt = calc_prompt(*minishell);
 	minishell->garbage = NULL;
 	minishell->garbage_split = NULL;
@@ -35,13 +35,13 @@ void	free_struct(t_minishell *minishell)
 {
 	if (minishell->pwd)
 	{
-		free(minishell->pwd);
+		garbage_release(minishell, minishell->pwd);
 		minishell->pwd = NULL;
 	}
 	if (minishell->env)
-		minishell->env = ft_mlstclear(minishell->env);
+		minishell->env = ft_mlstclear(minishell, minishell->env);
 	if (minishell->prompt)
-		free (minishell->prompt);
+	garbage_release(minishell, minishell->prompt);
 }
 
 /*
@@ -53,13 +53,13 @@ void	update_infos(t_minishell *minishell)
 	minishell->user = getenv("USER");
 	if (minishell->pwd)
 	{
-		free(minishell->pwd);
+		garbage_release(minishell, minishell->pwd);
 		minishell->pwd = NULL;
 	}
 	minishell->pwd = getcwd(NULL, 0);
 	if (minishell->prompt)
 	{
-		free (minishell->prompt);
+		garbage_release(minishell, minishell->prompt);
 		minishell->prompt = NULL;
 	}
 	minishell->prompt = calc_prompt(*minishell);

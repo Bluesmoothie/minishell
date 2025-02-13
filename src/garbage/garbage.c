@@ -6,7 +6,7 @@
 /*   By: ygille <ygille@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/13 14:23:11 by ygille            #+#    #+#             */
-/*   Updated: 2025/02/13 16:18:21 by ygille           ###   ########.fr       */
+/*   Updated: 2025/02/13 17:47:15 by ygille           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,12 +22,7 @@ void	garbage_add(t_minishell *minishell, void *ptr)
 
 	if (ptr == NULL)
 		free_exit(minishell, E_MALLOC);
-	node = ft_lstnew(ptr);
-	if (node == NULL)
-	{
-		free (ptr);
-		free_exit(minishell, E_MALLOC);
-	}
+	node = garbage_lstnew(minishell, ptr);
 	ft_lstadd_back(&minishell->garbage, node);
 }
 
@@ -36,8 +31,8 @@ void	garbage_add(t_minishell *minishell, void *ptr)
 */
 void	garbage_destroy(t_minishell *minishell)
 {
-	ft_lstclear(&minishell->garbage, &free);
-	garbage_destroy_split(minishell->garbage);
+	garbage_lstclear(minishell, &minishell->garbage);
+	garbage_destroy_split(minishell, minishell->garbage_split);
 }
 
 /*
@@ -51,14 +46,29 @@ void	garbage_release(t_minishell *minishell, void *ptr)
 	t_list	*next;
 
 	to_del = minishell->garbage;
-	while (to_del != ptr && to_del != NULL)
+	while (to_del->content != ptr && to_del != NULL)
 	{
 		prev = to_del;
 		to_del = to_del->next;
 	}
 	if (to_del == NULL)
+	{
+		free (ptr);
 		return ;
+	}
 	next = to_del->next;
 	prev->next = next;
-	ft_lstdelone(to_del, &free);
+	garbage_lstdelone(to_del, minishell);
+}
+
+void	garbage_free_split(t_minishell *minishell, char **split)
+{
+	int	i;
+
+	i = 0;
+	if (split == NULL)
+		return ;
+	while (split[i])
+		garbage_release(minishell, split[i++]);
+	garbage_release(minishell, split);
 }

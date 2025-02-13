@@ -6,7 +6,7 @@
 /*   By: ygille <ygille@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/10 12:39:29 by ygille            #+#    #+#             */
-/*   Updated: 2025/02/13 16:13:58 by ygille           ###   ########.fr       */
+/*   Updated: 2025/02/13 17:49:52 by ygille           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ char	**miniparse(t_minishell *minishell, char *line)
 	}
 	search_for_env(minishell, args);
 	out = rebuild_args(minishell, args);
-	ft_mlstclear(args);
+	ft_mlstclear(minishell, args);
 	return (out);
 }
 
@@ -92,20 +92,14 @@ char	**rebuild_args(t_minishell *minishell, t_mlist *args)
 	char	**result;
 	int		i;
 
-	result = malloc(sizeof(char *) * (ft_mlstsize(args) + 1));
-	if (result == NULL)
-		free_exit(minishell, E_MALLOC);
+	result = (char **)garbage_malloc(minishell, sizeof(char *) * (ft_mlstsize(args) + 1));
 	i = 0;
 	while (args != NULL)
 	{
-		result[i] = ft_strdup(args->content);
-		if (result[i] == NULL)
-			free_exit(minishell, E_MALLOC);
+		result[i] = garbage_strdup(minishell, args->content);
 		while (args->glue == TRUE)
 		{
-			result[i] = ft_strfcat(result[i], args->content, TRUE, FALSE);
-			if (result[i] == NULL)
-				free_exit(minishell, E_MALLOC);
+			result[i] = garbage_strfcat(minishell, result[i], args->content, 10);
 			args = args->next;
 		}
 		args = args->next;
@@ -126,14 +120,10 @@ t_mlist	*extract_helper(t_minishell *minishell, char *line, int i, char sep)
 
 	content = NULL;
 	if (sep == ' ')
-		content = ft_substr(line, 0, i);
+		content = garbage_substr(minishell, line, 0, i);
 	else if (sep == '\'' || sep == '\"')
-		content = ft_substr(line, 1, i - 2);
-	if (content == NULL)
-		free_exit(minishell, E_MALLOC);
-	node = ft_mlstcreate(NULL, content);
-	if (node == NULL)
-		free_exit(minishell, E_MALLOC);
+		content = garbage_substr(minishell, line, 1, i - 2);
+	node = ft_mlstcreate(minishell, NULL, content);
 	node->mask = sep;
 	return (node);
 }

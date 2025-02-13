@@ -6,7 +6,7 @@
 /*   By: ygille <ygille@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/28 17:52:27 by ygille            #+#    #+#             */
-/*   Updated: 2025/02/13 15:22:42 by ygille           ###   ########.fr       */
+/*   Updated: 2025/02/13 17:40:20 by ygille           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,12 +50,12 @@ char	*update_searching(t_minishell *minishell, char *name, int i);
 void	init_minishell(t_minishell *minishell, char **envp);
 void	init_signals(void);
 void	init_term(void);
-t_mlist	*init_env(char **envp);
+t_mlist	*init_env(t_minishell *minishell, char **envp);
 void	signal_handler(int sig);
 
 //	launch.c
 void	launch_bin(t_minishell *minishell, char *path, char **args);
-char	*search_binary(char **paths, char *bin);
+char	*search_binary(t_minishell *minishell, char **paths, char *bin);
 char	**create_new_envp(t_minishell *minishell);
 
 //	miniparse.c
@@ -77,6 +77,6 @@ char	*calc_bin_path(t_minishell *minishell, char **args);
 void	display_text(char *text, char format[5], char color[6]);
 void	display_error(char *command, char *error, char *arg);
 char	*calc_prompt(t_minishell minishell);
-char	*get_relative_path(char *pwd, char *home);
+char	*get_relative_path(t_minishell *minishell, char *pwd, char *home);
 
 #endif

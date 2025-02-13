@@ -6,7 +6,7 @@
 /*   By: ygille <ygille@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/28 19:38:14 by ygille            #+#    #+#             */
-/*   Updated: 2025/02/13 16:16:11 by ygille           ###   ########.fr       */
+/*   Updated: 2025/02/13 17:39:23 by ygille           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,17 +33,16 @@ void	treat_arguments(t_minishell *minishell, char *line, int fd)
 	char	**args;
 
 	args = miniparse(minishell, line);
-	if (args == NULL)
-		free_exit(minishell, E_SPLIT);
+	garbage_add_split(minishell, args);
 	if (args[0] == NULL)
 	{
-		free_split(&args);
+		garbage_release_split(minishell, (void *)args);
 		return ;
 	}
-	free(line);
+	garbage_release(minishell, line);
 	if (!builtin_functions(minishell, args, fd))
 		try_launch(minishell, args);
-	free_split(&args);
+	garbage_release_split(minishell, (void *)args);
 	return ;
 }
 
@@ -55,7 +54,7 @@ t_bool	builtin_functions(t_minishell *minishell, char **args, int fd)
 	if (ft_strcmp(args[0], "exit") == 0)
 		free_exit(minishell, NULL);
 	else if (ft_strcmp(args[0], "echo") == 0)
-		minishell->last_return_value = func_echo(minishell, args, fd);
+		minishell->last_return_value = func_echo(args, fd);
 	else if (ft_strcmp(args[0], "cd") == 0)
 		minishell->last_return_value = func_cd(minishell, args);
 	else if (ft_strcmp(args[0], "pwd") == 0)
@@ -84,7 +83,7 @@ void	try_launch(t_minishell *minishell, char **args)
 	if (path != NULL)
 	{
 		launch_bin(minishell, path, args);
-		free(path);
+		garbage_release(minishell, path);
 	}
 	else
 	{
@@ -103,16 +102,14 @@ char	*calc_bin_path(t_minishell *minishell, char **args)
 	char	*path;
 
 	if (!ft_strncmp("./", args[0], 2))
-		path = ft_strfcat(minishell->pwd, &args[0][2], FALSE, FALSE);
+		path = garbage_strfcat(minishell, minishell->pwd, &args[0][2], 0);
 	else if (!ft_strncmp("~/", args[0], 2))
-		path = ft_strfcat(minishell->home, &args[0][1], FALSE, FALSE);
+		path = garbage_strfcat(minishell, minishell->home, &args[0][1], 0);
 	else
 	{
-		paths = ft_split(get_env_value(minishell, "PATH"), ':');
-		if (paths == NULL)
-			free_exit(minishell, E_MALLOC);
-		path = search_binary(paths, args[0]);
-		free_split(&paths);
+		paths = garbage_split(minishell, get_env_value(minishell, "PATH"), ':');
+		path = search_binary(minishell, paths, args[0]);
+		garbage_release_split(minishell, paths);
 	}
 	return (path);
 }

@@ -6,7 +6,7 @@
 /*   By: ygille <ygille@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/28 19:54:08 by ygille            #+#    #+#             */
-/*   Updated: 2025/01/30 16:27:06 by ygille           ###   ########.fr       */
+/*   Updated: 2025/02/13 17:40:38 by ygille           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,22 +43,22 @@ char	*calc_prompt(t_minishell minishell)
 	char	*pwd;
 	char	*prompt;
 
-	pwd = get_relative_path(minishell.pwd, minishell.home);
-	prompt = ft_strfcat(PROMPT_LEFT_COLOR, TEXT_BOLD, FALSE, FALSE);
-	prompt = ft_strfcat(prompt, minishell.user, TRUE, FALSE);
-	prompt = ft_strfcat(prompt, "@minishell", TRUE, FALSE);
-	prompt = ft_strfcat(prompt, PROMPT_RIGHT_COLOR, TRUE, FALSE);
-	prompt = ft_strfcat(prompt, ":", TRUE, FALSE);
-	prompt = ft_strfcat(prompt, pwd, TRUE, TRUE);
-	prompt = ft_strfcat(prompt, TEXT_RESET, TRUE, FALSE);
-	prompt = ft_strfcat(prompt, "$ ", TRUE, FALSE);
+	pwd = get_relative_path(&minishell, minishell.pwd, minishell.home);
+	prompt = garbage_strfcat(&minishell, PROMPT_LEFT_COLOR, TEXT_BOLD, 0);
+	prompt = garbage_strfcat(&minishell, prompt, minishell.user, 10);
+	prompt = garbage_strfcat(&minishell, prompt, "@minishell", 10);
+	prompt = garbage_strfcat(&minishell, prompt, PROMPT_RIGHT_COLOR, 10);
+	prompt = garbage_strfcat(&minishell, prompt, ":", 10);
+	prompt = garbage_strfcat(&minishell, prompt, pwd, 11);
+	prompt = garbage_strfcat(&minishell, prompt, TEXT_RESET, 10);
+	prompt = garbage_strfcat(&minishell, prompt, "$ ", 10);
 	return (prompt);
 }
 
 /*
 ** Get the path relative to the home directory
 */
-char	*get_relative_path(char *pwd, char *home)
+char	*get_relative_path(t_minishell *minishell, char *pwd, char *home)
 {
 	char	*relative_path;
 	int		i;
@@ -68,7 +68,7 @@ char	*get_relative_path(char *pwd, char *home)
 		return (pwd);
 	while (pwd[i] && home[i] && pwd[i] == home[i])
 		i++;
-	relative_path = ft_strdup(&pwd[i]);
-	relative_path = ft_strfcat("~", relative_path, FALSE, TRUE);
+	relative_path = garbage_strdup(minishell, &pwd[i]);
+	relative_path = garbage_strfcat(minishell, "~", relative_path, 1);
 	return (relative_path);
 }

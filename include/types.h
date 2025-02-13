@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   types.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sithomas <sithomas@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: ygille <ygille@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/11 17:02:55 by ygille            #+#    #+#             */
-/*   Updated: 2025/02/13 11:50:07 by sithomas         ###   ########.fr       */
+/*   Updated: 2025/02/13 17:49:38 by ygille           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,10 @@
 # define TYPES_H
 
 //	types/mlist.c
-t_mlist	*ft_mlstclear(t_mlist *lst);
-t_mlist	*ft_mlstcreate(char *name, char *content);
+t_mlist	*ft_mlstclear(t_minishell *minishell, t_mlist *lst);
+t_mlist	*ft_mlstcreate(t_minishell *minishell, char *name, char *content);
 t_mlist	*ft_mlstadd_front(t_mlist *lst, t_mlist *new);
-void	ft_mlstdelone(t_mlist *lst);
+void	ft_mlstdelone(t_minishell *minishell, t_mlist *lst);
 int		ft_mlstsize(t_mlist *lst);
 
 //	types/mlist2.c

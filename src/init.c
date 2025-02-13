@@ -6,7 +6,7 @@
 /*   By: ygille <ygille@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/30 16:11:43 by ygille            #+#    #+#             */
-/*   Updated: 2025/02/11 16:56:35 by ygille           ###   ########.fr       */
+/*   Updated: 2025/02/13 17:22:25 by ygille           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ void	init_term(void)
 /*
 ** Initialize the environment variables
 */
-t_mlist	*init_env(char **envp)
+t_mlist	*init_env(t_minishell *minishell, char **envp)
 {
 	t_mlist	*env;
 	char	*name;
@@ -57,9 +57,9 @@ t_mlist	*init_env(char **envp)
 	env = NULL;
 	while (envp[i] != NULL)
 	{
-		name = extract_name(envp[i]);
-		content = extract_content(envp[i]);
-		env = ft_mlstadd_front(env, ft_mlstcreate(name, content));
+		name = extract_name(minishell, envp[i]);
+		content = extract_content(minishell, envp[i]);
+		env = ft_mlstadd_front(env, ft_mlstcreate(minishell, name, content));
 		i++;
 	}
 	return (env);
