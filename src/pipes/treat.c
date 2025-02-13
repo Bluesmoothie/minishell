@@ -6,7 +6,7 @@
 /*   By: ygille <ygille@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/11 17:49:10 by sithomas          #+#    #+#             */
-/*   Updated: 2025/02/12 17:25:32 by ygille           ###   ########.fr       */
+/*   Updated: 2025/02/13 16:17:07 by ygille           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,27 +22,27 @@ void	treat_pipe(t_minishell *minishell, t_pipes *unpiped)
 	pipe(pipefd);
 	pid = fork();
 	if (pid == -1)
-		return (free_exit(minishell, NULL, E_FORKFAIL));
+		return (free_exit(minishell, E_FORK));
 	if (pid == 0)
 	{
 		if (close(pipefd[0]) == -1)
-			return (free_exit(minishell, NULL, "Close failed"));
+			return (free_exit(minishell, "Close failed"));
 		if (unpiped->next && (dup2(pipefd[1], unpiped->fd_out) == -1))
-			return (free_exit(minishell, NULL, "dup2 failed"));
+			return (free_exit(minishell, "dup2 failed"));
 		treat_arguments(minishell, unpiped->content, unpiped->fd_out);
 		if (close(pipefd[1]) == -1)
-			return (free_exit(minishell, NULL, "close failed"));
+			return (free_exit(minishell, "close failed"));
 		exit(EXIT_SUCCESS);
 	}
 	else
 	{
 		if (unpiped->next && (dup2(pipefd[0], unpiped->fd_in) == -1))
-			return (free_exit(minishell, NULL, "dup2 failed"));
+			return (free_exit(minishell, "dup2 failed"));
 		if (close(pipefd[1]) == -1)
-			return (free_exit(minishell, NULL, "close failed"));
+			return (free_exit(minishell, "close failed"));
 	}
 	if (waitpid(pid, NULL, 0) == -1)
-		return (free_exit(minishell, NULL, "waitpid failed"));
+		return (free_exit(minishell, "waitpid failed"));
 }
 
 int	fill_here_doc(t_pipes *new, char *tmp)

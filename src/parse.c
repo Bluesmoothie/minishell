@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sithomas <sithomas@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: ygille <ygille@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/28 19:38:14 by ygille            #+#    #+#             */
-/*   Updated: 2025/02/12 15:47:36 by sithomas         ###   ########.fr       */
+/*   Updated: 2025/02/13 16:16:11 by ygille           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 void	parse_line(t_minishell *minishell, char *line)
 {
 	if (line == NULL)
-		free_exit(minishell, NULL, NULL);
+		free_exit(minishell, NULL);
 	add_history(line);
 	unpipe(minishell, line);
 }
@@ -34,7 +34,7 @@ void	treat_arguments(t_minishell *minishell, char *line, int fd)
 
 	args = miniparse(minishell, line);
 	if (args == NULL)
-		free_exit(minishell, args, E_SPLITFAIL);
+		free_exit(minishell, E_SPLIT);
 	if (args[0] == NULL)
 	{
 		free_split(&args);
@@ -53,7 +53,7 @@ void	treat_arguments(t_minishell *minishell, char *line, int fd)
 t_bool	builtin_functions(t_minishell *minishell, char **args, int fd)
 {
 	if (ft_strcmp(args[0], "exit") == 0)
-		free_exit(minishell, args, NULL);
+		free_exit(minishell, NULL);
 	else if (ft_strcmp(args[0], "echo") == 0)
 		minishell->last_return_value = func_echo(minishell, args, fd);
 	else if (ft_strcmp(args[0], "cd") == 0)
@@ -110,7 +110,7 @@ char	*calc_bin_path(t_minishell *minishell, char **args)
 	{
 		paths = ft_split(get_env_value(minishell, "PATH"), ':');
 		if (paths == NULL)
-			free_exit(minishell, args, E_MALLOCFAIL);
+			free_exit(minishell, E_MALLOC);
 		path = search_binary(paths, args[0]);
 		free_split(&paths);
 	}

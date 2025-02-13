@@ -1,22 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   garbage.c                                          :+:      :+:    :+:   */
+/*   split_garbage.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ygille <ygille@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/02/13 14:23:11 by ygille            #+#    #+#             */
-/*   Updated: 2025/02/13 16:18:21 by ygille           ###   ########.fr       */
+/*   Created: 2025/02/13 15:34:55 by ygille            #+#    #+#             */
+/*   Updated: 2025/02/13 16:23:57 by ygille           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
 /*
-** Add a pointer to the garbage list
+** /!\ you need to free this pointer with garbage_release_split /!\
+*/
+char	**garbage_split(t_minishell *minishell, const char *s, char c)
+{
+	char	**result;
+
+	result = ft_split(s, c);
+	garbage_add_split(minishell, (void *)result);
+	return (result);
+}
+
+/*
+** Add a pointer to the garbage split list
 ** not meant to be use outside of garbage collector itself
 */
-void	garbage_add(t_minishell *minishell, void *ptr)
+void	garbage_add_split(t_minishell *minishell, void *ptr)
 {
 	t_list	*node;
 
@@ -28,23 +40,14 @@ void	garbage_add(t_minishell *minishell, void *ptr)
 		free (ptr);
 		free_exit(minishell, E_MALLOC);
 	}
-	ft_lstadd_back(&minishell->garbage, node);
+	ft_lstadd_back(&minishell->garbage_split, node);
 }
 
 /*
-** Free all pointer in the garbage list
-*/
-void	garbage_destroy(t_minishell *minishell)
-{
-	ft_lstclear(&minishell->garbage, &free);
-	garbage_destroy_split(minishell->garbage);
-}
-
-/*
-** Free a pointer and remove it from the garbage list
+** Free a split pointer and remove it from the garbage list
 ** you need to cast your pointer to (void *)
 */
-void	garbage_release(t_minishell *minishell, void *ptr)
+void	garbage_release_split(t_minishell *minishell, void *ptr)
 {
 	t_list	*to_del;
 	t_list	*prev;
@@ -60,5 +63,20 @@ void	garbage_release(t_minishell *minishell, void *ptr)
 		return ;
 	next = to_del->next;
 	prev->next = next;
-	ft_lstdelone(to_del, &free);
+	ft_lstdelone(to_del, &garbage_free_split);
+}
+
+void	garbage_destroy_split(t_list *list)
+{
+	ft_lstclear(&list, &garbage_free_split);
+}
+
+void	garbage_free_split(void *list)
+{
+	char	**split;
+	t_list	*lst;
+
+	lst = (t_list *)list;
+	split = (char **)lst->content;
+	free_split(&split);
 }

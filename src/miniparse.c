@@ -6,7 +6,7 @@
 /*   By: ygille <ygille@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/10 12:39:29 by ygille            #+#    #+#             */
-/*   Updated: 2025/02/13 14:05:10 by ygille           ###   ########.fr       */
+/*   Updated: 2025/02/13 16:13:58 by ygille           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,18 +94,18 @@ char	**rebuild_args(t_minishell *minishell, t_mlist *args)
 
 	result = malloc(sizeof(char *) * (ft_mlstsize(args) + 1));
 	if (result == NULL)
-		free_exit(minishell, NULL, E_MALLOCFAIL);
+		free_exit(minishell, E_MALLOC);
 	i = 0;
 	while (args != NULL)
 	{
 		result[i] = ft_strdup(args->content);
 		if (result[i] == NULL)
-			free_exit(minishell, NULL, E_MALLOCFAIL);
+			free_exit(minishell, E_MALLOC);
 		while (args->glue == TRUE)
 		{
 			result[i] = ft_strfcat(result[i], args->content, TRUE, FALSE);
 			if (result[i] == NULL)
-				free_exit(minishell, NULL, E_MALLOCFAIL);
+				free_exit(minishell, E_MALLOC);
 			args = args->next;
 		}
 		args = args->next;
@@ -130,10 +130,10 @@ t_mlist	*extract_helper(t_minishell *minishell, char *line, int i, char sep)
 	else if (sep == '\'' || sep == '\"')
 		content = ft_substr(line, 1, i - 2);
 	if (content == NULL)
-		free_exit(minishell, NULL, E_MALLOCFAIL);
+		free_exit(minishell, E_MALLOC);
 	node = ft_mlstcreate(NULL, content);
 	if (node == NULL)
-		free_exit(minishell, NULL, E_MALLOCFAIL);
+		free_exit(minishell, E_MALLOC);
 	node->mask = sep;
 	return (node);
 }
