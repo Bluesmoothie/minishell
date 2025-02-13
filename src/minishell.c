@@ -6,7 +6,7 @@
 /*   By: ygille <ygille@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/28 17:52:41 by ygille            #+#    #+#             */
-/*   Updated: 2025/02/13 14:07:37 by ygille           ###   ########.fr       */
+/*   Updated: 2025/02/13 14:28:35 by ygille           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,6 +92,7 @@ void	error(char *message)
 */
 void	free_exit(t_minishell *minishell, char **args, char *message)
 {
+	garbage_destroy(minishell);
 	free_struct(minishell);
 	free_split(&args);
 	rl_clear_history();

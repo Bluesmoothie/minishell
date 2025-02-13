@@ -6,7 +6,7 @@
 /*   By: ygille <ygille@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/11 16:51:17 by ygille            #+#    #+#             */
-/*   Updated: 2025/02/13 13:24:08 by ygille           ###   ########.fr       */
+/*   Updated: 2025/02/13 14:23:03 by ygille           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ typedef struct s_minishell
 	char	**envp;
 	char	*prompt;
 	t_mlist	*env;
+	t_list	*garbage;
 }	t_minishell;
 
 typedef struct s_mlist

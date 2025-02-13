@@ -6,7 +6,7 @@
 /*   By: ygille <ygille@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/29 14:45:43 by ygille            #+#    #+#             */
-/*   Updated: 2025/02/12 12:23:03 by ygille           ###   ########.fr       */
+/*   Updated: 2025/02/13 14:31:20 by ygille           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ void	init_struct(t_minishell *minishell, char **envp)
 	minishell->envp = envp;
 	minishell->env = init_env(envp);
 	minishell->prompt = calc_prompt(*minishell);
+	minishell->garbage = NULL;
 }
 
 /*
