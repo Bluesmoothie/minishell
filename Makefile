@@ -1,4 +1,4 @@
-.PHONY			:	clean fclean re all norme FORCE check test
+.PHONY			:	clean fclean re all norme FORCE check test valgrind valgrindext
 
 NAME			=   minishell
 
@@ -79,6 +79,12 @@ TESTS_GARBAGE	=	error.log					\
 					ref.txt						\
 					\"file with spaces.txt\"	\
 
+#			VALGRIND
+
+VFLAGS			=	--leak-check=full --show-leak-kinds=all --track-origins=yes
+VFLAGS			+=	--suppressions=ignore_readline.supp -s
+VFLAGS			+=	--log-socket=127.0.0.1:4242
+
 #			RULES
 
 all				:	$(NAME)
@@ -108,6 +114,14 @@ check			:	test
 
 test			:
 				$(CC) $(CFLAGS) tests/tests.c tests/tests2.c $(LIBSFLAGS) -o checker
+
+valgrind		:
+				@echo "\033[31m\033[1mNow launch make valgrindext in another console"
+				@echo "Errors will appear here CTRL+C to stop\033[0m"
+				valgrind-listener 4242
+
+valgrindext		:
+				valgrind $(VFLAGS) ./$(NAME)
 
 norme			:
 				norminette $(SRC_DIR) include
