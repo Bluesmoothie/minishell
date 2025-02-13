@@ -6,7 +6,7 @@
 /*   By: sithomas <sithomas@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/07 11:07:02 by sithomas          #+#    #+#             */
-/*   Updated: 2025/02/13 18:27:58 by sithomas         ###   ########.fr       */
+/*   Updated: 2025/02/13 18:55:42 by sithomas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,14 +23,14 @@ void	unpipe(t_minishell *minishell, char *line)
 	int		tmp_out;
 
 	if (line == NULL)
-		free_exit(minishell, NULL, NULL);
+		free_exit(minishell, NULL);
 	if (!line[0])
 		return (treat_arguments(minishell, line, STDOUT_FILENO));
 	tmp_in = dup(STDIN_FILENO);
 	tmp_out = dup(STDOUT_FILENO);
 	unpiped = create_pipe_list(line);
 	if (!unpiped)
-		free_exit(minishell, NULL, E_SPLITFAIL);
+		free_exit(minishell, E_SPLIT);
 	size = pipelstsize(*unpiped);
 	if (!(*unpiped)->next)
 		nopipe(minishell, unpiped);

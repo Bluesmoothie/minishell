@@ -33,6 +33,12 @@ SRC_FILES		=	minishell				\
 					builtins/export			\
 					builtins/pwd			\
 					builtins/unset			\
+					garbage/garbage			\
+					garbage/m_protectors	\
+					garbage/s_protectors	\
+					garbage/s_protectors2	\
+					garbage/split_garbage	\
+					garbage/str_protectors	\
 					pipes/parse				\
 					pipes/multiple_pipes	\
 					pipes/pipes				\
@@ -96,6 +102,7 @@ $(NAME)			:	$(BUILD_DIR) $(OBJ) $(LIBFT_A)
 $(BUILD_DIR)	:
 				mkdir -p $(BUILD_DIR)
 				mkdir -p $(BUILD_DIR)builtins
+				mkdir -p $(BUILD_DIR)garbage
 				mkdir -p $(BUILD_DIR)pipes
 				mkdir -p $(BUILD_DIR)types
 

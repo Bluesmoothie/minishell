@@ -6,7 +6,7 @@
 /*   By: sithomas <sithomas@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/28 17:52:41 by ygille            #+#    #+#             */
-/*   Updated: 2025/02/13 14:59:55 by sithomas         ###   ########.fr       */
+/*   Updated: 2025/02/13 18:55:30 by sithomas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,11 +90,10 @@ void	error(char *message)
 /*
 ** Free args and exit the program
 */
-void	free_exit(t_minishell *minishell, char **args, char *message)
+void	free_exit(t_minishell *minishell, char *message)
 {
 	// garbage_destroy(minishell);
 	free_struct(minishell);
-	free_split(&args);
 	rl_clear_history();
 	if (minishell->mode == SCRIPT_MODE)
 		close (minishell->input_file);

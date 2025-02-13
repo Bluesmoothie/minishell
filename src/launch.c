@@ -6,7 +6,7 @@
 /*   By: ygille <ygille@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/30 16:49:35 by ygille            #+#    #+#             */
-/*   Updated: 2025/02/06 18:25:15 by ygille           ###   ########.fr       */
+/*   Updated: 2025/02/13 16:17:48 by ygille           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,12 +23,12 @@ void	launch_bin(t_minishell *minishell, char *path, char **args)
 
 	new_envp = create_new_envp(minishell);
 	if (new_envp == NULL)
-		free_exit(minishell, args, E_MALLOCFAIL);
+		free_exit(minishell, E_MALLOC);
 	pid = fork();
 	if (pid == -1)
 	{
 		free_split(&new_envp);
-		free_exit(minishell, args, E_FORKFAIL);
+		free_exit(minishell, E_FORK);
 	}
 	if (pid == 0)
 		execve(path, args, new_envp);

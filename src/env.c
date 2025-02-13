@@ -6,7 +6,7 @@
 /*   By: ygille <ygille@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/06 18:13:22 by ygille            #+#    #+#             */
-/*   Updated: 2025/02/11 16:55:04 by ygille           ###   ########.fr       */
+/*   Updated: 2025/02/13 16:13:13 by ygille           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ char	*get_env_name(t_minishell *minishell, char *arg)
 		i++;
 	result = malloc(sizeof(char) * i);
 	if (result == NULL)
-		free_exit(minishell, NULL, E_MALLOCFAIL);
+		free_exit(minishell, E_MALLOC);
 	result[i] = '\0';
 	while (i--)
 		result[i] = arg[i];
@@ -98,20 +98,20 @@ void	replace_env_value(t_minishell *minishell, t_mlist *node, char *value)
 	{
 		result = ft_substr(node->name, 0, i);
 		if (result == NULL)
-			free_exit(minishell, NULL, E_MALLOCFAIL);
+			free_exit(minishell, E_MALLOC);
 		result = ft_strfcat(result, value, TRUE, FALSE);
 		if (result == NULL)
-			free_exit(minishell, NULL, E_MALLOCFAIL);
+			free_exit(minishell, E_MALLOC);
 	}
 	else
 	{
 		result = ft_strdup(value);
 		if (result == NULL)
-			free_exit(minishell, NULL, E_MALLOCFAIL);
+			free_exit(minishell, E_MALLOC);
 	}
 	node->content = ft_strjoin(node->content, result);
 	if (node->content == NULL)
-		free_exit(minishell, NULL, E_MALLOCFAIL);
+		free_exit(minishell, E_MALLOC);
 	node->name = update_searching(minishell, node->name, i + 1);
 }
 
@@ -132,7 +132,7 @@ char	*update_searching(t_minishell *minishell, char *name, int i)
 		result = ft_substr(name, i, ft_strlen(&name[i]) + 1);
 		free(name);
 		if (result == NULL)
-			free_exit(minishell, NULL, E_MALLOCFAIL);
+			free_exit(minishell, E_MALLOC);
 	}
 	return (result);
 }
