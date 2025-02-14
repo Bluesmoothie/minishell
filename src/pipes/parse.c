@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sithomas <sithomas@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: ygille <ygille@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/11 17:44:17 by sithomas          #+#    #+#             */
-/*   Updated: 2025/02/13 18:22:56 by sithomas         ###   ########.fr       */
+/*   Updated: 2025/02/14 12:54:13 by ygille           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,10 +39,8 @@ void	parse_pipe(t_pipes	*new)
 
 static void	right_pipe(t_pipes *new, int pos)
 {
-	int		j;
 	char	*path;
 
-	j = pos;
 	if (new->content[pos + 1] == '<')
 	{
 		path = pipe_helper(new, pos, 2, 1);
@@ -57,10 +55,8 @@ static void	right_pipe(t_pipes *new, int pos)
 
 static void	left_pipe(t_pipes *new, int pos)
 {
-	int		j;
 	char 	*path;
 
-	j = pos;
 	if (new->content[pos + 1] == '>')
 	{
 		path = pipe_helper(new, pos, 2, 2);
