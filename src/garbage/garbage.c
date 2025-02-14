@@ -5,60 +5,59 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: ygille <ygille@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/02/13 14:23:11 by ygille            #+#    #+#             */
-/*   Updated: 2025/02/13 16:18:21 by ygille           ###   ########.fr       */
+/*   Created: 2025/02/14 13:01:28 by ygille            #+#    #+#             */
+/*   Updated: 2025/02/14 13:30:41 by ygille           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "garbage.h"
 
-/*
-** Add a pointer to the garbage list
-** not meant to be use outside of garbage collector itself
-*/
-void	garbage_add(t_minishell *minishell, void *ptr)
+void	garbage_col(int op_code, void *ptr)
 {
-	t_list	*node;
+	static void		*glist[GARBAGE_SIZE];
+	static size_t	act_gsize = 0;
 
 	if (ptr == NULL)
-		free_exit(minishell, E_MALLOC);
-	node = ft_lstnew(ptr);
-	if (node == NULL)
-	{
-		free (ptr);
-		free_exit(minishell, E_MALLOC);
-	}
-	ft_lstadd_back(&minishell->garbage, node);
-}
-
-/*
-** Free all pointer in the garbage list
-*/
-void	garbage_destroy(t_minishell *minishell)
-{
-	ft_lstclear(&minishell->garbage, &free);
-	garbage_destroy_split(minishell->garbage);
-}
-
-/*
-** Free a pointer and remove it from the garbage list
-** you need to cast your pointer to (void *)
-*/
-void	garbage_release(t_minishell *minishell, void *ptr)
-{
-	t_list	*to_del;
-	t_list	*prev;
-	t_list	*next;
-
-	to_del = minishell->garbage;
-	while (to_del != ptr && to_del != NULL)
-	{
-		prev = to_del;
-		to_del = to_del->next;
-	}
-	if (to_del == NULL)
 		return ;
-	next = to_del->next;
-	prev->next = next;
-	ft_lstdelone(to_del, &free);
+	if (op_code == ADDPTR)
+		garbage_add(glist, &act_gsize, ptr);
+	else if (op_code == RMPTR)
+		garbage_remove(glist, &act_gsize, ptr);
+}
+
+void	garbage_add(void *glist[], size_t *gsize, void *ptr)
+{
+	if (*gsize == GARBAGE_SIZE)
+		return (garbage_error(E_GFULL));
+	glist[*gsize] = ptr;
+	(*gsize)++;
+}
+
+void	garbage_remove(void *glist[], size_t *gsize, void *ptr)
+{
+	size_t	i;
+
+	if (*gsize == 0)
+		return ;
+	i = 0;
+	while (i < *gsize && glist[i] != ptr)
+		i++;
+	if (i == *gsize)
+#if GARBAGE_WARN_NF
+		return (garbage_error(E_GNF));
+#else
+		return ;
+#endif
+	glist[i] = NULL;
+	if (i < *gsize - 1)
+	{
+		glist[i] = glist[*gsize - 1];
+		glist[*gsize - 1] = NULL;
+	}
+	(*gsize)--;
+}
+
+void	garbage_error(char *message)
+{
+	ft_putendl_fd(message, STDERR_FILENO);
 }

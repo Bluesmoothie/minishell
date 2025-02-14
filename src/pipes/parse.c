@@ -6,7 +6,7 @@
 /*   By: sithomas <sithomas@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/11 17:44:17 by sithomas          #+#    #+#             */
-/*   Updated: 2025/02/14 17:16:39 by sithomas         ###   ########.fr       */
+/*   Updated: 2025/02/14 17:20:56 by sithomas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,13 +47,10 @@ int	parse_pipe(t_pipes	*new)
 
 static int	right_pipe(t_pipes *new, int pos)
 {
-	int		j;
 	char	*path;
 
 	j = pos;
-	if (!new->content[pos + 1] || !new->content[pos + 2])
-		return (write(2, "Syntax error near\nunexpected token 'newline'\n", 45));
-	else if (new->content[pos + 1] == '<')
+	if (new->content[pos + 1] == '<')
 	{
 		if (new->content[pos + 2] == '<' || new->content[pos + 2] == '>')
 			return (write(2, "Syntax error near\nunexpected token '<<'\n", 40));
@@ -74,13 +71,10 @@ static int	right_pipe(t_pipes *new, int pos)
 
 static int	left_pipe(t_pipes *new, int pos)
 {
-	int		j;
 	char 	*path;
 
 	j = pos;
-	if (!new->content[pos + 1] || !new->content[pos + 2])
-		return (write(2, "Syntax error near\nunexpected token 'newline'\n", 45));
-	else if (new->content[pos + 1] == '>')
+	if (new->content[pos + 1] == '>')
 	{
 		if (new->content[pos + 2] == '<' || new->content[pos + 2] == '>')
 			return (write(2, "Syntax error near\nunexpected token '>>'\n", 40));
