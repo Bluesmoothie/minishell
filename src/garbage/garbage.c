@@ -6,7 +6,7 @@
 /*   By: ygille <ygille@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/14 13:01:28 by ygille            #+#    #+#             */
-/*   Updated: 2025/02/14 13:30:41 by ygille           ###   ########.fr       */
+/*   Updated: 2025/02/14 18:08:17 by ygille           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,8 @@ void	garbage_add(void *glist[], size_t *gsize, void *ptr)
 	(*gsize)++;
 }
 
+#if GARBAGE_WARN_NF
+
 void	garbage_remove(void *glist[], size_t *gsize, void *ptr)
 {
 	size_t	i;
@@ -43,11 +45,7 @@ void	garbage_remove(void *glist[], size_t *gsize, void *ptr)
 	while (i < *gsize && glist[i] != ptr)
 		i++;
 	if (i == *gsize)
-#if GARBAGE_WARN_NF
 		return (garbage_error(E_GNF));
-#else
-		return ;
-#endif
 	glist[i] = NULL;
 	if (i < *gsize - 1)
 	{
@@ -56,6 +54,28 @@ void	garbage_remove(void *glist[], size_t *gsize, void *ptr)
 	}
 	(*gsize)--;
 }
+#else
+
+void	garbage_remove(void *glist[], size_t *gsize, void *ptr)
+{
+	size_t	i;
+
+	if (*gsize == 0)
+		return ;
+	i = 0;
+	while (i < *gsize && glist[i] != ptr)
+		i++;
+	if (i == *gsize)
+		return ;
+	glist[i] = NULL;
+	if (i < *gsize - 1)
+	{
+		glist[i] = glist[*gsize - 1];
+		glist[*gsize - 1] = NULL;
+	}
+	(*gsize)--;
+}
+#endif
 
 void	garbage_error(char *message)
 {

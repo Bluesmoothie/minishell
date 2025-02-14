@@ -3,22 +3,22 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sithomas <sithomas@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: ygille <ygille@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/13 16:18:50 by sithomas          #+#    #+#             */
-/*   Updated: 2025/02/14 17:18:51 by sithomas         ###   ########.fr       */
+/*   Updated: 2025/02/14 18:12:16 by ygille           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-char **extract_str(char *str, int beg, int end)
+char	**extract_str(char *str, int beg, int end)
 {
 	char	**result;
 	char	tmp;
 	int		i;
 	int		size;
-	
+
 	size = end - beg;
 	result = (char **)malloc(3 * sizeof(char *));
 	result[0] = ft_strdup(str);

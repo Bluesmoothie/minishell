@@ -6,11 +6,11 @@
 /*   By: ygille <ygille@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/13 14:47:53 by ygille            #+#    #+#             */
-/*   Updated: 2025/02/14 13:27:54 by ygille           ###   ########.fr       */
+/*   Updated: 2025/02/14 18:12:53 by ygille           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef	GARBAGE_H
+#ifndef GARBAGE_H
 # define GARBAGE_H
 
 # include "libft.h"
@@ -25,7 +25,7 @@
 #  define GARBAGE_WARN_NF		FALSE
 # endif
 
-# define E_GNF			"Warning : can't found requested ptr in ptr list for removing\nSet GARBAGE_WARN_NF to FALSE to silence this warning"
+# define E_GNF			"Warning : can't found requested ptr in ptr list"
 # define E_GFULL		"Error : garbage full, try increase GARBAGE_SIZE"
 
 enum	e_gop_codes
