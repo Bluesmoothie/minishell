@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sithomas <sithomas@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: ygille <ygille@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/11 17:44:17 by sithomas          #+#    #+#             */
-/*   Updated: 2025/02/14 17:20:56 by sithomas         ###   ########.fr       */
+/*   Updated: 2025/02/14 18:05:52 by ygille           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,6 @@ static int	right_pipe(t_pipes *new, int pos)
 {
 	char	*path;
 
-	j = pos;
 	if (new->content[pos + 1] == '<')
 	{
 		if (new->content[pos + 2] == '<' || new->content[pos + 2] == '>')
@@ -73,7 +72,6 @@ static int	left_pipe(t_pipes *new, int pos)
 {
 	char 	*path;
 
-	j = pos;
 	if (new->content[pos + 1] == '>')
 	{
 		if (new->content[pos + 2] == '<' || new->content[pos + 2] == '>')
