@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   double_ptr.c                                       :+:      :+:    :+:   */
+/*   double_core.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ygille <ygille@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/14 18:27:32 by ygille            #+#    #+#             */
-/*   Updated: 2025/02/14 19:16:08 by ygille           ###   ########.fr       */
+/*   Updated: 2025/02/14 19:57:00 by ygille           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ static void	garbage_error(char *message);
 */
 void	double_garbage_col(int op_code, void **ptr)
 {
-	static void		**glist[GARBAGE_SIZE];
+	static void		**glist[GARBAGE_SPLIT_SIZE];
 	static size_t	act_gsize = 0;
 
 	if (ptr == NULL)
@@ -41,7 +41,7 @@ void	double_garbage_col(int op_code, void **ptr)
 */
 static void	garbage_add(void **glist[], size_t *gsize, void **ptr)
 {
-	if (*gsize == GARBAGE_SIZE)
+	if (*gsize == GARBAGE_SPLIT_SIZE)
 		return (garbage_error(EGFULL));
 	glist[*gsize] = ptr;
 	(*gsize)++;
