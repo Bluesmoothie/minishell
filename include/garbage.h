@@ -6,7 +6,7 @@
 /*   By: ygille <ygille@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/13 14:47:53 by ygille            #+#    #+#             */
-/*   Updated: 2025/02/14 23:51:50 by ygille           ###   ########.fr       */
+/*   Updated: 2025/02/14 23:56:30 by ygille           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,9 +24,6 @@
 # ifndef GARBAGE_SPLIT_SIZE
 #  define GARBAGE_SPLIT_SIZE	1024
 # endif
-# ifndef GARBAGE_WARN_NF
-#  define GARBAGE_WARN_NF		FALSE
-# endif
 
 # define EGNF			"Warning : can't found requested ptr in ptr list"
 # define EGFULL			"Error : garbage full, try increase GARBAGE_SIZE"
@@ -40,7 +37,7 @@ enum	e_gop_codes
 };
 
 typedef void			(*t_exit_func)(void *, char *);
-typedef	unsigned char	t_gbool;
+typedef unsigned char	t_gbool;
 
 //	garbage/core.c
 void	garbage_col(int op_code, void *ptr);

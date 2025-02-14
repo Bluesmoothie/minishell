@@ -6,13 +6,15 @@
 /*   By: ygille <ygille@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/14 19:24:06 by ygille            #+#    #+#             */
-/*   Updated: 2025/02/14 19:37:30 by ygille           ###   ########.fr       */
+/*   Updated: 2025/02/14 23:58:27 by ygille           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "garbage.h"
 
-static void	gexit(void *param, char *message, void (*exit_func)(void *param, char *message), t_bool call);
+static void	gexit(void *param, char *message,
+				void (*exit_func)(void *param, char *message),
+				t_bool call);
 
 /*
 ** Indicate to garbage collector wich function to call on error and a
@@ -35,7 +37,8 @@ void	gcall_exit(char *message)
 /*
 ** Intern gestion of exit function
 */
-static void	gexit(void *param, char *message, void (*exit_func)(void *param, char *message), t_gbool call)
+static void	gexit(void *param, char *message,
+	void (*exit_func)(void *param, char *message), t_gbool call)
 {
 	static t_exit_func	exit_func_mem = NULL;
 	static void			*param_mem = NULL;

@@ -6,7 +6,7 @@
 /*   By: ygille <ygille@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/14 18:27:32 by ygille            #+#    #+#             */
-/*   Updated: 2025/02/14 19:57:00 by ygille           ###   ########.fr       */
+/*   Updated: 2025/02/14 23:58:43 by ygille           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 static void	garbage_add(void **glist[], size_t *gsize, void **ptr);
 static void	garbage_remove(void **glist[], size_t *gsize, void **ptr);
-static void garbage_clean(void **glist[], size_t *gsize);
+static void	garbage_clean(void **glist[], size_t *gsize);
 static void	garbage_error(char *message);
 
 /*
@@ -47,32 +47,6 @@ static void	garbage_add(void **glist[], size_t *gsize, void **ptr)
 	(*gsize)++;
 }
 
-#if GARBAGE_WARN_NF
-
-/*
-** Remove a ptr from the list
-*/
-static void	garbage_remove(void *glist[], size_t *gsize, void *ptr)
-{
-	size_t	i;
-
-	if (*gsize == 0)
-		return ;
-	i = 0;
-	while (i < *gsize && glist[i] != ptr)
-		i++;
-	if (i == *gsize)
-		return (garbage_error(EGNF));
-	glist[i] = NULL;
-	if (i < *gsize - 1)
-	{
-		glist[i] = glist[*gsize - 1];
-		glist[*gsize - 1] = NULL;
-	}
-	(*gsize)--;
-}
-#else
-
 /*
 ** Remove a ptr from the list
 */
@@ -95,9 +69,8 @@ static void	garbage_remove(void **glist[], size_t *gsize, void **ptr)
 	}
 	(*gsize)--;
 }
-#endif
 
-static void garbage_clean(void **glist[], size_t *gsize)
+static void	garbage_clean(void **glist[], size_t *gsize)
 {
 	size_t	i;
 
