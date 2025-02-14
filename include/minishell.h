@@ -6,7 +6,7 @@
 /*   By: ygille <ygille@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/28 17:52:27 by ygille            #+#    #+#             */
-/*   Updated: 2025/02/14 18:08:32 by ygille           ###   ########.fr       */
+/*   Updated: 2025/02/14 18:40:06 by ygille           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@
 void	define_mode(t_minishell *minishell, int argc, char **argv);
 char	*get_line(t_minishell *minishell);
 void	error(char *message);
-void	free_exit(t_minishell *minishell, char *message);
+void	free_exit(void *param, char *message);
 
 // env.c
 void	search_for_env(t_minishell *minishell, t_mlist	*args);

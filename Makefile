@@ -19,30 +19,34 @@ INCLUDE 		=	-Iinclude/ -I$(LIBFT)/include/
 
 #			SRC
 
-SRC_FILES		=	minishell				\
-					env						\
-					init					\
-					launch					\
-					miniparse				\
-					parse					\
-					text					\
-					utils					\
-					builtins/cd				\
-					builtins/echo			\
-					builtins/env			\
-					builtins/export			\
-					builtins/pwd			\
-					builtins/unset			\
-					garbage/garbage			\
-					pipes/parse				\
-					pipes/multiple_pipes	\
-					pipes/pipes				\
-					pipes/treat				\
-					types/mlist				\
-					types/mlist2			\
-					types/minishell			\
-					types/pipes				\
-					types/pipes2			\
+SRC_FILES		=	minishell					\
+					env							\
+					init						\
+					launch						\
+					miniparse					\
+					parse						\
+					text						\
+					utils						\
+					builtins/cd					\
+					builtins/echo				\
+					builtins/env				\
+					builtins/export				\
+					builtins/pwd				\
+					builtins/unset				\
+					garbage/core				\
+					garbage/double_core			\
+					garbage/double				\
+					garbage/exit				\
+					garbage/interface			\
+					pipes/parse					\
+					pipes/multiple_pipes		\
+					pipes/pipes					\
+					pipes/treat					\
+					types/mlist					\
+					types/mlist2				\
+					types/minishell				\
+					types/pipes					\
+					types/pipes2				\
 
 SRC 			= 	$(addprefix $(SRC_DIR), $(addsuffix .c, $(SRC_FILES)))
 OBJ 			= 	$(addprefix $(BUILD_DIR), $(addsuffix .o, $(SRC_FILES)))

@@ -6,7 +6,7 @@
 /*   By: ygille <ygille@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/28 17:52:41 by ygille            #+#    #+#             */
-/*   Updated: 2025/02/14 18:05:13 by ygille           ###   ########.fr       */
+/*   Updated: 2025/02/14 19:37:50 by ygille           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ int	main(int argc, char **argv, char **envp)
 
 	define_mode(&minishell, argc, argv);
 	init_minishell(&minishell, envp);
+	gset_exit((void *)&minishell, free_exit);
 	while (1)
 	{
 		line = get_line(&minishell);
@@ -90,9 +91,11 @@ void	error(char *message)
 /*
 ** Free args and exit the program
 */
-void	free_exit(t_minishell *minishell, char *message)
+void	free_exit(void *param, char *message)
 {
-	free_struct(minishell);
+	t_minishell *minishell;
+
+	minishell = (t_minishell *)param;
 	rl_clear_history();
 	if (minishell->mode == SCRIPT_MODE)
 		close (minishell->input_file);
