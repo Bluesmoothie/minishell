@@ -6,7 +6,7 @@
 /*   By: sithomas <sithomas@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/07 11:07:02 by sithomas          #+#    #+#             */
-/*   Updated: 2025/02/13 18:55:42 by sithomas         ###   ########.fr       */
+/*   Updated: 2025/02/14 17:13:45 by sithomas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,8 @@ void	unpipe(t_minishell *minishell, char *line)
 	unpiped = create_pipe_list(line);
 	if (!unpiped)
 		free_exit(minishell, E_SPLIT);
+	if (pipelast(*unpiped)->issue)
+		return ;
 	size = pipelstsize(*unpiped);
 	if (!(*unpiped)->next)
 		nopipe(minishell, unpiped);
@@ -60,7 +62,8 @@ static t_pipes	**create_pipe_list(char *line)
 		new = pipecreate(ft_strdup(splitted[i]));
 		if (!new)
 			return (pipeclear(*list), NULL);
-		parse_pipe(new);
+		if (parse_pipe(new))
+			return (pipeadd_back(list, new), list);
 		pipeadd_back(list, new);
 		i++;
 	}

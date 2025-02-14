@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   struct.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ygille <ygille@student.42lyon.fr>          +#+  +:+       +#+        */
+/*   By: sithomas <sithomas@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/11 16:51:17 by ygille            #+#    #+#             */
-/*   Updated: 2025/02/13 15:31:54 by ygille           ###   ########.fr       */
+/*   Updated: 2025/02/14 16:50:42 by sithomas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,7 @@ typedef struct s_pipes
 {
 	int				fd_in;
 	int				fd_out;
+	t_bool			issue;
 	char			*content;
 	struct s_pipes	*next;
 }				t_pipes;
