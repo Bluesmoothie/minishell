@@ -6,7 +6,7 @@
 /*   By: ygille <ygille@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/14 13:01:28 by ygille            #+#    #+#             */
-/*   Updated: 2025/02/14 13:29:46 by ygille           ###   ########.fr       */
+/*   Updated: 2025/02/14 13:30:41 by ygille           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ void	garbage_remove(void *glist[], size_t *gsize, void *ptr)
 		i++;
 	if (i == *gsize)
 #if GARBAGE_WARN_NF
-		return (garbage_error(E_GNF);
+		return (garbage_error(E_GNF));
 #else
 		return ;
 #endif
