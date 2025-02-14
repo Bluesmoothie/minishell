@@ -33,6 +33,7 @@ SRC_FILES		=	minishell				\
 					builtins/export			\
 					builtins/pwd			\
 					builtins/unset			\
+					garbage/garbage			\
 					pipes/parse				\
 					pipes/multiple_pipes	\
 					pipes/pipes				\
