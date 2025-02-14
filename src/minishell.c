@@ -6,7 +6,7 @@
 /*   By: sithomas <sithomas@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/28 17:52:41 by ygille            #+#    #+#             */
-/*   Updated: 2025/02/13 18:55:30 by sithomas         ###   ########.fr       */
+/*   Updated: 2025/02/14 10:03:25 by sithomas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,7 +92,7 @@ void	error(char *message)
 */
 void	free_exit(t_minishell *minishell, char *message)
 {
-	// garbage_destroy(minishell);
+	garbage_destroy(minishell);
 	free_struct(minishell);
 	rl_clear_history();
 	if (minishell->mode == SCRIPT_MODE)
