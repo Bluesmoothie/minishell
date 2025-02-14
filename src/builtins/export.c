@@ -6,7 +6,7 @@
 /*   By: ygille <ygille@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/29 15:14:06 by ygille            #+#    #+#             */
-/*   Updated: 2025/02/13 16:16:19 by ygille           ###   ########.fr       */
+/*   Updated: 2025/02/14 23:45:37 by ygille           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,8 +35,6 @@ int	func_export(t_minishell *minishell, char **args, int fd)
 	if (!ft_mlstsearch(minishell->env, name) && name[0] != '\0')
 	{
 		new = ft_mlstcreate(name, content);
-		if (new == NULL)
-			free_exit(minishell, E_MALLOC);
 		minishell->env = ft_mlstadd_front(minishell->env, new);
 	}
 	else if (name[0] != '\0')
@@ -53,7 +51,7 @@ void	replace_env(t_minishell *minishell, char *name, char *content)
 
 	target = ft_mlstsearch(minishell->env, name);
 	if (target->content)
-		free(target->content);
+		gfree(target->content);
 	target->content = content;
 }
 

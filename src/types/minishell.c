@@ -6,7 +6,7 @@
 /*   By: ygille <ygille@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/29 14:45:43 by ygille            #+#    #+#             */
-/*   Updated: 2025/02/13 15:32:10 by ygille           ###   ########.fr       */
+/*   Updated: 2025/02/14 23:46:31 by ygille           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,13 +35,13 @@ void	free_struct(t_minishell *minishell)
 {
 	if (minishell->pwd)
 	{
-		free(minishell->pwd);
+		gfree(minishell->pwd);
 		minishell->pwd = NULL;
 	}
 	if (minishell->env)
 		minishell->env = ft_mlstclear(minishell->env);
 	if (minishell->prompt)
-		free (minishell->prompt);
+		gfree (minishell->prompt);
 }
 
 /*
@@ -53,13 +53,13 @@ void	update_infos(t_minishell *minishell)
 	minishell->user = getenv("USER");
 	if (minishell->pwd)
 	{
-		free(minishell->pwd);
+		gfree(minishell->pwd);
 		minishell->pwd = NULL;
 	}
 	minishell->pwd = getcwd(NULL, 0);
 	if (minishell->prompt)
 	{
-		free (minishell->prompt);
+		gfree (minishell->prompt);
 		minishell->prompt = NULL;
 	}
 	minishell->prompt = calc_prompt(*minishell);

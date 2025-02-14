@@ -6,7 +6,7 @@
 /*   By: ygille <ygille@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/11 17:44:17 by sithomas          #+#    #+#             */
-/*   Updated: 2025/02/14 18:05:52 by ygille           ###   ########.fr       */
+/*   Updated: 2025/02/14 23:45:54 by ygille           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ int	parse_pipe(t_pipes	*new)
 			j = left_pipe(new, i);
 		if (j)
 		{	
-			free(new->content);
+			gfree(new->content);
 			new->issue = 1;
 			return (1);
 		}

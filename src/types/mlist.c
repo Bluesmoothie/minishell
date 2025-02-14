@@ -6,7 +6,7 @@
 /*   By: ygille <ygille@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/29 18:49:39 by ygille            #+#    #+#             */
-/*   Updated: 2025/02/10 14:59:36 by ygille           ###   ########.fr       */
+/*   Updated: 2025/02/14 23:46:50 by ygille           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,10 +23,10 @@ t_mlist	*ft_mlstclear(t_mlist *lst)
 	{
 		tmp = lst->next;
 		if (lst->name)
-			free(lst->name);
+			gfree(lst->name);
 		if (lst->content)
-			free(lst->content);
-		free(lst);
+			gfree(lst->content);
+		gfree(lst);
 		lst = tmp;
 	}
 	return (NULL);
@@ -39,9 +39,7 @@ t_mlist	*ft_mlstcreate(char *name, char *content)
 {
 	t_mlist	*new;
 
-	new = malloc(sizeof(t_mlist));
-	if (new == NULL)
-		return (NULL);
+	new = gmalloc(sizeof(t_mlist));
 	new->name = name;
 	new->content = content;
 	new->next = NULL;
@@ -66,11 +64,11 @@ t_mlist	*ft_mlstadd_front(t_mlist *lst, t_mlist *new)
 void	ft_mlstdelone(t_mlist *lst)
 {
 	if (lst->name)
-		free(lst->name);
+		gfree(lst->name);
 	if (lst->content)
-		free(lst->content);
+		gfree(lst->content);
 	if (lst)
-		free(lst);
+		gfree(lst);
 }
 
 /*

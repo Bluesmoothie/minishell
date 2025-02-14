@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   treat.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sithomas <sithomas@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: ygille <ygille@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/11 17:49:10 by sithomas          #+#    #+#             */
-/*   Updated: 2025/02/13 18:57:33 by sithomas         ###   ########.fr       */
+/*   Updated: 2025/02/14 23:46:12 by ygille           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,10 +50,10 @@ static void	run_heredoc(char *tmp, int pipefd1)
 		if (!ft_strncmp(last_line, tmp, ft_strlen(tmp)))
 		{
 			close(pipefd1);
-			free(last_line);
+			gfree(last_line);
 			return ;
 		}
 		write(pipefd1, last_line, ft_strlen(last_line));
-		free(last_line);
+		gfree(last_line);
 	}
 }

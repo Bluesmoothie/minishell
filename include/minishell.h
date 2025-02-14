@@ -6,7 +6,7 @@
 /*   By: ygille <ygille@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/28 17:52:27 by ygille            #+#    #+#             */
-/*   Updated: 2025/02/14 18:40:06 by ygille           ###   ########.fr       */
+/*   Updated: 2025/02/14 23:53:21 by ygille           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,10 +41,10 @@ void	free_exit(void *param, char *message);
 
 // env.c
 void	search_for_env(t_minishell *minishell, t_mlist	*args);
-char	*get_env_name(t_minishell *minishell, char *arg);
+char	*get_env_name(char *arg);
 char	*get_env_value(t_minishell *minishell, char *name);
-void	replace_env_value(t_minishell *minishell, t_mlist *node, char *value);
-char	*update_searching(t_minishell *minishell, char *name, int i);
+void	replace_env_value(t_mlist *node, char *value);
+char	*update_searching(char *name, int i);
 
 //	init.c
 void	init_minishell(t_minishell *minishell, char **envp);
@@ -61,10 +61,9 @@ char	**create_new_envp(t_minishell *minishell);
 //	miniparse.c
 char	**miniparse(t_minishell *minishell, char *line);
 int		skip_whitespaces(char *line);
-int		extract_arg(t_minishell *minishell, char *line,
-			t_mlist **args, t_mlist **node);
-char	**rebuild_args(t_minishell *minishell, t_mlist *args);
-t_mlist	*extract_helper(t_minishell *minishell, char *line, int i, char sep);
+int		extract_arg(char *line, t_mlist **args, t_mlist **node);
+char	**rebuild_args(t_mlist *args);
+t_mlist	*extract_helper(char *line, int i, char sep);
 
 //	parse.c
 void	parse_line(t_minishell *minishell, char *line);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipes.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sithomas <sithomas@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: ygille <ygille@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/07 11:07:02 by sithomas          #+#    #+#             */
-/*   Updated: 2025/02/14 17:13:45 by sithomas         ###   ########.fr       */
+/*   Updated: 2025/02/14 23:46:02 by ygille           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,14 +23,12 @@ void	unpipe(t_minishell *minishell, char *line)
 	int		tmp_out;
 
 	if (line == NULL)
-		free_exit(minishell, NULL);
+		gcall_exit(NULL);
 	if (!line[0])
 		return (treat_arguments(minishell, line, STDOUT_FILENO));
 	tmp_in = dup(STDIN_FILENO);
 	tmp_out = dup(STDOUT_FILENO);
 	unpiped = create_pipe_list(line);
-	if (!unpiped)
-		free_exit(minishell, E_SPLIT);
 	if (pipelast(*unpiped)->issue)
 		return ;
 	size = pipelstsize(*unpiped);
@@ -53,9 +51,7 @@ static t_pipes	**create_pipe_list(char *line)
 	if (!splitted)
 		return (NULL);
 	i = 0;
-	list = (t_pipes **)malloc(sizeof(t_pipes *));
-	if (!list)
-		return (NULL);
+	list = (t_pipes **)gmalloc(sizeof(t_pipes *));
 	*list = NULL;
 	while (splitted[i])
 	{

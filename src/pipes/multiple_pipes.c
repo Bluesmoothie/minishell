@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   multiple_pipes.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sithomas <sithomas@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: ygille <ygille@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/12 10:17:46 by sithomas          #+#    #+#             */
-/*   Updated: 2025/02/14 16:14:26 by sithomas         ###   ########.fr       */
+/*   Updated: 2025/02/14 23:45:48 by ygille           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,12 +25,8 @@ void	multiple_pipes(t_minishell *minishell, t_pipes **unpiped, int size)
 	t_pipes	*current;
 
 	current = *unpiped;
-	pipefd = (int *)malloc((2 * size) * sizeof(int));
-	if (!pipefd)
-		return ; //A TRAITER
-	pid = (int *)malloc(size * sizeof(int));
-	if (!pid)
-		return ; //A TRAITER
+	pipefd = (int *)gmalloc((2 * size) * sizeof(int));
+	pid = (int *)gmalloc(size * sizeof(int));
 	i = 0;
 	while (current)
 	{
@@ -77,8 +73,8 @@ static void	father(int *pipefd, int *pid, int size, t_minishell *minishell)
 		waitpid(pid[j], NULL, 0);
 		j++;
 	}
-	free(pipefd);
-	free(pid);
+	gfree(pipefd);
+	gfree(pid);
 }
 
 static void son(int i, t_pipes *current, int size, int *pipefd)

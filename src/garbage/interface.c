@@ -6,7 +6,7 @@
 /*   By: ygille <ygille@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/14 18:16:27 by ygille            #+#    #+#             */
-/*   Updated: 2025/02/14 19:39:45 by ygille           ###   ########.fr       */
+/*   Updated: 2025/02/14 23:41:37 by ygille           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ void	gfree(void *ptr)
 }
 
 /*
-** Free all memory previously allocated with gmalloc
+** Free all memory previously allocated with gmalloc and gmalloc_double
 ** that is not allready freed with gfree
 */
 void	gclean(void)
