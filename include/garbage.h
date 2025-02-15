@@ -6,14 +6,16 @@
 /*   By: ygille <ygille@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/13 14:47:53 by ygille            #+#    #+#             */
-/*   Updated: 2025/02/15 12:52:12 by ygille           ###   ########.fr       */
+/*   Updated: 2025/02/15 21:01:58 by ygille           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef GARBAGE_H
 # define GARBAGE_H
 
-# include "libft.h"
+# include <stddef.h>
+# include <stdlib.h>
+# include <unistd.h>
 
 # define TRUE					1
 # define FALSE					0

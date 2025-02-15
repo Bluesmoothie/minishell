@@ -6,7 +6,7 @@
 /*   By: ygille <ygille@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/14 13:01:28 by ygille            #+#    #+#             */
-/*   Updated: 2025/02/14 23:58:38 by ygille           ###   ########.fr       */
+/*   Updated: 2025/02/15 20:59:38 by ygille           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,5 +90,11 @@ static void	garbage_clean(void *glist[], size_t *gsize)
 */
 static void	garbage_error(char *message)
 {
-	ft_putendl_fd(message, STDERR_FILENO);
+	size_t	i;
+
+	i = 0;
+	while (message[i] != '\0')
+		i++;
+	if (i > 0)
+		write(STDERR_FILENO, message, i);
 }

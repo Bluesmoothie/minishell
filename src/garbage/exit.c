@@ -6,7 +6,7 @@
 /*   By: ygille <ygille@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/14 19:24:06 by ygille            #+#    #+#             */
-/*   Updated: 2025/02/14 23:58:27 by ygille           ###   ########.fr       */
+/*   Updated: 2025/02/15 21:02:14 by ygille           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 static void	gexit(void *param, char *message,
 				void (*exit_func)(void *param, char *message),
-				t_bool call);
+				t_gbool call);
 
 /*
 ** Indicate to garbage collector wich function to call on error and a
