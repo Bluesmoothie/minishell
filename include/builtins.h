@@ -6,7 +6,7 @@
 /*   By: ygille <ygille@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/11 17:03:25 by ygille            #+#    #+#             */
-/*   Updated: 2025/02/11 17:03:50 by ygille           ###   ########.fr       */
+/*   Updated: 2025/02/15 12:45:45 by ygille           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 int		func_cd(t_minishell *minishell, char **args);
 
 //	builtins/echo.c
-int		func_echo(t_minishell *minishell, char **args, int fd);
+int		func_echo(char **args, int fd);
 
 //	builtins/env.c
 int		func_env(t_minishell *minishell, int fd);

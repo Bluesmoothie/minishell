@@ -6,7 +6,7 @@
 /*   By: ygille <ygille@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/28 17:52:41 by ygille            #+#    #+#             */
-/*   Updated: 2025/02/14 23:55:08 by ygille           ###   ########.fr       */
+/*   Updated: 2025/02/15 13:11:41 by ygille           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ int	main(int argc, char **argv, char **envp)
 	gset_exit((void *)&minishell, free_exit);
 	while (1)
 	{
-		line = get_line(&minishell);
+		line = gman_add(get_line(&minishell));
 		parse_line(&minishell, line);
 		update_infos(&minishell);
 	}

@@ -6,7 +6,7 @@
 /*   By: ygille <ygille@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/28 19:38:14 by ygille            #+#    #+#             */
-/*   Updated: 2025/02/14 23:49:47 by ygille           ###   ########.fr       */
+/*   Updated: 2025/02/15 13:19:00 by ygille           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,17 +33,15 @@ void	treat_arguments(t_minishell *minishell, char *line, int fd)
 	char	**args;
 
 	args = miniparse(minishell, line);
-	if (args == NULL)
-		free_exit(minishell, E_SPLIT);
 	if (args[0] == NULL)
 	{
-		free_split(&args);
+		gfree_double(args);
 		return ;
 	}
-	free(line);
+	gfree(line);
 	if (!builtin_functions(minishell, args, fd))
 		try_launch(minishell, args);
-	free_split(&args);
+	gfree_double(args);
 	return ;
 }
 
@@ -55,7 +53,7 @@ t_bool	builtin_functions(t_minishell *minishell, char **args, int fd)
 	if (ft_strcmp(args[0], "exit") == 0)
 		gcall_exit(NULL);
 	else if (ft_strcmp(args[0], "echo") == 0)
-		minishell->last_return_value = func_echo(minishell, args, fd);
+		minishell->last_return_value = func_echo(args, fd);
 	else if (ft_strcmp(args[0], "cd") == 0)
 		minishell->last_return_value = func_cd(minishell, args);
 	else if (ft_strcmp(args[0], "pwd") == 0)
@@ -84,7 +82,7 @@ void	try_launch(t_minishell *minishell, char **args)
 	if (path != NULL)
 	{
 		launch_bin(minishell, path, args);
-		free(path);
+		gfree(path);
 	}
 	else
 	{
@@ -108,9 +106,11 @@ char	*calc_bin_path(t_minishell *minishell, char **args)
 		path = ft_strfcat(minishell->home, &args[0][1], FALSE, FALSE);
 	else
 	{
-		paths = ft_split(get_env_value(minishell, "PATH"), ':');
+		paths = gman_add_double(ft_split(get_env_value(minishell, "PATH"), ':'));
 		path = search_binary(paths, args[0]);
 		gfree_double(paths);
 	}
+	if (path != NULL)
+		gman_add(path);
 	return (path);
 }

@@ -6,7 +6,7 @@
 /*   By: ygille <ygille@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/29 15:13:17 by ygille            #+#    #+#             */
-/*   Updated: 2025/02/14 23:45:07 by ygille           ###   ########.fr       */
+/*   Updated: 2025/02/15 13:05:51 by ygille           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ int	func_cd(t_minishell *minishell, char **args)
 		err = chdir(minishell->home);
 	else if (args[1][0] == '~' && args[1][1] == '/' && args[1][2] != '\0')
 	{
-		dir = ft_strfcat(minishell->home, &args[1][1], FALSE, FALSE);
+		dir = gman_add(ft_strfcat(minishell->home, &args[1][1], FALSE, FALSE));
 		err = chdir(dir);
 		gfree(dir);
 	}

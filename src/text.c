@@ -6,7 +6,7 @@
 /*   By: ygille <ygille@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/28 19:54:08 by ygille            #+#    #+#             */
-/*   Updated: 2025/01/30 16:27:06 by ygille           ###   ########.fr       */
+/*   Updated: 2025/02/15 13:13:23 by ygille           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,10 +49,11 @@ char	*calc_prompt(t_minishell minishell)
 	prompt = ft_strfcat(prompt, "@minishell", TRUE, FALSE);
 	prompt = ft_strfcat(prompt, PROMPT_RIGHT_COLOR, TRUE, FALSE);
 	prompt = ft_strfcat(prompt, ":", TRUE, FALSE);
-	prompt = ft_strfcat(prompt, pwd, TRUE, TRUE);
+	prompt = ft_strfcat(prompt, pwd, TRUE, FALSE);
+	gfree(pwd);
 	prompt = ft_strfcat(prompt, TEXT_RESET, TRUE, FALSE);
 	prompt = ft_strfcat(prompt, "$ ", TRUE, FALSE);
-	return (prompt);
+	return (gman_add(prompt));
 }
 
 /*
@@ -61,6 +62,7 @@ char	*calc_prompt(t_minishell minishell)
 char	*get_relative_path(char *pwd, char *home)
 {
 	char	*relative_path;
+	char	*tmp;
 	int		i;
 
 	i = 0;
@@ -69,6 +71,8 @@ char	*get_relative_path(char *pwd, char *home)
 	while (pwd[i] && home[i] && pwd[i] == home[i])
 		i++;
 	relative_path = ft_strdup(&pwd[i]);
-	relative_path = ft_strfcat("~", relative_path, FALSE, TRUE);
+	tmp = gman_add(relative_path);
+	relative_path = gman_add(ft_strfcat("~", relative_path, FALSE, FALSE));
+	gfree(tmp);
 	return (relative_path);
 }

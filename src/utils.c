@@ -6,7 +6,7 @@
 /*   By: ygille <ygille@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/13 16:18:50 by sithomas          #+#    #+#             */
-/*   Updated: 2025/02/14 23:44:46 by ygille           ###   ########.fr       */
+/*   Updated: 2025/02/15 13:05:30 by ygille           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,8 @@ char	**extract_str(char *str, int beg, int end)
 
 	size = end - beg;
 	result = (char **)gmalloc_double(3 * sizeof(char *));
-	result[0] = ft_strdup(str);
-	result[1] = ft_substr(str, beg, size);
+	result[0] = gman_add(ft_strdup(str));
+	result[1] = gman_add(ft_substr(str, beg, size));
 	result[2] = NULL;
 	i = 0;
 	while (i < beg)

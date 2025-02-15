@@ -6,7 +6,7 @@
 /*   By: ygille <ygille@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/30 16:49:35 by ygille            #+#    #+#             */
-/*   Updated: 2025/02/14 23:48:29 by ygille           ###   ########.fr       */
+/*   Updated: 2025/02/15 13:10:03 by ygille           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,10 +24,7 @@ void	launch_bin(t_minishell *minishell, char *path, char **args)
 	new_envp = create_new_envp(minishell);
 	pid = fork();
 	if (pid == -1)
-	{
-		gfree_double(new_envp);
 		gcall_exit(E_FORK);
-	}
 	if (pid == 0)
 		execve(path, args, new_envp);
 	waitpid(pid, &minishell->last_return_value, 0);
@@ -46,8 +43,8 @@ char	*search_binary(char **paths, char *bin)
 	i = 0;
 	while (paths[i] != NULL)
 	{
-		path = ft_strfcat(ft_strfcat(paths[i], "/", FALSE, FALSE),
-				bin, TRUE, FALSE);
+		path = gman_add(ft_strfcat(ft_strfcat(paths[i], "/", FALSE, FALSE),
+				bin, TRUE, FALSE));
 		if (access(path, F_OK | X_OK) == 0)
 			return (path);
 		gfree(path);
@@ -71,13 +68,8 @@ char	**create_new_envp(t_minishell *minishell)
 	list = minishell->env;
 	while (list != NULL)
 	{
-		new_envp[--size] = ft_strfcat(ft_strfcat(list->name, "=", FALSE, FALSE),
-				list->content, TRUE, FALSE);
-		if (new_envp[size] == NULL)
-		{
-			gfree_double(new_envp);
-			return (NULL);
-		}
+		new_envp[--size] = gman_add(ft_strfcat(ft_strfcat(list->name, "=", FALSE, FALSE),
+				list->content, TRUE, FALSE));
 		list = list->next;
 	}
 	return (new_envp);
