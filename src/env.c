@@ -6,7 +6,7 @@
 /*   By: ygille <ygille@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/06 18:13:22 by ygille            #+#    #+#             */
-/*   Updated: 2025/02/14 23:50:59 by ygille           ###   ########.fr       */
+/*   Updated: 2025/02/15 13:08:44 by ygille           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ char	*get_env_value(t_minishell *minishell, char *arg)
 	t_mlist	*mlist;
 
 	if (ft_strcmp(arg, "?") == 0)
-		return (ft_itoa(minishell->last_return_value));
+		return (gman_add(ft_itoa(minishell->last_return_value)));
 	mlist = minishell->env;
 	while (mlist != NULL)
 	{
@@ -88,6 +88,7 @@ void	replace_env_value(t_mlist *node, char *value)
 {
 	int		i;
 	char	*result;
+	char	*tmp;
 
 	i = 0;
 	while (node->name[i] != '$')
@@ -95,13 +96,15 @@ void	replace_env_value(t_mlist *node, char *value)
 	if (i > 0)
 	{
 		result = ft_substr(node->name, 0, i);
-		result = ft_strfcat(result, value, TRUE, FALSE);
+		tmp = gman_add(result);
+		result = ft_strfcat(result, value, FALSE, FALSE);
+		gfree(tmp);
 	}
 	else
-	{
 		result = ft_strdup(value);
-	}
-	node->content = ft_strjoin(node->content, result);
+	gman_add(result);
+	node->content = gman_add(ft_strjoin(node->content, result));
+	gfree(result);
 	node->name = update_searching(node->name, i + 1);
 }
 
@@ -122,5 +125,5 @@ char	*update_searching(char *name, int i)
 		result = ft_substr(name, i, ft_strlen(&name[i]) + 1);
 		gfree(name);
 	}
-	return (result);
+	return (gman_add(result));
 }

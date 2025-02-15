@@ -6,7 +6,7 @@
 /*   By: ygille <ygille@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/13 14:47:53 by ygille            #+#    #+#             */
-/*   Updated: 2025/02/14 23:56:30 by ygille           ###   ########.fr       */
+/*   Updated: 2025/02/15 12:52:12 by ygille           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,7 @@ void	double_garbage_col(int op_code, void **ptr);
 
 //	garbage//double.c
 void	*gmalloc_double(size_t size);
+void	*gman_add_double(void *ptr);
 void	gfree_double(void *ptr);
 void	gfree_double_helper(void **ptr);
 
@@ -56,6 +57,7 @@ void	gcall_exit(char *message);
 
 //	garbage/interface.c
 void	*gmalloc(size_t size);
+void	*gman_add(void *ptr);
 void	gfree(void *ptr);
 void	gclean(void);
 

@@ -6,7 +6,7 @@
 /*   By: ygille <ygille@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/29 14:45:43 by ygille            #+#    #+#             */
-/*   Updated: 2025/02/14 23:46:31 by ygille           ###   ########.fr       */
+/*   Updated: 2025/02/15 13:07:03 by ygille           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	init_struct(t_minishell *minishell, char **envp)
 {
 	minishell->home = getenv("HOME");
 	minishell->user = getenv("USER");
-	minishell->pwd = getcwd(NULL, 0);
+	minishell->pwd = gman_add(getcwd(NULL, 0));
 	minishell->last_return_value = 0;
 	minishell->envp = envp;
 	minishell->env = init_env(envp);
@@ -56,7 +56,7 @@ void	update_infos(t_minishell *minishell)
 		gfree(minishell->pwd);
 		minishell->pwd = NULL;
 	}
-	minishell->pwd = getcwd(NULL, 0);
+	minishell->pwd = gman_add(getcwd(NULL, 0));
 	if (minishell->prompt)
 	{
 		gfree (minishell->prompt);

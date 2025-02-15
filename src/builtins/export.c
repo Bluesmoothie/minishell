@@ -6,7 +6,7 @@
 /*   By: ygille <ygille@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/29 15:14:06 by ygille            #+#    #+#             */
-/*   Updated: 2025/02/14 23:45:37 by ygille           ###   ########.fr       */
+/*   Updated: 2025/02/15 13:06:21 by ygille           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,8 +50,7 @@ void	replace_env(t_minishell *minishell, char *name, char *content)
 	t_mlist	*target;
 
 	target = ft_mlstsearch(minishell->env, name);
-	if (target->content)
-		gfree(target->content);
+	gfree(target->content);
 	target->content = content;
 }
 
@@ -67,7 +66,7 @@ char	*extract_name(char *arg)
 	while (arg[i] && arg[i] != '=')
 		i++;
 	name = ft_substr(arg, 0, i);
-	return (name);
+	return (gman_add(name));
 }
 
 /*
@@ -84,5 +83,5 @@ char	*extract_content(char *arg)
 	if (arg[i] == '\0')
 		return (NULL);
 	content = ft_strdup(&arg[i + 1]);
-	return (content);
+	return (gman_add(content));
 }

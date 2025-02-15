@@ -6,7 +6,7 @@
 /*   By: ygille <ygille@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/14 19:13:45 by ygille            #+#    #+#             */
-/*   Updated: 2025/02/14 23:52:05 by ygille           ###   ########.fr       */
+/*   Updated: 2025/02/15 12:51:59 by ygille           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,18 @@ void	*gmalloc_double(size_t size)
 	void	**ptr;
 
 	ptr = malloc(size);
+	gman_add_double(ptr);
+	return (ptr);
+}
+
+/*
+** Manually add a double ptr to the double ptr list
+** verifying if he his not NULL
+** otherwise calls the exit function
+** return the ptr
+*/
+void	*gman_add_double(void *ptr)
+{
 	if (ptr == NULL)
 	{
 		gclean();
@@ -40,6 +52,8 @@ void	*gmalloc_double(size_t size)
 */
 void	gfree_double(void *ptr)
 {
+	if (ptr == NULL)
+		return ;
 	gfree_double_helper(ptr);
 	double_garbage_col(GRMPTR, ptr);
 }

@@ -6,7 +6,7 @@
 /*   By: ygille <ygille@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/10 12:39:29 by ygille            #+#    #+#             */
-/*   Updated: 2025/02/14 23:53:52 by ygille           ###   ########.fr       */
+/*   Updated: 2025/02/15 13:26:16 by ygille           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,16 +89,20 @@ int	extract_arg(char *line, t_mlist **args, t_mlist **node)
 char	**rebuild_args(t_mlist *args)
 {
 	char	**result;
+	char	*tmp;
 	int		i;
 
 	result = gmalloc_double(sizeof(char *) * (ft_mlstsize(args) + 1));
 	i = 0;
 	while (args != NULL)
 	{
-		result[i] = ft_strdup(args->content);
+		result[i] = gman_add(ft_strdup(args->content));
 		while (args->glue == TRUE)
 		{
-			result[i] = ft_strfcat(result[i], args->content, TRUE, FALSE);
+			tmp = result[i];
+			result[i] = gman_add(ft_strfcat(result[i], args->content,
+						FALSE, FALSE));
+			gfree(tmp);
 			args = args->next;
 		}
 		args = args->next;
@@ -122,6 +126,7 @@ t_mlist	*extract_helper(char *line, int i, char sep)
 		content = ft_substr(line, 0, i);
 	else if (sep == '\'' || sep == '\"')
 		content = ft_substr(line, 1, i - 2);
+	gman_add(content);
 	node = ft_mlstcreate(NULL, content);
 	node->mask = sep;
 	return (node);

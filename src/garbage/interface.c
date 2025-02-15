@@ -6,7 +6,7 @@
 /*   By: ygille <ygille@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/14 18:16:27 by ygille            #+#    #+#             */
-/*   Updated: 2025/02/14 23:41:37 by ygille           ###   ########.fr       */
+/*   Updated: 2025/02/15 12:52:05 by ygille           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,18 @@ void	*gmalloc(size_t size)
 	void	*ptr;
 
 	ptr = malloc(size);
+	gman_add(ptr);
+	return (ptr);
+}
+
+/*
+** Manually add a ptr to the ptr list
+** verifying if he his not NULL
+** otherwise calls the exit function
+** return the ptr
+*/
+void	*gman_add(void *ptr)
+{
 	if (ptr == NULL)
 	{
 		gclean();
@@ -39,6 +51,8 @@ void	*gmalloc(size_t size)
 */
 void	gfree(void *ptr)
 {
+	if (ptr == NULL)
+		return ;
 	garbage_col(GRMPTR, ptr);
 	free(ptr);
 }
