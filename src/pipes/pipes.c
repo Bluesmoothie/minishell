@@ -3,16 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   pipes.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ygille <ygille@student.42lyon.fr>          +#+  +:+       +#+        */
+/*   By: sithomas <sithomas@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/07 11:07:02 by sithomas          #+#    #+#             */
-/*   Updated: 2025/02/14 23:46:02 by ygille           ###   ########.fr       */
+/*   Updated: 2025/02/15 16:42:49 by sithomas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
 static void		nopipe(t_minishell *minishell, t_pipes **unpiped);
+static t_bool	oneemptypipe(char *str);
 static t_pipes	**create_pipe_list(char *line);
 
 void	unpipe(t_minishell *minishell, char *line)
@@ -24,6 +25,8 @@ void	unpipe(t_minishell *minishell, char *line)
 
 	if (line == NULL)
 		gcall_exit(NULL);
+	if (oneemptypipe(line))
+		return ((void)write(2, "Syntax error\n", 13));
 	if (!line[0])
 		return (treat_arguments(minishell, line, STDOUT_FILENO));
 	tmp_in = dup(STDIN_FILENO);
@@ -48,8 +51,8 @@ static t_pipes	**create_pipe_list(char *line)
 	int		i;
 
 	splitted = ft_split(line, '|');
-	if (!splitted)
-		return (NULL);
+	if (!splitted || !*splitted)
+		return (free(line), NULL);
 	i = 0;
 	list = (t_pipes **)gmalloc(sizeof(t_pipes *));
 	*list = NULL;
@@ -73,4 +76,30 @@ static void	nopipe(t_minishell *minishell, t_pipes **unpiped)
 	if ((*unpiped)->fd_out != STDOUT_FILENO)
 		dup2((*unpiped)->fd_out, STDOUT_FILENO);
 	treat_arguments(minishell, (*unpiped)->content, STDOUT_FILENO);
+}
+
+static t_bool	oneemptypipe(char *str)
+{
+	int	i;
+	int	j;
+
+	i = 0;
+	while (str[i])
+	{
+		if (str[i] == '|')
+		{
+			j = 0;
+			while (str[j])
+			{
+				if (j == i)
+					return (1);
+				if (str[j] == 32 || str[j] == '>' || str[j] == '<')
+					j++;
+				else
+					return (0);
+			}
+		}
+		i++;
+	}
+	return (0);
 }
