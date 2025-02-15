@@ -6,7 +6,7 @@
 /*   By: ygille <ygille@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/28 19:38:14 by ygille            #+#    #+#             */
-/*   Updated: 2025/02/15 13:19:00 by ygille           ###   ########.fr       */
+/*   Updated: 2025/02/15 13:26:39 by ygille           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,7 +106,8 @@ char	*calc_bin_path(t_minishell *minishell, char **args)
 		path = ft_strfcat(minishell->home, &args[0][1], FALSE, FALSE);
 	else
 	{
-		paths = gman_add_double(ft_split(get_env_value(minishell, "PATH"), ':'));
+		paths = gman_add_double(ft_split(get_env_value(minishell, "PATH"),
+					':'));
 		path = search_binary(paths, args[0]);
 		gfree_double(paths);
 	}

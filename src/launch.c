@@ -6,7 +6,7 @@
 /*   By: ygille <ygille@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/30 16:49:35 by ygille            #+#    #+#             */
-/*   Updated: 2025/02/15 13:10:03 by ygille           ###   ########.fr       */
+/*   Updated: 2025/02/15 13:25:57 by ygille           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ char	*search_binary(char **paths, char *bin)
 	while (paths[i] != NULL)
 	{
 		path = gman_add(ft_strfcat(ft_strfcat(paths[i], "/", FALSE, FALSE),
-				bin, TRUE, FALSE));
+					bin, TRUE, FALSE));
 		if (access(path, F_OK | X_OK) == 0)
 			return (path);
 		gfree(path);
@@ -68,8 +68,8 @@ char	**create_new_envp(t_minishell *minishell)
 	list = minishell->env;
 	while (list != NULL)
 	{
-		new_envp[--size] = gman_add(ft_strfcat(ft_strfcat(list->name, "=", FALSE, FALSE),
-				list->content, TRUE, FALSE));
+		new_envp[--size] = gman_add(ft_strfcat(ft_strfcat(list->name, "=",
+						FALSE, FALSE), list->content, TRUE, FALSE));
 		list = list->next;
 	}
 	return (new_envp);

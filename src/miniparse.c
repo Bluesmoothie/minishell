@@ -6,7 +6,7 @@
 /*   By: ygille <ygille@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/10 12:39:29 by ygille            #+#    #+#             */
-/*   Updated: 2025/02/15 13:16:36 by ygille           ###   ########.fr       */
+/*   Updated: 2025/02/15 13:26:16 by ygille           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,7 +100,8 @@ char	**rebuild_args(t_mlist *args)
 		while (args->glue == TRUE)
 		{
 			tmp = result[i];
-			result[i] = gman_add(ft_strfcat(result[i], args->content, FALSE, FALSE));
+			result[i] = gman_add(ft_strfcat(result[i], args->content,
+						FALSE, FALSE));
 			gfree(tmp);
 			args = args->next;
 		}
