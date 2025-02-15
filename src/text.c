@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   text.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sithomas <sithomas@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: ygille <ygille@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/28 19:54:08 by ygille            #+#    #+#             */
-/*   Updated: 2025/02/15 18:20:04 by sithomas         ###   ########.fr       */
+/*   Updated: 2025/02/15 21:08:35 by ygille           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,12 +15,12 @@
 /*
 ** Display a text with a specific format and color
 */
-void	display_text(char *text, char format[5], char color[6])
+void	display_text(char *text, char format[5], char color[6], int fd)
 {
-	ft_putstr_fd(format, 2);
-	ft_putstr_fd(color, 2);
-	ft_putstr_fd(text, 2);
-	ft_putstr_fd(TEXT_RESET, 2);
+	ft_putstr_fd(format, fd);
+	ft_putstr_fd(color, fd);
+	ft_putstr_fd(text, fd);
+	ft_putstr_fd(TEXT_RESET, fd);
 }
 
 /*
@@ -28,11 +28,11 @@ void	display_text(char *text, char format[5], char color[6])
 */
 void	display_error(char *command, char *error, char *arg)
 {
-	display_text(command, TEXT_ITALIC, TEXT_NULL_COLOR);
-	display_text(error, TEXT_NULL_FORMAT, TEXT_RED);
+	display_text(command, TEXT_ITALIC, TEXT_NULL_COLOR, STDERR_FILENO);
+	display_text(error, TEXT_NULL_FORMAT, TEXT_RED, STDERR_FILENO);
 	if (arg)
-		display_text(arg, TEXT_ITALIC, TEXT_NULL_COLOR);
-	ft_putchar_fd('\n', 2);
+		display_text(arg, TEXT_ITALIC, TEXT_NULL_COLOR, STDERR_FILENO);
+	ft_putchar_fd('\n', STDERR_FILENO);
 }
 
 /*

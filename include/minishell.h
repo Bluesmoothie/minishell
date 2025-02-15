@@ -6,7 +6,7 @@
 /*   By: ygille <ygille@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/28 17:52:27 by ygille            #+#    #+#             */
-/*   Updated: 2025/02/14 23:53:21 by ygille           ###   ########.fr       */
+/*   Updated: 2025/02/15 21:08:43 by ygille           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ void	try_launch(t_minishell *minishell, char **args);
 char	*calc_bin_path(t_minishell *minishell, char **args);
 
 //	text.c
-void	display_text(char *text, char format[5], char color[6]);
+void	display_text(char *text, char format[5], char color[6], int fd);
 void	display_error(char *command, char *error, char *arg);
 char	*calc_prompt(t_minishell minishell);
 char	*get_relative_path(char *pwd, char *home);
