@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   multiple_pipes.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sithomas <sithomas@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: ygille <ygille@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/12 10:17:46 by sithomas          #+#    #+#             */
-/*   Updated: 2025/02/15 16:58:21 by sithomas         ###   ########.fr       */
+/*   Updated: 2025/02/15 21:14:47 by ygille           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 static void	father(int *pipefd, int *pid, int size, t_minishell *minishell);
 static void	treat_n_exit(t_minishell *minishell, char *line, int fd);
-static void son(int i, t_pipes *current, int size, int *pipefd);
+static void	son(int i, t_pipes *current, int size, int *pipefd);
 static int	pipe_and_fork(int *pipefd, int i);
 
 void	multiple_pipes(t_minishell *minishell, t_pipes **unpiped, int size)
@@ -47,7 +47,7 @@ void	multiple_pipes(t_minishell *minishell, t_pipes **unpiped, int size)
 static int	pipe_and_fork(int *pipefd, int i)
 {
 	int	pid;
-	
+
 	if (pipe(pipefd + 2 * i) == -1)
 		return (-1); //A TRAITER
 	pid = fork();
@@ -59,7 +59,7 @@ static int	pipe_and_fork(int *pipefd, int i)
 static void	father(int *pipefd, int *pid, int size, t_minishell *minishell)
 {
 	int	i;
-	int j;
+	int	j;
 
 	i = 0;
 	(void)minishell;
@@ -79,12 +79,12 @@ static void	father(int *pipefd, int *pid, int size, t_minishell *minishell)
 	gfree(pid);
 }
 
-static void son(int i, t_pipes *current, int size, int *pipefd)
-{	
-	int j;
-	
+static void	son(int i, t_pipes *current, int size, int *pipefd)
+{
+	int	j;
+
 	if (i == 0)
-	{	
+	{
 		if (dup2(pipefd[1], current->fd_out) == -1)
 			exit (EXIT_FAILURE);//A TRAITER
 	}
@@ -96,7 +96,7 @@ static void son(int i, t_pipes *current, int size, int *pipefd)
 			exit (EXIT_FAILURE); // A TRAITER
 	}
 	else if (dup2(pipefd[2 * (i - 1)], current->fd_in) == -1)
-			exit (EXIT_FAILURE); //A TRAITER
+		exit (EXIT_FAILURE); //A TRAITER
 	j = 0;
 	while (j < 2 * i + 2)
 		close(pipefd[j++]);

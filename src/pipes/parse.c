@@ -3,17 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   parse.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sithomas <sithomas@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: ygille <ygille@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/11 17:44:17 by sithomas          #+#    #+#             */
-/*   Updated: 2025/02/15 17:51:25 by sithomas         ###   ########.fr       */
+/*   Updated: 2025/02/15 21:13:21 by ygille           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static int right_pipe(t_pipes *new, int pos);
-static int left_pipe(t_pipes *new, int pos);
+static int	right_pipe(t_pipes *new, int pos);
+static int	left_pipe(t_pipes *new, int pos);
 static char	*pipe_helper(t_pipes *new, int pos, int param, int param2);
 
 /*
@@ -23,8 +23,8 @@ and modifies the fd accordingly
 
 int	parse_pipe(t_pipes	*new)
 {
-	int		i;
-	int 	j;
+	int	i;
+	int	j;
 
 	i = 0;
 	while (new->content[i])
@@ -35,7 +35,7 @@ int	parse_pipe(t_pipes	*new)
 		else if (new->content[i] == '>')
 			j = left_pipe(new, i);
 		if (j)
-		{	
+		{
 			gfree(new->content);
 			new->issue = 1;
 			return (1);
@@ -74,7 +74,7 @@ static int	right_pipe(t_pipes *new, int pos)
 
 static int	left_pipe(t_pipes *new, int pos)
 {
-	char 	*path;
+	char	*path;
 
 	if (new->content[pos + 1] == '>')
 	{
@@ -111,10 +111,11 @@ static char	*pipe_helper(t_pipes *new, int pos, int param, int param2)
 	}
 	if (!new->content[j] || new->content[j] == '<' || new->content[j] == '>')
 		return ((void)write(2, "Syntax error\n", 13), NULL);
-	while (new->content[j] && new->content[j] != '<' && new->content[j] != '>' && new->content[j] != ' ')
+	while (new->content[j] && new->content[j] != '<'
+		&& new->content[j] != '>' && new->content[j] != ' ')
 		j++;
 	if (param2 == 2 && new->fd_out != STDOUT_FILENO)
-		close(new->fd_out);	
+		close(new->fd_out);
 	if (param2 == 1 && new->fd_in != STDIN_FILENO)
 		close(new->fd_in);
 	result = extract_str(new->content, pos, j);
