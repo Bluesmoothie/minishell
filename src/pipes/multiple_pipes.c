@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   multiple_pipes.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ygille <ygille@student.42lyon.fr>          +#+  +:+       +#+        */
+/*   By: sithomas <sithomas@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/12 10:17:46 by sithomas          #+#    #+#             */
-/*   Updated: 2025/02/14 23:45:48 by ygille           ###   ########.fr       */
+/*   Updated: 2025/02/15 16:58:21 by sithomas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,8 @@ void	multiple_pipes(t_minishell *minishell, t_pipes **unpiped, int size)
 	while (current)
 	{
 		pid[i] = pipe_and_fork(pipefd, i);
+		if (pid[i] == -1)
+			gcall_exit("fork error\n");
 		if (pid[i] == 0)
 		{
 			son(i, current, size, pipefd);

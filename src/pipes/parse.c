@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ygille <ygille@student.42lyon.fr>          +#+  +:+       +#+        */
+/*   By: sithomas <sithomas@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/11 17:44:17 by sithomas          #+#    #+#             */
-/*   Updated: 2025/02/14 23:45:54 by ygille           ###   ########.fr       */
+/*   Updated: 2025/02/15 17:51:25 by sithomas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ static int	right_pipe(t_pipes *new, int pos)
 	if (new->content[pos + 1] == '<')
 	{
 		if (new->content[pos + 2] == '<' || new->content[pos + 2] == '>')
-			return (write(2, "Syntax error near\nunexpected token '<<'\n", 40));
+			return (write(2, "Syntax error\n", 13));
 		path = pipe_helper(new, pos, 2, 1);
 		if (!path)
 			return (1);
@@ -63,7 +63,11 @@ static int	right_pipe(t_pipes *new, int pos)
 		path = pipe_helper(new, pos, 1, 1);
 		if (!path)
 			return (1);
-		new->fd_in = open(path, O_CREAT | O_RDWR, 00400);
+		if (access(path, F_OK))
+			return (printf("%s: No such file or directory\n", path));
+		if (access(path, R_OK))
+			return (printf("%s: permission denied\n", path));
+		new->fd_in = open(path, O_RDONLY, 00400);
 	}
 	return (0);
 }
@@ -75,7 +79,7 @@ static int	left_pipe(t_pipes *new, int pos)
 	if (new->content[pos + 1] == '>')
 	{
 		if (new->content[pos + 2] == '<' || new->content[pos + 2] == '>')
-			return (write(2, "Syntax error near\nunexpected token '>>'\n", 40));
+			return (write(2, "Syntax error\n", 13));
 		path = pipe_helper(new, pos, 2, 2);
 		if (!path)
 			return (1);

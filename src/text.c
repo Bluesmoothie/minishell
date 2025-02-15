@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   text.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ygille <ygille@student.42lyon.fr>          +#+  +:+       +#+        */
+/*   By: sithomas <sithomas@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/28 19:54:08 by ygille            #+#    #+#             */
-/*   Updated: 2025/02/15 13:13:23 by ygille           ###   ########.fr       */
+/*   Updated: 2025/02/15 18:20:04 by sithomas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,10 +17,10 @@
 */
 void	display_text(char *text, char format[5], char color[6])
 {
-	ft_putstr_fd(format, 1);
-	ft_putstr_fd(color, 1);
-	ft_putstr_fd(text, 1);
-	ft_putstr_fd(TEXT_RESET, 1);
+	ft_putstr_fd(format, 2);
+	ft_putstr_fd(color, 2);
+	ft_putstr_fd(text, 2);
+	ft_putstr_fd(TEXT_RESET, 2);
 }
 
 /*
@@ -32,7 +32,7 @@ void	display_error(char *command, char *error, char *arg)
 	display_text(error, TEXT_NULL_FORMAT, TEXT_RED);
 	if (arg)
 		display_text(arg, TEXT_ITALIC, TEXT_NULL_COLOR);
-	ft_putchar_fd('\n', 1);
+	ft_putchar_fd('\n', 2);
 }
 
 /*
