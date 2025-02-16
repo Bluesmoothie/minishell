@@ -6,7 +6,7 @@
 /*   By: sithomas <sithomas@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/11 17:44:17 by sithomas          #+#    #+#             */
-/*   Updated: 2025/02/16 11:44:46 by sithomas         ###   ########.fr       */
+/*   Updated: 2025/02/16 16:10:17 by sithomas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,19 +104,19 @@ static char	*pipe_helper(t_pipes *new, int pos, int param, int param2)
 
 	j = pos + param;
 	if (new->content[j] == ' ')
-	{
 		while (new->content[j] == ' ')
 			j++;
-	}
 	if (!new->content[j] || new->content[j] == '<' || new->content[j] == '>')
 		return ((void)write(2, "Syntax error\n", 13), NULL);
 	while (new->content[j] && new->content[j] != '<'
 		&& new->content[j] != '>' && new->content[j] != ' ')
 		j++;
 	if (param2 == 2 && new->fd_out != STDOUT_FILENO)
-		close(new->fd_out);
+		if (close(new->fd_out) == -1)
+			gcall_exit(E_CLOSE);
 	if (param2 == 1 && new->fd_in != STDIN_FILENO)
-		close(new->fd_in);
+		if (close(new->fd_in) == -1)
+			gcall_exit(E_CLOSE);
 	result = extract_str(new->content, pos, j);
 	new->content = gman_add(ft_strtrim(result[0], "< >"));
 	path = gman_add(ft_strtrim(result[1], "< >"));

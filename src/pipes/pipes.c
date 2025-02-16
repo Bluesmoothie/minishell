@@ -6,7 +6,7 @@
 /*   By: sithomas <sithomas@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/07 11:07:02 by sithomas          #+#    #+#             */
-/*   Updated: 2025/02/16 15:19:28 by sithomas         ###   ########.fr       */
+/*   Updated: 2025/02/16 15:41:56 by sithomas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ void	unpipe(t_minishell *minishell, char *line)
 	if (!line[0])
 		return (treat_arguments(minishell, line, STDOUT_FILENO));
 	if (oneemptypipe(line))
-		return (gfree((void *)line), (void)write(2, "Syntax error\n", 13));
+		return (gfree(line), (void)write(2, "Syntax error\n", 13));
 	tmp_in = dup(STDIN_FILENO);
 	tmp_out = dup(STDOUT_FILENO);
 	unpiped = create_pipe_list(line);
@@ -76,7 +76,7 @@ static void	nopipe(t_minishell *minishell, t_pipes **unpiped)
 	if ((*unpiped)->fd_out != STDOUT_FILENO)
 		dup2((*unpiped)->fd_out, STDOUT_FILENO);
 	treat_arguments(minishell, (*unpiped)->content, STDOUT_FILENO);
-	pipeclear2(unpiped);
+	pipeclear(unpiped);
 }
 
 static t_bool	oneemptypipe(char *str)
