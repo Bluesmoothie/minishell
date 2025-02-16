@@ -6,7 +6,7 @@
 /*   By: ygille <ygille@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/28 17:52:27 by ygille            #+#    #+#             */
-/*   Updated: 2025/02/15 21:08:43 by ygille           ###   ########.fr       */
+/*   Updated: 2025/02/16 13:45:06 by ygille           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,6 @@ void	init_minishell(t_minishell *minishell, char **envp);
 void	init_signals(void);
 void	init_term(void);
 t_mlist	*init_env(char **envp);
-void	signal_handler(int sig);
 
 //	launch.c
 void	launch_bin(t_minishell *minishell, char *path, char **args);
@@ -71,6 +70,10 @@ void	treat_arguments(t_minishell *minishell, char *line, int fd);
 t_bool	builtin_functions(t_minishell *minishell, char **args, int fd);
 void	try_launch(t_minishell *minishell, char **args);
 char	*calc_bin_path(t_minishell *minishell, char **args);
+
+//	signal.c
+void	siginit_struct(t_minishell *minishell);
+void	signal_handler(int sig);
 
 //	text.c
 void	display_text(char *text, char format[5], char color[6], int fd);
