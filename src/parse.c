@@ -6,7 +6,7 @@
 /*   By: ygille <ygille@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/28 19:38:14 by ygille            #+#    #+#             */
-/*   Updated: 2025/02/15 13:26:39 by ygille           ###   ########.fr       */
+/*   Updated: 2025/02/16 13:24:50 by ygille           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,8 @@ void	parse_line(t_minishell *minishell, char *line)
 {
 	if (line == NULL)
 		gcall_exit(NULL);
-	add_history(line);
+	if (line[0] != '\0')
+		add_history(line);
 	unpipe(minishell, line);
 }
 
