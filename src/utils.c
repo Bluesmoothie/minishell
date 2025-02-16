@@ -6,7 +6,7 @@
 /*   By: sithomas <sithomas@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/13 16:18:50 by sithomas          #+#    #+#             */
-/*   Updated: 2025/02/15 16:48:11 by sithomas         ###   ########.fr       */
+/*   Updated: 2025/02/16 12:13:05 by sithomas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,5 +34,6 @@ char	**extract_str(char *str, int beg, int end)
 		i++;
 	}
 	ft_bzero(&result[0][i], size);
+	gfree(str);
 	return (result);
 }

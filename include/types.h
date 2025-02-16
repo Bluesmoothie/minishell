@@ -6,7 +6,7 @@
 /*   By: sithomas <sithomas@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/11 17:02:55 by ygille            #+#    #+#             */
-/*   Updated: 2025/02/13 11:50:07 by sithomas         ###   ########.fr       */
+/*   Updated: 2025/02/16 15:22:31 by sithomas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,13 +31,13 @@ void	free_struct(t_minishell *minishell);
 void	update_infos(t_minishell *minishell);
 
 //	types/pipes.c 
-t_pipes	*pipeclear(t_pipes *lst);
 t_pipes	*pipecreate(char *content);
 void	pipeadd_back(t_pipes **lst, t_pipes *new);
-void	pipedelone(t_pipes *lst);
 int		pipelstsize(t_pipes *lst);
 
 //	types/pipes2.c
+void	pipeclear(t_pipes **lst);
+void	pipeclear2(t_pipes **lst);
 t_pipes	*pipelast(t_pipes *lst);
 
 #endif

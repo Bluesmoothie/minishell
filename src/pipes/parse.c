@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ygille <ygille@student.42lyon.fr>          +#+  +:+       +#+        */
+/*   By: sithomas <sithomas@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/11 17:44:17 by sithomas          #+#    #+#             */
-/*   Updated: 2025/02/15 21:13:21 by ygille           ###   ########.fr       */
+/*   Updated: 2025/02/16 11:44:46 by sithomas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,6 @@ int	parse_pipe(t_pipes	*new)
 			j = left_pipe(new, i);
 		if (j)
 		{
-			gfree(new->content);
 			new->issue = 1;
 			return (1);
 		}
@@ -119,7 +118,8 @@ static char	*pipe_helper(t_pipes *new, int pos, int param, int param2)
 	if (param2 == 1 && new->fd_in != STDIN_FILENO)
 		close(new->fd_in);
 	result = extract_str(new->content, pos, j);
-	new->content = ft_strtrim(ft_strdup(result[0]), "< >");
-	path = ft_strtrim(result[1], "< >");
+	new->content = gman_add(ft_strtrim(result[0], "< >"));
+	path = gman_add(ft_strtrim(result[1], "< >"));
+	gfree_double(result);
 	return (path);
 }

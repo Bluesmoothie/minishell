@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   multiple_pipes.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ygille <ygille@student.42lyon.fr>          +#+  +:+       +#+        */
+/*   By: sithomas <sithomas@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/12 10:17:46 by sithomas          #+#    #+#             */
-/*   Updated: 2025/02/15 21:14:47 by ygille           ###   ########.fr       */
+/*   Updated: 2025/02/16 15:06:55 by sithomas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ void	multiple_pipes(t_minishell *minishell, t_pipes **unpiped, int size)
 
 	current = *unpiped;
 	pipefd = (int *)gmalloc((2 * size) * sizeof(int));
-	pid = (int *)gmalloc(size * sizeof(int));
+	pid = (int *)gmalloc((size) * sizeof(int));
 	i = 0;
 	while (current)
 	{
@@ -36,12 +36,14 @@ void	multiple_pipes(t_minishell *minishell, t_pipes **unpiped, int size)
 		if (pid[i] == 0)
 		{
 			son(i, current, size, pipefd);
+			gfree(pid);
 			treat_n_exit(minishell, current->content, current->fd_out);
 		}
 		current = current->next;
 		i++;
 	}
 	father(pipefd, pid, size, minishell);
+	pipeclear(unpiped);
 }
 
 static int	pipe_and_fork(int *pipefd, int i)
@@ -88,7 +90,7 @@ static void	son(int i, t_pipes *current, int size, int *pipefd)
 		if (dup2(pipefd[1], current->fd_out) == -1)
 			exit (EXIT_FAILURE);//A TRAITER
 	}
-	else if (i < size - 1) //peloton
+	else if (i < size - 1)
 	{
 		if (dup2(pipefd[2 * (i - 1)], current->fd_in) == -1)
 			exit (EXIT_FAILURE); // A TRAITER
@@ -100,6 +102,7 @@ static void	son(int i, t_pipes *current, int size, int *pipefd)
 	j = 0;
 	while (j < 2 * i + 2)
 		close(pipefd[j++]);
+	gfree(pipefd);
 }
 
 static void	treat_n_exit(t_minishell *minishell, char *line, int fd)
