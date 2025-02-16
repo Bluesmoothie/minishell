@@ -25,6 +25,7 @@ SRC_FILES		=	minishell					\
 					launch						\
 					miniparse					\
 					parse						\
+					signal						\
 					text						\
 					utils						\
 					builtins/cd					\
