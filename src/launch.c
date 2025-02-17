@@ -6,7 +6,7 @@
 /*   By: ygille <ygille@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/30 16:49:35 by ygille            #+#    #+#             */
-/*   Updated: 2025/02/16 13:47:00 by ygille           ###   ########.fr       */
+/*   Updated: 2025/02/17 15:06:50 by ygille           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,15 +22,40 @@ void	launch_bin(t_minishell *minishell, char *path, char **args)
 	int		pid;
 
 	new_envp = create_new_envp(minishell);
+	if (!is_piped())
+	{
+		pid = fork();
+		if (pid == -1)
+			gcall_exit(E_FORK);
+		if (pid == 0)
+			execve(path, args, new_envp);
+		minishell->child_pid = pid;
+		waitpid(pid, &minishell->last_return_value, 0);
+		minishell->child_pid = 0;
+	}
+	else
+		launch_bin_piped(minishell, path, args, new_envp);
+	gfree_double(new_envp);
+}
+
+/*
+** Alternate process to handle piped launch
+*/
+void	launch_bin_piped(t_minishell *minishell, char *path, char **args, char **envp)
+{
+	int			pid;
+	t_pipe_mem	pipe;
+
+	pipe = get_pipe(void);
 	pid = fork();
 	if (pid == -1)
 		gcall_exit(E_FORK);
 	if (pid == 0)
-		execve(path, args, new_envp);
+	{
+		son(pipe.i, pipe.current, pipe.size, pipe.pipefd);
+		execve(path, args, envp);
+	}
 	minishell->child_pid = pid;
-	waitpid(pid, &minishell->last_return_value, 0);
-	minishell->child_pid = 0;
-	gfree_double(new_envp);
 }
 
 /*
