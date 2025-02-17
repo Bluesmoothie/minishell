@@ -6,7 +6,7 @@
 /*   By: sithomas <sithomas@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/12 10:17:46 by sithomas          #+#    #+#             */
-/*   Updated: 2025/02/17 17:45:57 by sithomas         ###   ########.fr       */
+/*   Updated: 2025/02/17 18:35:12 by sithomas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,22 +83,21 @@ void	son(int i, t_pipes *current, int size, int *pipefd)
 	if (i == 0)
 	{
 		if (dup2(pipefd[1], current->fd_out) == -1)
-			gcall_exit (E_DUP2);
+			exit(EXIT_FAILURE);
 	}
 	else if (i < size - 1)
 	{
-		if (dup2(pipefd[2 * (i - 1)], current->fd_in) == -1)
-			gcall_exit (E_DUP2);
+		if (current->fd_in != STDIN_FILENO && dup2(pipefd[2 * (i - 1)], current->fd_in) == -1)
+			exit(EXIT_FAILURE);
 		if (dup2(pipefd[2 * i + 1], current->fd_out) == -1)
-			gcall_exit (E_DUP2);
+			exit(EXIT_FAILURE);
 	}
 	else if (dup2(pipefd[2 * (i - 1)], current->fd_in) == -1)
-		gcall_exit (E_DUP2);
+		exit(EXIT_FAILURE);
 	j = 0;
 	while (j < 2 * i + 2)
 		if (close(pipefd[j++]) == -1)
-			gcall_exit(E_CLOSE);
-	gfree(pipefd);
+			exit(EXIT_FAILURE);
 }
 
 // static void	treat_n_exit(t_minishell *minishell, char *line, int fd)
