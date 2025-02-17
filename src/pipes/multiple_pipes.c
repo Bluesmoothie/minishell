@@ -6,7 +6,7 @@
 /*   By: sithomas <sithomas@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/12 10:17:46 by sithomas          #+#    #+#             */
-/*   Updated: 2025/02/17 15:00:52 by sithomas         ###   ########.fr       */
+/*   Updated: 2025/02/17 15:03:34 by sithomas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,7 @@ static void	father(int *pipefd, int *pid, int size, t_minishell *minishell)
 			return (gcall_exit(E_WAITPID));
 		j++;
 	}
+	minishell->child_pid = 0;
 	gfree(pipefd);
 	gfree(pid);
 }
