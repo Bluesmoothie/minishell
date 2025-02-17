@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   multiple_pipes.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sithomas <sithomas@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: ygille <ygille@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/12 10:17:46 by sithomas          #+#    #+#             */
-/*   Updated: 2025/02/17 15:35:47 by sithomas         ###   ########.fr       */
+/*   Updated: 2025/02/17 17:44:29 by ygille           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,7 @@ static void	father(int *pipefd, int *pid, int size, t_minishell *minishell)
 	minishell->child_pid = 0;
 	gfree(pipefd);
 	reset_pid();
+	reset_pipe();
 }
 
 void	son(int i, t_pipes *current, int size, int *pipefd)
