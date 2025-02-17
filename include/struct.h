@@ -6,7 +6,7 @@
 /*   By: ygille <ygille@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/11 16:51:17 by ygille            #+#    #+#             */
-/*   Updated: 2025/02/17 14:42:53 by ygille           ###   ########.fr       */
+/*   Updated: 2025/02/17 15:32:01 by ygille           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,20 +53,19 @@ typedef struct s_pipes
 
 typedef struct s_pipe_mem
 {
-	t_pipes *current;
-	int 	i;
-	int 	size;
-	int 	*pipefd;
+	t_pipes	*current;
+	int		i;
+	int		size;
+	int		*pipefd;
 	t_bool	is_piped;
 }	t_pipe_mem;
 
-enum	e_op_pipes
+enum	e_op_codes
 {
 	PSET,
 	PGET,
 	PRESET
 };
-
 
 enum	e_modes
 {

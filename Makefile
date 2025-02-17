@@ -25,6 +25,7 @@ SRC_FILES		=	minishell					\
 					launch						\
 					miniparse					\
 					parse						\
+					pid_connect					\
 					pipe_connect				\
 					signal						\
 					text						\

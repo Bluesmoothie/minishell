@@ -6,7 +6,7 @@
 /*   By: ygille <ygille@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/30 16:49:35 by ygille            #+#    #+#             */
-/*   Updated: 2025/02/17 15:08:17 by ygille           ###   ########.fr       */
+/*   Updated: 2025/02/17 15:34:09 by ygille           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,8 @@ void	launch_bin(t_minishell *minishell, char *path, char **args)
 /*
 ** Alternate process to handle piped launch
 */
-void	launch_bin_piped(t_minishell *minishell, char *path, char **args, char **envp)
+void	launch_bin_piped(t_minishell *minishell, char *path, char **args,
+	char **envp)
 {
 	int			pid;
 	t_pipe_mem	pipe;
@@ -55,6 +56,7 @@ void	launch_bin_piped(t_minishell *minishell, char *path, char **args, char **en
 		son(pipe.i, pipe.current, pipe.size, pipe.pipefd);
 		execve(path, args, envp);
 	}
+	add_pid(pid, pipe.i, pipe.size);
 	minishell->child_pid = pid;
 }
 

@@ -6,7 +6,7 @@
 /*   By: ygille <ygille@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/28 17:52:27 by ygille            #+#    #+#             */
-/*   Updated: 2025/02/17 15:08:04 by ygille           ###   ########.fr       */
+/*   Updated: 2025/02/17 15:32:17 by ygille           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,8 @@ t_mlist		*init_env(char **envp);
 
 //	launch.c
 void		launch_bin(t_minishell *minishell, char *path, char **args);
-void		launch_bin_piped(t_minishell *minishell, char *path, char **args, char **envp);
+void		launch_bin_piped(t_minishell *minishell, char *path, char **args,
+				char **envp);
 char		*search_binary(char **paths, char *bin);
 char		**create_new_envp(t_minishell *minishell);
 
@@ -71,6 +72,11 @@ void		treat_arguments(t_minishell *minishell, char *line, int fd);
 t_bool		builtin_functions(t_minishell *minishell, char **args, int fd);
 void		try_launch(t_minishell *minishell, char **args);
 char		*calc_bin_path(t_minishell *minishell, char **args);
+
+//	pid_connect.c
+void		add_pid(int pid, int index, int size);
+void		reset_pid(void);
+int			*get_pid(void);
 
 //	pipe_connect.c
 t_bool		is_piped(void);
