@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pid_connect.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sithomas <sithomas@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: ygille <ygille@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/17 15:19:06 by ygille            #+#    #+#             */
-/*   Updated: 2025/02/17 18:28:22 by sithomas         ###   ########.fr       */
+/*   Updated: 2025/02/17 19:25:45 by ygille           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,10 @@ static int	*pid_int(int pid, int index, int size, int op_code)
 	if (op_code == PSET)
 	{
 		if (pid_list == NULL)
-			pid_list = (int *)gmalloc(size * sizeof(int));
+		{
+			pid_list = gmalloc((size + 1) * sizeof(int));
+			pid_list[size] = 0;
+		}
 		pid_list[index] = pid;
 	}
 	else if (op_code == PRESET)
