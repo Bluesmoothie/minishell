@@ -6,7 +6,7 @@
 /*   By: ygille <ygille@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/28 19:38:14 by ygille            #+#    #+#             */
-/*   Updated: 2025/02/17 17:12:16 by ygille           ###   ########.fr       */
+/*   Updated: 2025/02/17 19:35:35 by ygille           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,8 +89,13 @@ void	try_launch(t_minishell *minishell, char **args)
 	}
 	else
 	{
-		display_error(args[0], E_COMMANDNF, NULL);
-		minishell->last_return_value = 127;
+		if (!is_piped())
+		{
+			display_error(args[0], E_COMMANDNF, NULL);
+			minishell->last_return_value = 127;
+		}
+		else
+			fork_nf(minishell, args[0]);
 	}
 }
 

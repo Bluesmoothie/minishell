@@ -6,7 +6,7 @@
 /*   By: ygille <ygille@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/30 16:49:35 by ygille            #+#    #+#             */
-/*   Updated: 2025/02/17 15:34:09 by ygille           ###   ########.fr       */
+/*   Updated: 2025/02/17 19:34:51 by ygille           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,4 +102,23 @@ char	**create_new_envp(t_minishell *minishell)
 		list = list->next;
 	}
 	return (new_envp);
+}
+
+void	fork_nf(t_minishell *minishell, char *comm)
+{
+	int			pid;
+	t_pipe_mem	pipe;
+
+	pipe = get_pipe();
+	pid = fork();
+	if (pid == -1)
+		gcall_exit(E_FORK);
+	if (pid == 0)
+	{
+		display_error(comm, E_COMMANDNF, NULL);
+		free(comm);
+		exit (127);
+	}
+	add_pid(pid, pipe.i, pipe.size);
+	minishell->child_pid = pid;
 }

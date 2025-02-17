@@ -6,7 +6,7 @@
 /*   By: ygille <ygille@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/28 17:52:27 by ygille            #+#    #+#             */
-/*   Updated: 2025/02/17 17:12:29 by ygille           ###   ########.fr       */
+/*   Updated: 2025/02/17 19:35:14 by ygille           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,7 @@ void		launch_bin_piped(t_minishell *minishell, char *path, char **args,
 				char **envp);
 char		*search_binary(char **paths, char *bin);
 char		**create_new_envp(t_minishell *minishell);
+void		fork_nf(t_minishell *minishell, char *comm);
 
 //	miniparse.c
 char		**miniparse(t_minishell *minishell, char *line);
