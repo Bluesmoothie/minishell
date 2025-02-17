@@ -6,7 +6,7 @@
 /*   By: ygille <ygille@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/28 17:52:27 by ygille            #+#    #+#             */
-/*   Updated: 2025/02/16 13:45:06 by ygille           ###   ########.fr       */
+/*   Updated: 2025/02/17 14:48:09 by ygille           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,54 +34,60 @@
 # include "types.h"
 
 //	minishell.c
-void	define_mode(t_minishell *minishell, int argc, char **argv);
-char	*get_line(t_minishell *minishell);
-void	error(char *message);
-void	free_exit(void *param, char *message);
+void		define_mode(t_minishell *minishell, int argc, char **argv);
+char		*get_line(t_minishell *minishell);
+void		error(char *message);
+void		free_exit(void *param, char *message);
 
 // env.c
-void	search_for_env(t_minishell *minishell, t_mlist	*args);
-char	*get_env_name(char *arg);
-char	*get_env_value(t_minishell *minishell, char *name);
-void	replace_env_value(t_mlist *node, char *value);
-char	*update_searching(char *name, int i);
+void		search_for_env(t_minishell *minishell, t_mlist	*args);
+char		*get_env_name(char *arg);
+char		*get_env_value(t_minishell *minishell, char *name);
+void		replace_env_value(t_mlist *node, char *value);
+char		*update_searching(char *name, int i);
 
 //	init.c
-void	init_minishell(t_minishell *minishell, char **envp);
-void	init_signals(void);
-void	init_term(void);
-t_mlist	*init_env(char **envp);
+void		init_minishell(t_minishell *minishell, char **envp);
+void		init_signals(void);
+void		init_term(void);
+t_mlist		*init_env(char **envp);
 
 //	launch.c
-void	launch_bin(t_minishell *minishell, char *path, char **args);
-char	*search_binary(char **paths, char *bin);
-char	**create_new_envp(t_minishell *minishell);
+void		launch_bin(t_minishell *minishell, char *path, char **args);
+char		*search_binary(char **paths, char *bin);
+char		**create_new_envp(t_minishell *minishell);
 
 //	miniparse.c
-char	**miniparse(t_minishell *minishell, char *line);
-int		skip_whitespaces(char *line);
-int		extract_arg(char *line, t_mlist **args, t_mlist **node);
-char	**rebuild_args(t_mlist *args);
-t_mlist	*extract_helper(char *line, int i, char sep);
+char		**miniparse(t_minishell *minishell, char *line);
+int			skip_whitespaces(char *line);
+int			extract_arg(char *line, t_mlist **args, t_mlist **node);
+char		**rebuild_args(t_mlist *args);
+t_mlist		*extract_helper(char *line, int i, char sep);
 
 //	parse.c
-void	parse_line(t_minishell *minishell, char *line);
-void	treat_arguments(t_minishell *minishell, char *line, int fd);
-t_bool	builtin_functions(t_minishell *minishell, char **args, int fd);
-void	try_launch(t_minishell *minishell, char **args);
-char	*calc_bin_path(t_minishell *minishell, char **args);
+void		parse_line(t_minishell *minishell, char *line);
+void		treat_arguments(t_minishell *minishell, char *line, int fd);
+t_bool		builtin_functions(t_minishell *minishell, char **args, int fd);
+void		try_launch(t_minishell *minishell, char **args);
+char		*calc_bin_path(t_minishell *minishell, char **args);
+
+//	pipe_connect.c
+t_bool		is_piped(void);
+void		set_pipe(int i, t_pipes *current, int size, int *pipefd);
+void		reset_pipe(void);
+t_pipe_mem	get_pipe(void);
 
 //	signal.c
-void	siginit_struct(t_minishell *minishell);
-void	signal_handler(int sig);
+void		siginit_struct(t_minishell *minishell);
+void		signal_handler(int sig);
 
 //	text.c
-void	display_text(char *text, char format[5], char color[6], int fd);
-void	display_error(char *command, char *error, char *arg);
-char	*calc_prompt(t_minishell minishell);
-char	*get_relative_path(char *pwd, char *home);
+void		display_text(char *text, char format[5], char color[6], int fd);
+void		display_error(char *command, char *error, char *arg);
+char		*calc_prompt(t_minishell minishell);
+char		*get_relative_path(char *pwd, char *home);
 
 //	utils.c
-char	**extract_str(char *str, int beg, int end);
+char		**extract_str(char *str, int beg, int end);
 
 #endif
