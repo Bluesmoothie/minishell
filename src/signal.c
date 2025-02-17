@@ -6,7 +6,7 @@
 /*   By: ygille <ygille@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/16 13:33:55 by ygille            #+#    #+#             */
-/*   Updated: 2025/02/17 15:33:52 by ygille           ###   ########.fr       */
+/*   Updated: 2025/02/17 15:54:49 by ygille           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 
 static void	signal_handler_helper(t_minishell *minishell, int sig, t_bool call);
 static void	local_signal(int sig);
+static void	transmit_signal(int sig);
 
 /*
 ** Pass the struct pointer to signal_handler
@@ -39,6 +40,8 @@ static void	signal_handler_helper(t_minishell *minishell, int sig, t_bool call)
 		minishell_mem = minishell;
 	else if (!minishell_mem->child_pid)
 		local_signal(sig);
+	else
+		transmit_signal(sig);
 }
 
 static void	local_signal(int sig)
@@ -55,4 +58,21 @@ static void	local_signal(int sig)
 		rl_on_new_line();
 		rl_redisplay();
 	}
+}
+
+static void	transmit_signal(int sig)
+{
+	int	*pid_list;
+
+	pid_list = get_pid();
+	if (sig == SIGINT)
+	{
+		while (*pid_list)
+		{
+			kill(*pid_list, sig);
+			pid_list++;
+		}
+	}
+	if (sig == SIGQUIT)
+		display_error("Quit", " Core dumped", NULL);
 }
