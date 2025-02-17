@@ -6,7 +6,7 @@
 /*   By: sithomas <sithomas@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/12 10:17:46 by sithomas          #+#    #+#             */
-/*   Updated: 2025/02/17 15:35:47 by sithomas         ###   ########.fr       */
+/*   Updated: 2025/02/17 17:40:41 by sithomas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,6 @@ static void	father(int *pipefd, int *pid, int size, t_minishell *minishell)
 	int	j;
 
 	i = 0;
-	(void)minishell;
 	while (i < 2 * size)
 	{
 		if (close(pipefd[i]) == -1)
@@ -74,6 +73,7 @@ static void	father(int *pipefd, int *pid, int size, t_minishell *minishell)
 	minishell->child_pid = 0;
 	gfree(pipefd);
 	reset_pid();
+	reset_pipe();
 }
 
 void	son(int i, t_pipes *current, int size, int *pipefd)
@@ -83,17 +83,17 @@ void	son(int i, t_pipes *current, int size, int *pipefd)
 	if (i == 0)
 	{
 		if (dup2(pipefd[1], current->fd_out) == -1)
-			gcall_exit (E_DUP2);//A TRAITER
+			gcall_exit (E_DUP2);
 	}
 	else if (i < size - 1)
 	{
 		if (dup2(pipefd[2 * (i - 1)], current->fd_in) == -1)
-			gcall_exit (E_DUP2); // A TRAITER
+			gcall_exit (E_DUP2);
 		if (dup2(pipefd[2 * i + 1], current->fd_out) == -1)
-			gcall_exit (E_DUP2); // A TRAITER
+			gcall_exit (E_DUP2);
 	}
 	else if (dup2(pipefd[2 * (i - 1)], current->fd_in) == -1)
-		gcall_exit (E_DUP2); //A TRAITER
+		gcall_exit (E_DUP2);
 	j = 0;
 	while (j < 2 * i + 2)
 		if (close(pipefd[j++]) == -1)
