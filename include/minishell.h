@@ -6,7 +6,7 @@
 /*   By: ygille <ygille@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/28 17:52:27 by ygille            #+#    #+#             */
-/*   Updated: 2025/02/17 14:48:09 by ygille           ###   ########.fr       */
+/*   Updated: 2025/02/17 15:08:04 by ygille           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,7 @@ t_mlist		*init_env(char **envp);
 
 //	launch.c
 void		launch_bin(t_minishell *minishell, char *path, char **args);
+void		launch_bin_piped(t_minishell *minishell, char *path, char **args, char **envp);
 char		*search_binary(char **paths, char *bin);
 char		**create_new_envp(t_minishell *minishell);
 

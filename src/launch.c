@@ -6,7 +6,7 @@
 /*   By: ygille <ygille@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/30 16:49:35 by ygille            #+#    #+#             */
-/*   Updated: 2025/02/17 15:06:50 by ygille           ###   ########.fr       */
+/*   Updated: 2025/02/17 15:08:17 by ygille           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ void	launch_bin_piped(t_minishell *minishell, char *path, char **args, char **en
 	int			pid;
 	t_pipe_mem	pipe;
 
-	pipe = get_pipe(void);
+	pipe = get_pipe();
 	pid = fork();
 	if (pid == -1)
 		gcall_exit(E_FORK);
