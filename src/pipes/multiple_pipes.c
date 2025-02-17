@@ -6,16 +6,16 @@
 /*   By: sithomas <sithomas@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/12 10:17:46 by sithomas          #+#    #+#             */
-/*   Updated: 2025/02/16 16:31:02 by sithomas         ###   ########.fr       */
+/*   Updated: 2025/02/17 15:00:52 by sithomas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
 static void	father(int *pipefd, int *pid, int size, t_minishell *minishell);
-static void	treat_n_exit(t_minishell *minishell, char *line, int fd);
-static void	son(int i, t_pipes *current, int size, int *pipefd);
-static int	pipe_and_fork(int *pipefd, int i);
+// static void	treat_n_exit(t_minishell *minishell, char *line, int fd);
+// void	son(int i, t_pipes *current, int size, int *pipefd);
+// static int	pipe_and_fork(int *pipefd, int i);
 
 void	multiple_pipes(t_minishell *minishell, t_pipes **unpiped, int size)
 {
@@ -30,12 +30,10 @@ void	multiple_pipes(t_minishell *minishell, t_pipes **unpiped, int size)
 	i = 0;
 	while (current)
 	{
-		pid[i] = pipe_and_fork(pipefd, i);
-		if (pid[i] == 0)
-		{
-			son(i, current, size, pipefd);
-			treat_n_exit(minishell, current->content, current->fd_out);
-		}
+		if (pipe(pipefd + 2 * i) == -1)
+			return (gcall_exit(E_PIPE));
+		set_pipe(i, current, size, pipefd);
+		treat_arguments(minishell, current->content, current->fd_out);
 		current = current->next;
 		i++;
 	}
@@ -43,17 +41,15 @@ void	multiple_pipes(t_minishell *minishell, t_pipes **unpiped, int size)
 	pipeclear(unpiped);
 }
 
-static int	pipe_and_fork(int *pipefd, int i)
-{
-	int	pid;
+// static int	pipe_and_fork(int *pipefd, int i)
+// {
+// 	int	pid;
 
-	if (pipe(pipefd + 2 * i) == -1)
-		return (gcall_exit(E_PIPE), -1);
-	pid = fork();
-	if (pid == -1)
-		return (gcall_exit(E_FORK), -1);
-	return (pid);
-}
+// 	pid = fork();
+// 	if (pid == -1)
+// 		return (gcall_exit(E_FORK), -1);
+// 	return (pid);
+// }
 
 static void	father(int *pipefd, int *pid, int size, t_minishell *minishell)
 {
@@ -71,7 +67,7 @@ static void	father(int *pipefd, int *pid, int size, t_minishell *minishell)
 	j = 0;
 	while (j < size)
 	{
-		if (waitpid(pid[j], NULL, 0) == -1)
+		if (waitpid(pid[j], &minishell->last_return_value, 0) == -1)
 			return (gcall_exit(E_WAITPID));
 		j++;
 	}
@@ -79,7 +75,7 @@ static void	father(int *pipefd, int *pid, int size, t_minishell *minishell)
 	gfree(pid);
 }
 
-static void	son(int i, t_pipes *current, int size, int *pipefd)
+void	son(int i, t_pipes *current, int size, int *pipefd)
 {
 	int	j;
 
@@ -104,8 +100,8 @@ static void	son(int i, t_pipes *current, int size, int *pipefd)
 	gfree(pipefd);
 }
 
-static void	treat_n_exit(t_minishell *minishell, char *line, int fd)
-{
-	treat_arguments(minishell, line, fd);
-	gcall_exit(EXIT_SUCCESS);
-}
+// static void	treat_n_exit(t_minishell *minishell, char *line, int fd)
+// {
+// 	treat_arguments(minishell, line, fd);
+// 	gcall_exit(EXIT_SUCCESS);
+// }
