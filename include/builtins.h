@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtins.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ygille <ygille@student.42lyon.fr>          +#+  +:+       +#+        */
+/*   By: sithomas <sithomas@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/11 17:03:25 by ygille            #+#    #+#             */
-/*   Updated: 2025/02/15 12:45:45 by ygille           ###   ########.fr       */
+/*   Updated: 2025/02/17 15:44:35 by sithomas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ int		func_cd(t_minishell *minishell, char **args);
 int		func_echo(char **args, int fd);
 
 //	builtins/env.c
-int		func_env(t_minishell *minishell, int fd);
+int		func_env(t_minishell *minishell, int fd, t_bool export);
 
 //	builtins/export.c
 int		func_export(t_minishell *minishell, char **args, int fd);

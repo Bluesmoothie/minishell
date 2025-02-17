@@ -6,7 +6,7 @@
 /*   By: sithomas <sithomas@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/12 10:17:46 by sithomas          #+#    #+#             */
-/*   Updated: 2025/02/17 15:03:34 by sithomas         ###   ########.fr       */
+/*   Updated: 2025/02/17 15:35:47 by sithomas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,6 @@ void	multiple_pipes(t_minishell *minishell, t_pipes **unpiped, int size)
 
 	current = *unpiped;
 	pipefd = (int *)gmalloc((2 * size) * sizeof(int));
-	pid = (int *)gmalloc((size) * sizeof(int));
 	i = 0;
 	while (current)
 	{
@@ -37,6 +36,7 @@ void	multiple_pipes(t_minishell *minishell, t_pipes **unpiped, int size)
 		current = current->next;
 		i++;
 	}
+	pid = get_pid();
 	father(pipefd, pid, size, minishell);
 	pipeclear(unpiped);
 }
@@ -73,7 +73,7 @@ static void	father(int *pipefd, int *pid, int size, t_minishell *minishell)
 	}
 	minishell->child_pid = 0;
 	gfree(pipefd);
-	gfree(pid);
+	reset_pid();
 }
 
 void	son(int i, t_pipes *current, int size, int *pipefd)

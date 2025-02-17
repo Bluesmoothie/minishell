@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ygille <ygille@student.42lyon.fr>          +#+  +:+       +#+        */
+/*   By: sithomas <sithomas@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/28 19:38:14 by ygille            #+#    #+#             */
-/*   Updated: 2025/02/16 13:24:50 by ygille           ###   ########.fr       */
+/*   Updated: 2025/02/17 15:50:39 by sithomas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ t_bool	builtin_functions(t_minishell *minishell, char **args, int fd)
 	else if (ft_strcmp(args[0], "unset") == 0)
 		minishell->last_return_value = func_unset(minishell, args);
 	else if (ft_strcmp(args[0], "env") == 0)
-		minishell->last_return_value = func_env(minishell, fd);
+		minishell->last_return_value = func_env(minishell, fd, 0);
 	else
 		return (FALSE);
 	return (TRUE);
