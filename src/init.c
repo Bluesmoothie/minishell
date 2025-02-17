@@ -6,7 +6,7 @@
 /*   By: ygille <ygille@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/30 16:11:43 by ygille            #+#    #+#             */
-/*   Updated: 2025/02/17 19:54:00 by ygille           ###   ########.fr       */
+/*   Updated: 2025/02/17 19:59:03 by ygille           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ t_mlist	*init_env(char **envp)
 
 void	term_param_restore(struct termios param, t_bool restore)
 {
-	static struct termios param_mem;
+	static struct termios	param_mem;
 
 	if (!restore)
 		param_mem = param;

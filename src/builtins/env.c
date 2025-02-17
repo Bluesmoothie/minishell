@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sithomas <sithomas@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: ygille <ygille@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/29 15:14:29 by ygille            #+#    #+#             */
-/*   Updated: 2025/02/17 15:50:09 by sithomas         ###   ########.fr       */
+/*   Updated: 2025/02/17 19:58:40 by ygille           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ int	func_env(t_minishell *minishell, int fd, t_bool export)
 		ft_putstr_fd(lst->name, fd);
 		ft_putstr_fd("=", fd);
 		if (export)
-		{	
+		{
 			ft_putstr_fd("\"", fd);
 			ft_putstr_fd(lst->content, fd);
 			ft_putendl_fd("\"", fd);
