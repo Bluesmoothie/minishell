@@ -6,7 +6,7 @@
 /*   By: ygille <ygille@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/28 17:52:41 by ygille            #+#    #+#             */
-/*   Updated: 2025/02/16 13:42:53 by ygille           ###   ########.fr       */
+/*   Updated: 2025/02/17 19:55:13 by ygille           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,7 +94,8 @@ void	error(char *message)
 */
 void	free_exit(void *param, char *message)
 {
-	t_minishell	*minishell;
+	t_minishell		*minishell;
+	struct termios	null_term;
 
 	minishell = (t_minishell *)param;
 	rl_clear_history();
@@ -102,6 +103,7 @@ void	free_exit(void *param, char *message)
 		close (minishell->input_file);
 	if (message)
 		error(message);
+	term_param_restore(null_term, 1);
 	if (minishell->mode != TTY_MODE)
 		exit(minishell->last_return_value);
 	exit(EXIT_SUCCESS);
