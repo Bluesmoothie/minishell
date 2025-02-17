@@ -6,7 +6,7 @@
 /*   By: ygille <ygille@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/17 16:55:15 by ygille            #+#    #+#             */
-/*   Updated: 2025/02/17 17:16:49 by ygille           ###   ########.fr       */
+/*   Updated: 2025/02/17 17:43:47 by ygille           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ void	piped_builtin(t_minishell *minishell, char **args)
 	if (pid == 0)
 	{
 		son(pipe.i, pipe.current, pipe.size, pipe.pipefd);
-		launch_pipe_builtin(minishell, args, STDIN_FILENO);
+		launch_pipe_builtin(minishell, args, STDOUT_FILENO);
 	}
 	add_pid(pid, pipe.i, pipe.size);
 	minishell->child_pid = pid;
