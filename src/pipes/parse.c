@@ -6,7 +6,7 @@
 /*   By: sithomas <sithomas@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/11 17:44:17 by sithomas          #+#    #+#             */
-/*   Updated: 2025/02/16 16:10:17 by sithomas         ###   ########.fr       */
+/*   Updated: 2025/02/17 19:55:25 by sithomas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ int	parse_pipe(t_pipes	*new)
 			new->issue = 1;
 			return (1);
 		}
-		i ++;
+		i++;
 	}
 	return (0);
 }
