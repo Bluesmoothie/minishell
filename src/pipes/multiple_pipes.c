@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   multiple_pipes.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ygille <ygille@student.42lyon.fr>          +#+  +:+       +#+        */
+/*   By: sithomas <sithomas@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/12 10:17:46 by sithomas          #+#    #+#             */
-/*   Updated: 2025/02/17 19:26:14 by ygille           ###   ########.fr       */
+/*   Updated: 2025/02/17 19:39:12 by sithomas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,7 @@ void	son(int i, t_pipes *current, int size, int *pipefd)
 	}
 	else if (i < size - 1)
 	{
-		if (current->fd_in != STDIN_FILENO && dup2(pipefd[2 * (i - 1)], current->fd_in) == -1)
+		if (dup2(pipefd[2 * (i - 1)], current->fd_in) == -1)
 			exit(EXIT_FAILURE);
 		if (dup2(pipefd[2 * i + 1], current->fd_out) == -1)
 			exit(EXIT_FAILURE);
