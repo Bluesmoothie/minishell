@@ -20,6 +20,7 @@ INCLUDE 		=	-Iinclude/ -I$(LIBFT)/include/
 #			SRC
 
 SRC_FILES		=	minishell					\
+					builtins					\
 					env							\
 					init						\
 					launch						\

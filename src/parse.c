@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sithomas <sithomas@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: ygille <ygille@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/28 19:38:14 by ygille            #+#    #+#             */
-/*   Updated: 2025/02/17 15:50:39 by sithomas         ###   ########.fr       */
+/*   Updated: 2025/02/17 17:12:16 by ygille           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,9 @@ void	treat_arguments(t_minishell *minishell, char *line, int fd)
 		return ;
 	}
 	gfree(line);
-	if (!builtin_functions(minishell, args, fd))
+	if (is_builtin(args) && is_piped())
+		piped_builtin(minishell, args);
+	else if (!builtin_functions(minishell, args, fd))
 		try_launch(minishell, args);
 	gfree_double(args);
 	return ;

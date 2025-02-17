@@ -6,7 +6,7 @@
 /*   By: ygille <ygille@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/28 17:52:27 by ygille            #+#    #+#             */
-/*   Updated: 2025/02/17 15:32:17 by ygille           ###   ########.fr       */
+/*   Updated: 2025/02/17 17:12:29 by ygille           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,11 @@ char		*get_line(t_minishell *minishell);
 void		error(char *message);
 void		free_exit(void *param, char *message);
 
-// env.c
+//	builtins.c
+t_bool		is_builtin(char **args);
+void		piped_builtin(t_minishell *minishell, char **args);
+
+//	env.c
 void		search_for_env(t_minishell *minishell, t_mlist	*args);
 char		*get_env_name(char *arg);
 char		*get_env_value(t_minishell *minishell, char *name);
