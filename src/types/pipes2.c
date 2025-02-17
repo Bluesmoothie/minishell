@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipes2.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sithomas <sithomas@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: ygille <ygille@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/11 17:14:21 by ygille            #+#    #+#             */
-/*   Updated: 2025/02/16 16:30:24 by sithomas         ###   ########.fr       */
+/*   Updated: 2025/02/17 19:58:52 by ygille           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,6 @@ void	pipeclear(t_pipes **lst)
 	}
 	lst = NULL;
 }
-
 
 static void	pipedelone(t_pipes *lst)
 {
