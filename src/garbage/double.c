@@ -6,7 +6,7 @@
 /*   By: ygille <ygille@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/14 19:13:45 by ygille            #+#    #+#             */
-/*   Updated: 2025/02/17 15:32:33 by ygille           ###   ########.fr       */
+/*   Updated: 2025/02/18 13:40:37 by ygille           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,8 +69,6 @@ void	gfree_double_helper(void **ptr)
 	while (ptr[i] != NULL)
 	{
 		garbage_col(GRMPTR, ptr[i]);
-		free(ptr[i]);
 		i++;
 	}
-	free(ptr);
 }

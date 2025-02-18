@@ -6,7 +6,7 @@
 /*   By: ygille <ygille@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/14 13:01:28 by ygille            #+#    #+#             */
-/*   Updated: 2025/02/18 13:25:05 by ygille           ###   ########.fr       */
+/*   Updated: 2025/02/18 13:40:03 by ygille           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,7 @@ static void	garbage_remove(void *glist[], size_t *gsize, void *ptr)
 	if (i == *gsize)
 		return ;
 	glist[i] = NULL;
+	free (ptr);
 	if (i < *gsize - 1)
 	{
 		glist[i] = glist[*gsize - 1];

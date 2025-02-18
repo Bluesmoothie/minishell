@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipes.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sithomas <sithomas@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: ygille <ygille@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/07 11:07:02 by sithomas          #+#    #+#             */
-/*   Updated: 2025/02/16 15:41:56 by sithomas         ###   ########.fr       */
+/*   Updated: 2025/02/18 13:46:48 by ygille           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ static t_pipes	**create_pipe_list(char *line)
 	char	**splitted;
 	int		i;
 
-	splitted = gman_add_double(ft_split(line, '|'));
+	splitted = gft_split(line, '|');
 	gfree(line);
 	i = 0;
 	list = (t_pipes **)gmalloc(sizeof(t_pipes *));

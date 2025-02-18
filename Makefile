@@ -42,6 +42,7 @@ SRC_FILES		=	minishell					\
 					garbage/double				\
 					garbage/exit				\
 					garbage/interface			\
+					garbage/split_mod			\
 					pipes/parse					\
 					pipes/multiple_pipes		\
 					pipes/pipes					\

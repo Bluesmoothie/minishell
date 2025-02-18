@@ -6,7 +6,7 @@
 /*   By: ygille <ygille@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/13 14:47:53 by ygille            #+#    #+#             */
-/*   Updated: 2025/02/15 21:01:58 by ygille           ###   ########.fr       */
+/*   Updated: 2025/02/18 13:45:13 by ygille           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,5 +62,8 @@ void	*gmalloc(size_t size);
 void	*gman_add(void *ptr);
 void	gfree(void *ptr);
 void	gclean(void);
+
+//	garbage/split_mod.c
+char	**gft_split(char const *s, char c);
 
 #endif
