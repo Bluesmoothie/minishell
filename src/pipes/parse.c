@@ -6,7 +6,7 @@
 /*   By: sithomas <sithomas@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/11 17:44:17 by sithomas          #+#    #+#             */
-/*   Updated: 2025/02/18 11:46:28 by sithomas         ###   ########.fr       */
+/*   Updated: 2025/02/18 18:48:38 by sithomas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,7 @@ int	parse_pipe(t_pipes	*new)
 static int	right_pipe(t_pipes *new, int pos)
 {
 	char	*path;
+	int		fd_in;
 
 	if (new->content[pos + 1] == '<')
 	{
@@ -61,7 +62,8 @@ static int	right_pipe(t_pipes *new, int pos)
 		path = pipe_helper(new, pos, 2);
 		if (!path)
 			return (1);
-		new->fd_in = fill_here_doc(new, path);
+		fd_in = new->fd_in;
+		new->fd_in = fill_here_doc(fd_in, path);
 	}
 	else
 	{
@@ -72,7 +74,7 @@ static int	right_pipe(t_pipes *new, int pos)
 			return (printf("%s: No such file or directory\n", path));
 		if (access(path, R_OK))
 			return (printf("%s: permission denied\n", path));
-		new->fd_in = open(path, O_RDONLY, 00400);
+		new->fd_in = open(path, O_RDONLY | __O_CLOEXEC, 00400);
 	}
 	return (0);
 }
@@ -88,7 +90,7 @@ static int	left_pipe(t_pipes *new, int pos)
 		path = pipe_helper(new, pos, 2);
 		if (!path)
 			return (1);
-		new->fd_out = open(path, O_CREAT | O_APPEND | O_RDWR, 00700);
+		new->fd_out = open(path, O_CREAT | O_APPEND | O_RDWR | __O_CLOEXEC, 00700);
 	}
 	else
 	{
@@ -97,7 +99,7 @@ static int	left_pipe(t_pipes *new, int pos)
 			return (1);
 		if (!access(path, F_OK))
 			unlink(path);
-		new->fd_out = open(path, O_CREAT | O_RDWR, 00700);
+		new->fd_out = open(path, O_CREAT | O_RDWR | __O_CLOEXEC, 00700);
 	}
 	return (0);
 }
