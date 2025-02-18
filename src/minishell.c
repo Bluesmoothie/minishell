@@ -6,7 +6,7 @@
 /*   By: ygille <ygille@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/28 17:52:41 by ygille            #+#    #+#             */
-/*   Updated: 2025/02/17 20:07:54 by ygille           ###   ########.fr       */
+/*   Updated: 2025/02/18 14:34:05 by ygille           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,13 @@ int	main(int argc, char **argv, char **envp)
 	char		*line;
 	t_minishell	minishell;
 
+	int i =0;
+	#include "ft_printf.h"
+	while (envp[i])
+	{
+		ft_printf("|%s|\n", envp[i]);
+		i++;
+	}
 	define_mode(&minishell, argc, argv);
 	init_minishell(&minishell, envp);
 	gset_exit((void *)&minishell, free_exit);
