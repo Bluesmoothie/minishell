@@ -6,11 +6,13 @@
 /*   By: ygille <ygille@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/29 14:45:43 by ygille            #+#    #+#             */
-/*   Updated: 2025/02/18 13:15:04 by ygille           ###   ########.fr       */
+/*   Updated: 2025/02/18 18:51:41 by ygille           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+static void	init_return_struct(t_return *ret);
 
 /*
 ** Init minishell struct
@@ -25,6 +27,7 @@ void	init_struct(t_minishell *minishell, char **envp)
 	minishell->env = init_env(envp);
 	minishell->prompt = calc_prompt(*minishell);
 	minishell->child_pid = 0;
+	init_return_struct(&minishell->returns);
 }
 
 /*
@@ -62,4 +65,15 @@ void	update_infos(t_minishell *minishell)
 		minishell->prompt = NULL;
 	}
 	minishell->prompt = calc_prompt(*minishell);
+}
+
+static void	init_return_struct(t_return *ret)
+{
+	ret->exit_stat = 0;
+	ret->stopsig = 0;
+	ret->termsig = 0;
+	ret->exited = FALSE;
+	ret->signaled = FALSE;
+	ret->coredump = FALSE;
+	ret->stopped = FALSE;
 }
