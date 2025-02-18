@@ -6,7 +6,7 @@
 /*   By: ygille <ygille@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/28 17:52:27 by ygille            #+#    #+#             */
-/*   Updated: 2025/02/17 19:54:26 by ygille           ###   ########.fr       */
+/*   Updated: 2025/02/17 20:08:28 by ygille           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ void		init_minishell(t_minishell *minishell, char **envp);
 void		init_signals(void);
 void		init_term(void);
 t_mlist		*init_env(char **envp);
-void		term_param_restore(struct termios param, t_bool restore);
+void		term_param_restore(t_termios param, t_bool restore);
 
 //	launch.c
 void		launch_bin(t_minishell *minishell, char *path, char **args);
