@@ -6,7 +6,7 @@
 /*   By: sithomas <sithomas@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/12 10:17:46 by sithomas          #+#    #+#             */
-/*   Updated: 2025/02/17 19:53:43 by sithomas         ###   ########.fr       */
+/*   Updated: 2025/02/18 10:56:46 by sithomas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,6 +80,10 @@ void	son(int i, t_pipes *current, int size, int *pipefd)
 {
 	int	j;
 
+	if (current->fd_in != STDIN_FILENO && dup2(current->fd_in, STDIN_FILENO) == -1)
+			exit (EXIT_FAILURE);
+	if (current->fd_out != STDOUT_FILENO && dup2(current->fd_out, STDOUT_FILENO) == -1)
+			exit (EXIT_FAILURE);
 	if (i == 0)
 	{
 		if (dup2(pipefd[1], current->fd_out) == -1)
@@ -98,10 +102,6 @@ void	son(int i, t_pipes *current, int size, int *pipefd)
 	while (j < 2 * i + 2)
 		if (close(pipefd[j++]) == -1)
 			exit(EXIT_FAILURE);
-	if (current->fd_in != STDIN_FILENO && dup2(current->fd_in, STDIN_FILENO) == -1)
-			exit (EXIT_FAILURE);
-	if (current->fd_out != STDOUT_FILENO && dup2(current->fd_out, STDOUT_FILENO) == -1)
-			exit (EXIT_FAILURE);
 }
 
 // static void	treat_n_exit(t_minishell *minishell, char *line, int fd)

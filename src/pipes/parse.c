@@ -6,7 +6,7 @@
 /*   By: sithomas <sithomas@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/11 17:44:17 by sithomas          #+#    #+#             */
-/*   Updated: 2025/02/17 19:55:25 by sithomas         ###   ########.fr       */
+/*   Updated: 2025/02/18 10:51:38 by sithomas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,6 +103,7 @@ static char	*pipe_helper(t_pipes *new, int pos, int param, int param2)
 	char	*path;
 
 	j = pos + param;
+	(void)param2;
 	if (new->content[j] == ' ')
 		while (new->content[j] == ' ')
 			j++;
@@ -111,12 +112,12 @@ static char	*pipe_helper(t_pipes *new, int pos, int param, int param2)
 	while (new->content[j] && new->content[j] != '<'
 		&& new->content[j] != '>' && new->content[j] != ' ')
 		j++;
-	if (param2 == 2 && new->fd_out != STDOUT_FILENO)
-		if (close(new->fd_out) == -1)
-			gcall_exit(E_CLOSE);
-	if (param2 == 1 && new->fd_in != STDIN_FILENO)
-		if (close(new->fd_in) == -1)
-			gcall_exit(E_CLOSE);
+	// if (param2 == 2 && new->fd_out != STDOUT_FILENO)
+	// 	if (close(new->fd_out) == -1)
+	// 		gcall_exit(E_CLOSE);
+	// if (param2 == 1 && new->fd_in != STDIN_FILENO)
+	// 	if (dup2(new->fd_in, STDIN_FILENO) == -1)
+	// 		gcall_exit(E_CLOSE);
 	result = extract_str(new->content, pos, j);
 	new->content = gman_add(ft_strtrim(result[0], "< >"));
 	path = gman_add(ft_strtrim(result[1], "< >"));
