@@ -6,7 +6,7 @@
 /*   By: sithomas <sithomas@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/17 16:55:15 by ygille            #+#    #+#             */
-/*   Updated: 2025/02/18 16:24:26 by sithomas         ###   ########.fr       */
+/*   Updated: 2025/02/18 17:02:54 by sithomas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,13 +47,9 @@ void	piped_builtin(t_minishell *minishell, char **args)
 	if (pid == 0)
 	{
 		son(pipe.i, pipe.current, pipe.size, pipe.pipefd);
-<<<<<<< HEAD
-		launch_pipe_builtin(minishell, args, STDOUT_FILENO);
-=======
 		code = launch_pipe_builtin(minishell, args, pipe.current->fd_out);
 		gclean();
 		exit (code);
->>>>>>> ddf70aa291188a495b1eb7a6a32ebe893b67977a
 	}
 	add_pid(pid, pipe.i, pipe.size);
 	minishell->child_pid = pid;
