@@ -6,7 +6,7 @@
 /*   By: sithomas <sithomas@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/29 15:14:06 by ygille            #+#    #+#             */
-/*   Updated: 2025/02/17 15:50:54 by sithomas         ###   ########.fr       */
+/*   Updated: 2025/02/18 16:07:21 by sithomas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ int	func_export(t_minishell *minishell, char **args, int fd)
 	if (args[1] == NULL)
 		return (func_env(minishell, fd, 1));
 	else if (ft_strchr(args[1], '=') == NULL)
-		name = args[1];
+		name = gman_add(ft_strdup(args[1]));
 	else
 	{
 		name = extract_name(args[1]);
@@ -41,6 +41,17 @@ int	func_export(t_minishell *minishell, char **args, int fd)
 		replace_env(minishell, name, content);
 	return (0);
 }
+
+/*
+Creates the accurate environment variable
+*/
+
+// t_mlist *ft_envcreate(char *name, char *content)
+// {
+// 	if (content)
+// 		return (ft_mlstcreate(name, content));
+	
+// }
 
 /*
 ** Replace a env if it exist
