@@ -6,7 +6,7 @@
 /*   By: ygille <ygille@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/14 19:13:45 by ygille            #+#    #+#             */
-/*   Updated: 2025/02/18 13:40:37 by ygille           ###   ########.fr       */
+/*   Updated: 2025/02/18 14:10:03 by ygille           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,10 +37,7 @@ void	*gmalloc_double(size_t size)
 void	*gman_add_double(void *ptr)
 {
 	if (ptr == NULL)
-	{
-		gclean();
 		gcall_exit(EGMALLOC);
-	}
 	else
 		double_garbage_col(GADDPTR, ptr);
 	return (ptr);
