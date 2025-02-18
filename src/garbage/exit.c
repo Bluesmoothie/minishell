@@ -6,7 +6,7 @@
 /*   By: ygille <ygille@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/14 19:24:06 by ygille            #+#    #+#             */
-/*   Updated: 2025/02/15 21:02:14 by ygille           ###   ########.fr       */
+/*   Updated: 2025/02/18 13:24:55 by ygille           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ void	gset_exit(void *param, void (*exit_func)(void *param, char *message))
 */
 void	gcall_exit(char *message)
 {
+	gclean();
 	gexit(NULL, message, NULL, 1);
 }
 

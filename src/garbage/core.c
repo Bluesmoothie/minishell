@@ -6,7 +6,7 @@
 /*   By: ygille <ygille@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/14 13:01:28 by ygille            #+#    #+#             */
-/*   Updated: 2025/02/15 20:59:38 by ygille           ###   ########.fr       */
+/*   Updated: 2025/02/18 13:25:05 by ygille           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,6 @@ void	garbage_col(int op_code, void *ptr)
 	static void		*glist[GARBAGE_SIZE];
 	static size_t	act_gsize = 0;
 
-	if (ptr == NULL)
-		return ;
 	if (op_code == GADDPTR)
 		garbage_add(glist, &act_gsize, ptr);
 	else if (op_code == GRMPTR)
@@ -41,6 +39,8 @@ void	garbage_col(int op_code, void *ptr)
 */
 static void	garbage_add(void *glist[], size_t *gsize, void *ptr)
 {
+	if (ptr == NULL)
+		return ;
 	if (*gsize == GARBAGE_SIZE)
 		return (garbage_error(EGFULL));
 	glist[*gsize] = ptr;
@@ -54,7 +54,7 @@ static void	garbage_remove(void *glist[], size_t *gsize, void *ptr)
 {
 	size_t	i;
 
-	if (*gsize == 0)
+	if (*gsize == 0 || ptr == NULL)
 		return ;
 	i = 0;
 	while (i < *gsize && glist[i] != ptr)
