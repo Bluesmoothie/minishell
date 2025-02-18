@@ -6,7 +6,7 @@
 /*   By: ygille <ygille@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/06 18:13:22 by ygille            #+#    #+#             */
-/*   Updated: 2025/02/17 19:58:25 by ygille           ###   ########.fr       */
+/*   Updated: 2025/02/18 15:21:53 by ygille           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,8 +122,8 @@ char	*update_searching(char *name, int i)
 		gfree(name);
 	else
 	{
-		result = ft_substr(name, i, ft_strlen(&name[i]) + 1);
+		result = gman_add(ft_substr(name, i, ft_strlen(&name[i]) + 1));
 		gfree(name);
 	}
-	return (gman_add(result));
+	return (result);
 }
