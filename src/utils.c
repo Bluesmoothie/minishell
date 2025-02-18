@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sithomas <sithomas@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: ygille <ygille@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/13 16:18:50 by sithomas          #+#    #+#             */
-/*   Updated: 2025/02/16 12:13:05 by sithomas         ###   ########.fr       */
+/*   Updated: 2025/02/18 16:42:21 by ygille           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,4 +36,21 @@ char	**extract_str(char *str, int beg, int end)
 	ft_bzero(&result[0][i], size);
 	gfree(str);
 	return (result);
+}
+
+char	*verif_file(char *path)
+{
+	t_stat	path_stat;
+
+	if (path != NULL)
+	{
+		if (access(path, F_OK | X_OK) == 0)
+		{
+			stat(path, &path_stat);
+			if (S_ISREG(path_stat.st_mode))
+				return (path); 
+		}
+	}
+	free (path);
+	return (NULL);
 }

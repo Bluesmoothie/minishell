@@ -6,7 +6,7 @@
 /*   By: ygille <ygille@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/11 16:51:17 by ygille            #+#    #+#             */
-/*   Updated: 2025/02/18 13:14:47 by ygille           ###   ########.fr       */
+/*   Updated: 2025/02/18 16:29:47 by ygille           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@ typedef struct s_minishell	t_minishell;
 typedef struct s_mlist		t_mlist;
 typedef struct s_pipes		t_pipes;
 typedef struct termios		t_termios;
+typedef	struct stat			t_stat;
+
 
 typedef struct s_minishell
 {
