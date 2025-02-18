@@ -6,7 +6,7 @@
 /*   By: ygille <ygille@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/13 16:18:50 by sithomas          #+#    #+#             */
-/*   Updated: 2025/02/18 16:42:21 by ygille           ###   ########.fr       */
+/*   Updated: 2025/02/18 16:46:27 by ygille           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ char	*verif_file(char *path)
 		{
 			stat(path, &path_stat);
 			if (S_ISREG(path_stat.st_mode))
-				return (path); 
+				return (path);
 		}
 	}
 	free (path);
