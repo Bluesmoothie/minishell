@@ -6,7 +6,7 @@
 /*   By: ygille <ygille@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/30 16:49:35 by ygille            #+#    #+#             */
-/*   Updated: 2025/02/18 15:40:45 by ygille           ###   ########.fr       */
+/*   Updated: 2025/02/18 15:48:13 by ygille           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ void	launch_bin(t_minishell *minishell, char *path, char **args)
 			gcall_exit(E_FORK);
 		if (pid == 0)
 			if (execve(path, args, new_envp) == -1)
-				exit (EXIT_FAILURE);
+				gcall_exit (E_EXEC);
 		minishell->child_pid = pid;
 		waitpid(pid, &minishell->last_return_value, 0);
 		minishell->child_pid = 0;
@@ -56,7 +56,7 @@ void	launch_bin_piped(t_minishell *minishell, char *path, char **args,
 	{
 		son(pipe.i, pipe.current, pipe.size, pipe.pipefd);
 		if (execve(path, args, envp) == -1)
-			exit (EXIT_FAILURE);
+			gcall_exit (E_EXEC);
 	}
 	add_pid(pid, pipe.i, pipe.size);
 	minishell->child_pid = pid;
