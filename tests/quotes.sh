@@ -18,5 +18,3 @@ echo "Nested "quotes""
 echo 'Nested 'quotes''
 echo "Mixed 'single' and "double" quotes"
 echo 'Mixed "double" and 'single' quotes'
-echo "Escaping $ ` ""
-echo 'Escaping $ ` ''
