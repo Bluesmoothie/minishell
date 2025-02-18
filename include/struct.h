@@ -6,7 +6,7 @@
 /*   By: ygille <ygille@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/11 16:51:17 by ygille            #+#    #+#             */
-/*   Updated: 2025/02/18 16:47:23 by ygille           ###   ########.fr       */
+/*   Updated: 2025/02/18 18:50:53 by ygille           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,26 +19,38 @@ typedef struct s_pipes		t_pipes;
 typedef struct termios		t_termios;
 typedef struct stat			t_stat;
 
+typedef struct s_return
+{
+	int		exit_stat;
+	int		stopsig;
+	int		termsig;
+	t_bool	exited;
+	t_bool	signaled;
+	t_bool	coredump;
+	t_bool	stopped;		
+}	t_return;
+
 typedef struct s_minishell
 {
-	int		last_return_value;
-	int		mode;
-	int		input_file;
-	char	*home;
-	char	*user;
-	char	*pwd;
-	char	**envp;
-	char	*prompt;
-	int		child_pid;
-	t_mlist	*env;
+	int			last_return_value;
+	int			mode;
+	int			input_file;
+	int			child_pid;
+	char		*home;
+	char		*user;
+	char		*pwd;
+	char		**envp;
+	char		*prompt;
+	t_mlist		*env;
+	t_return	returns;
 }	t_minishell;
 
 typedef struct s_mlist
 {
 	char	mask;
-	t_bool	glue;
 	char	*name;
 	char	*content;
+	t_bool	glue;
 	t_mlist	*next;
 }	t_mlist;
 
@@ -53,10 +65,10 @@ typedef struct s_pipes
 
 typedef struct s_pipe_mem
 {
-	t_pipes	*current;
 	int		i;
 	int		size;
 	int		*pipefd;
+	t_pipes	*current;
 	t_bool	is_piped;
 }	t_pipe_mem;
 

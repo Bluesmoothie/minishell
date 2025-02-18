@@ -6,7 +6,7 @@
 /*   By: ygille <ygille@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/30 16:49:35 by ygille            #+#    #+#             */
-/*   Updated: 2025/02/18 16:44:02 by ygille           ###   ########.fr       */
+/*   Updated: 2025/02/18 18:42:33 by ygille           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@ void	launch_bin(t_minishell *minishell, char *path, char **args)
 				gcall_exit (E_EXEC);
 		minishell->child_pid = pid;
 		waitpid(pid, &minishell->last_return_value, 0);
+		returns_process(minishell->last_return_value, &minishell->returns);
 		minishell->child_pid = 0;
 	}
 	else

@@ -6,7 +6,7 @@
 /*   By: sithomas <sithomas@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/11 17:44:17 by sithomas          #+#    #+#             */
-/*   Updated: 2025/02/18 18:48:38 by sithomas         ###   ########.fr       */
+/*   Updated: 2025/02/18 19:01:20 by sithomas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,12 +31,12 @@ int	parse_pipe(t_pipes	*new)
 	{
 		j = 0;
 		if (new->content[i] == '<')
-		{	
+		{
 			j = right_pipe(new, i);
 			i = -1;
 		}
 		else if (new->content[i] == '>')
-		{	
+		{
 			j = left_pipe(new, i);
 			i = -1;
 		}

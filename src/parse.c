@@ -6,7 +6,7 @@
 /*   By: ygille <ygille@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/28 19:38:14 by ygille            #+#    #+#             */
-/*   Updated: 2025/02/18 16:47:02 by ygille           ###   ########.fr       */
+/*   Updated: 2025/02/18 18:53:36 by ygille           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,7 @@ t_bool	builtin_functions(t_minishell *minishell, char **args, int fd)
 		minishell->last_return_value = func_env(minishell, fd, 0);
 	else
 		return (FALSE);
+	returns_process(minishell->last_return_value, &minishell->returns);
 	return (TRUE);
 }
 
@@ -88,12 +89,10 @@ void	try_launch(t_minishell *minishell, char **args)
 	else
 	{
 		if (!is_piped())
-		{
 			display_error(args[0], E_COMMANDNF, NULL);
-			minishell->last_return_value = 127;
-		}
 		else
 			fork_nf(minishell, args[0]);
+		minishell->returns.exit_stat = 127;
 	}
 }
 

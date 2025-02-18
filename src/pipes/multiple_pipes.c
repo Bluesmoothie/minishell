@@ -6,7 +6,7 @@
 /*   By: ygille <ygille@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/12 10:17:46 by sithomas          #+#    #+#             */
-/*   Updated: 2025/02/18 15:31:42 by ygille           ###   ########.fr       */
+/*   Updated: 2025/02/18 18:51:20 by ygille           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,8 +67,11 @@ static void	father(int *pipefd, int *pid, int size, t_minishell *minishell)
 	while (j < size)
 	{
 		if (pid[j] != 0)
+		{
 			if (waitpid(pid[j], &minishell->last_return_value, 0) == -1)
 				return (gcall_exit(E_WAITPID));
+			returns_process(minishell->last_return_value, &minishell->returns);
+		}
 		j++;
 	}
 	minishell->child_pid = 0;
