@@ -92,7 +92,7 @@ TESTS_GARBAGE	=	error.log					\
 
 #			VALGRIND
 
-VFLAGS			=	--leak-check=full --show-leak-kinds=all --track-origins=yes
+VFLAGS			=	--leak-check=full --show-leak-kinds=all --track-origins=yes --track-fds=yes
 VFLAGS			+=	--suppressions=ignore_readline.supp -s
 VFLAGS			+=	--log-socket=127.0.0.1:4242
 
