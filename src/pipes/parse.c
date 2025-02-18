@@ -6,7 +6,7 @@
 /*   By: sithomas <sithomas@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/11 17:44:17 by sithomas          #+#    #+#             */
-/*   Updated: 2025/02/18 10:51:38 by sithomas         ###   ########.fr       */
+/*   Updated: 2025/02/18 11:46:28 by sithomas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 static int	right_pipe(t_pipes *new, int pos);
 static int	left_pipe(t_pipes *new, int pos);
-static char	*pipe_helper(t_pipes *new, int pos, int param, int param2);
+static char	*pipe_helper(t_pipes *new, int pos, int param);
 
 /*
 checks the existence of < and > 
@@ -31,9 +31,15 @@ int	parse_pipe(t_pipes	*new)
 	{
 		j = 0;
 		if (new->content[i] == '<')
+		{	
 			j = right_pipe(new, i);
+			i = -1;
+		}
 		else if (new->content[i] == '>')
+		{	
 			j = left_pipe(new, i);
+			i = -1;
+		}
 		if (j)
 		{
 			new->issue = 1;
@@ -52,14 +58,14 @@ static int	right_pipe(t_pipes *new, int pos)
 	{
 		if (new->content[pos + 2] == '<' || new->content[pos + 2] == '>')
 			return (write(2, "Syntax error\n", 13));
-		path = pipe_helper(new, pos, 2, 1);
+		path = pipe_helper(new, pos, 2);
 		if (!path)
 			return (1);
 		new->fd_in = fill_here_doc(new, path);
 	}
 	else
 	{
-		path = pipe_helper(new, pos, 1, 1);
+		path = pipe_helper(new, pos, 1);
 		if (!path)
 			return (1);
 		if (access(path, F_OK))
@@ -79,14 +85,14 @@ static int	left_pipe(t_pipes *new, int pos)
 	{
 		if (new->content[pos + 2] == '<' || new->content[pos + 2] == '>')
 			return (write(2, "Syntax error\n", 13));
-		path = pipe_helper(new, pos, 2, 2);
+		path = pipe_helper(new, pos, 2);
 		if (!path)
 			return (1);
 		new->fd_out = open(path, O_CREAT | O_APPEND | O_RDWR, 00700);
 	}
 	else
 	{
-		path = pipe_helper(new, pos, 1, 2);
+		path = pipe_helper(new, pos, 1);
 		if (!path)
 			return (1);
 		if (!access(path, F_OK))
@@ -96,14 +102,13 @@ static int	left_pipe(t_pipes *new, int pos)
 	return (0);
 }
 
-static char	*pipe_helper(t_pipes *new, int pos, int param, int param2)
+static char	*pipe_helper(t_pipes *new, int pos, int param)
 {
 	int		j;
 	char	**result;
 	char	*path;
 
 	j = pos + param;
-	(void)param2;
 	if (new->content[j] == ' ')
 		while (new->content[j] == ' ')
 			j++;
@@ -112,12 +117,6 @@ static char	*pipe_helper(t_pipes *new, int pos, int param, int param2)
 	while (new->content[j] && new->content[j] != '<'
 		&& new->content[j] != '>' && new->content[j] != ' ')
 		j++;
-	// if (param2 == 2 && new->fd_out != STDOUT_FILENO)
-	// 	if (close(new->fd_out) == -1)
-	// 		gcall_exit(E_CLOSE);
-	// if (param2 == 1 && new->fd_in != STDIN_FILENO)
-	// 	if (dup2(new->fd_in, STDIN_FILENO) == -1)
-	// 		gcall_exit(E_CLOSE);
 	result = extract_str(new->content, pos, j);
 	new->content = gman_add(ft_strtrim(result[0], "< >"));
 	path = gman_add(ft_strtrim(result[1], "< >"));
