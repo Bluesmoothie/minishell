@@ -6,7 +6,7 @@
 /*   By: ygille <ygille@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/14 18:27:32 by ygille            #+#    #+#             */
-/*   Updated: 2025/02/18 13:39:52 by ygille           ###   ########.fr       */
+/*   Updated: 2025/02/18 14:14:05 by ygille           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,6 +80,7 @@ static void	garbage_clean(void **glist[], size_t *gsize)
 	{
 		if (glist[i] != NULL)
 			gfree_double_helper (glist[i]);
+		free(glist[i]);
 		glist[i] = NULL;
 		i++;
 	}
