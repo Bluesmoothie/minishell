@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   multiple_pipes.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sithomas <sithomas@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: ygille <ygille@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/12 10:17:46 by sithomas          #+#    #+#             */
-/*   Updated: 2025/02/18 10:56:46 by sithomas         ###   ########.fr       */
+/*   Updated: 2025/02/18 15:31:42 by ygille           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,8 +66,9 @@ static void	father(int *pipefd, int *pid, int size, t_minishell *minishell)
 	j = 0;
 	while (j < size)
 	{
-		if (waitpid(pid[j], &minishell->last_return_value, 0) == -1)
-			return (gcall_exit(E_WAITPID));
+		if (pid[j] != 0)
+			if (waitpid(pid[j], &minishell->last_return_value, 0) == -1)
+				return (gcall_exit(E_WAITPID));
 		j++;
 	}
 	minishell->child_pid = 0;
@@ -103,9 +104,3 @@ void	son(int i, t_pipes *current, int size, int *pipefd)
 		if (close(pipefd[j++]) == -1)
 			exit(EXIT_FAILURE);
 }
-
-// static void	treat_n_exit(t_minishell *minishell, char *line, int fd)
-// {
-// 	treat_arguments(minishell, line, fd);
-// 	gcall_exit(EXIT_SUCCESS);
-// }

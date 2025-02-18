@@ -6,13 +6,13 @@
 /*   By: sithomas <sithomas@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/17 16:55:15 by ygille            #+#    #+#             */
-/*   Updated: 2025/02/18 14:30:55 by sithomas         ###   ########.fr       */
+/*   Updated: 2025/02/18 16:24:26 by sithomas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static void	launch_pipe_builtin(t_minishell *minishell, char **args, int fd);
+static int	launch_pipe_builtin(t_minishell *minishell, char **args, int fd);
 
 t_bool	is_builtin(char **args)
 {
@@ -38,6 +38,7 @@ void	piped_builtin(t_minishell *minishell, char **args)
 {
 	int			pid;
 	t_pipe_mem	pipe;
+	int			code;
 
 	pipe = get_pipe();
 	pid = fork();
@@ -46,13 +47,19 @@ void	piped_builtin(t_minishell *minishell, char **args)
 	if (pid == 0)
 	{
 		son(pipe.i, pipe.current, pipe.size, pipe.pipefd);
+<<<<<<< HEAD
 		launch_pipe_builtin(minishell, args, STDOUT_FILENO);
+=======
+		code = launch_pipe_builtin(minishell, args, pipe.current->fd_out);
+		gclean();
+		exit (code);
+>>>>>>> ddf70aa291188a495b1eb7a6a32ebe893b67977a
 	}
 	add_pid(pid, pipe.i, pipe.size);
 	minishell->child_pid = pid;
 }
 
-static void	launch_pipe_builtin(t_minishell *minishell, char **args, int fd)
+static int	launch_pipe_builtin(t_minishell *minishell, char **args, int fd)
 {
 	int	code;
 
@@ -71,5 +78,5 @@ static void	launch_pipe_builtin(t_minishell *minishell, char **args, int fd)
 		code = func_unset(minishell, args);
 	else if (ft_strcmp(args[0], "env") == 0)
 		code = func_env(minishell, fd, 0);
-	exit (code);
+	return (code);
 }
