@@ -6,7 +6,7 @@
 /*   By: ygille <ygille@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/16 13:33:55 by ygille            #+#    #+#             */
-/*   Updated: 2025/02/17 15:54:49 by ygille           ###   ########.fr       */
+/*   Updated: 2025/02/18 12:07:06 by ygille           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,15 +64,18 @@ static void	transmit_signal(int sig)
 {
 	int	*pid_list;
 
-	pid_list = get_pid();
-	if (sig == SIGINT)
+	if (sig == SIGQUIT)
+		return (display_error("Quit", " Core dumped", NULL));
+	else if (is_piped())
 	{
-		while (*pid_list)
+		pid_list = get_pid();
+		if (sig == SIGINT)
 		{
-			kill(*pid_list, sig);
-			pid_list++;
+			while (*pid_list)
+			{
+				kill(*pid_list, sig);
+				pid_list++;
+			}
 		}
 	}
-	if (sig == SIGQUIT)
-		display_error("Quit", " Core dumped", NULL);
 }
