@@ -6,7 +6,7 @@
 /*   By: ygille <ygille@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/30 16:49:35 by ygille            #+#    #+#             */
-/*   Updated: 2025/02/18 14:52:01 by ygille           ###   ########.fr       */
+/*   Updated: 2025/02/18 15:31:28 by ygille           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,14 +112,7 @@ void	fork_nf(t_minishell *minishell, char *comm)
 	t_pipe_mem	pipe;
 
 	pipe = get_pipe();
-	pid = fork();
-	if (pid == -1)
-		gcall_exit(E_FORK);
-	if (pid == 0)
-	{
-		son(pipe.i, pipe.current, pipe.size, pipe.pipefd);
-		exit (127);
-	}
+	pid = 0;
 	display_error(comm, E_COMMANDNF, NULL);
 	add_pid(pid, pipe.i, pipe.size);
 	minishell->child_pid = pid;
