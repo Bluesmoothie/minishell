@@ -6,7 +6,7 @@
 /*   By: ygille <ygille@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/15 17:23:06 by ygille            #+#    #+#             */
-/*   Updated: 2025/02/18 19:14:00 by ygille           ###   ########.fr       */
+/*   Updated: 2025/02/18 19:16:18 by ygille           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ char	*get_next_line(int fd)
 
 	state = 1;
 	if (fd == -1)
-		free(mem[0]);
+		return (free(mem[0]));
 	if (fd < 0 || BUFFER_SIZE <= 0)
 		return (NULL);
 	buff = malloc((BUFFER_SIZE + 1) * sizeof(char));
