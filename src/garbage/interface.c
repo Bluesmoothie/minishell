@@ -6,7 +6,7 @@
 /*   By: ygille <ygille@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/14 18:16:27 by ygille            #+#    #+#             */
-/*   Updated: 2025/02/15 12:52:05 by ygille           ###   ########.fr       */
+/*   Updated: 2025/02/18 13:30:54 by ygille           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,6 @@ void	gfree(void *ptr)
 */
 void	gclean(void)
 {
-	garbage_col(GCLEANALL, NULL);
 	double_garbage_col(GCLEANALL, NULL);
+	garbage_col(GCLEANALL, NULL);
 }
