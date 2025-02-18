@@ -6,7 +6,7 @@
 /*   By: ygille <ygille@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/13 16:18:50 by sithomas          #+#    #+#             */
-/*   Updated: 2025/02/18 18:47:06 by ygille           ###   ########.fr       */
+/*   Updated: 2025/02/18 18:59:30 by ygille           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ char	*verif_file(char *path)
 	return (NULL);
 }
 
-void	returns_process(int	code, t_return *ret)
+void	returns_process(int code, t_return *ret)
 {
 	if (WIFEXITED(code))
 	{

@@ -6,7 +6,7 @@
 /*   By: ygille <ygille@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/28 17:52:27 by ygille            #+#    #+#             */
-/*   Updated: 2025/02/18 18:49:01 by ygille           ###   ########.fr       */
+/*   Updated: 2025/02/18 18:55:04 by ygille           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,6 +104,6 @@ char		*get_relative_path(char *pwd, char *home);
 //	utils.c
 char		**extract_str(char *str, int beg, int end);
 char		*verif_file(char *path);
-void		returns_process(int	code, t_return *ret);
+void		returns_process(int code, t_return *ret);
 
 #endif
