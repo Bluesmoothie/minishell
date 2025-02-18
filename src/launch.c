@@ -6,7 +6,7 @@
 /*   By: ygille <ygille@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/30 16:49:35 by ygille            #+#    #+#             */
-/*   Updated: 2025/02/18 15:31:28 by ygille           ###   ########.fr       */
+/*   Updated: 2025/02/18 15:39:19 by ygille           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,11 +74,14 @@ char	*search_binary(char **paths, char *bin)
 	i = 0;
 	while (paths[i] != NULL)
 	{
-		path = gman_add(ft_strfcat(ft_strfcat(paths[i], "/", FALSE, FALSE),
-					bin, TRUE, FALSE));
-		if (access(path, F_OK | X_OK) == 0)
-			return (path);
-		gfree(path);
+		path = ft_strfcat(ft_strfcat(paths[i], "/", FALSE, FALSE),
+					bin, TRUE, FALSE);
+		if (path != NULL)
+		{
+			if (access(path, F_OK | X_OK) == 0)
+				return (path);
+			free(path);
+		}
 		i++;
 	}
 	return (NULL);
