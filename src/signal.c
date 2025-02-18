@@ -6,7 +6,7 @@
 /*   By: ygille <ygille@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/16 13:33:55 by ygille            #+#    #+#             */
-/*   Updated: 2025/02/18 12:07:06 by ygille           ###   ########.fr       */
+/*   Updated: 2025/02/18 19:33:28 by ygille           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,11 @@ static void	signal_handler_helper(t_minishell *minishell, int sig, t_bool call)
 	if (!call)
 		minishell_mem = minishell;
 	else if (!minishell_mem->child_pid)
+	{
+		if (sig == SIGINT)
+			minishell_mem->returns.exit_stat = 130;
 		local_signal(sig);
+	}
 	else
 		transmit_signal(sig);
 }
