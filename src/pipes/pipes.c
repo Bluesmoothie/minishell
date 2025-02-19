@@ -6,7 +6,7 @@
 /*   By: sithomas <sithomas@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/07 11:07:02 by sithomas          #+#    #+#             */
-/*   Updated: 2025/02/18 20:12:47 by sithomas         ###   ########.fr       */
+/*   Updated: 2025/02/19 12:19:38 by sithomas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,14 +23,14 @@ void	unpipe(t_minishell *minishell, char *line)
 	int		tmp_in;
 	int		tmp_out;
 
-	if (line == NULL)
+	if (line == NULL || ft_strcmp(line, "exit") == 0)
 		gcall_exit(NULL);
 	if (!line[0])
 		return (treat_arguments(minishell, line, STDOUT_FILENO));
 	if (oneemptypipe(line))
 		return (gfree(line), (void)write(2, "Syntax error\n", 13));
-	tmp_in = dup(STDIN_FILENO);
-	tmp_out = dup(STDOUT_FILENO);
+	tmp_in = open("/dev/tty", O_RDONLY);
+	tmp_out = open("/dev/tty", O_WRONLY);
 	unpiped = create_pipe_list(line);
 	if (pipelast(*unpiped)->issue)
 		return ;
@@ -78,6 +78,10 @@ static void	nopipe(t_minishell *minishell, t_pipes **unpiped)
 	if ((*unpiped)->fd_out != STDOUT_FILENO)
 		dup2((*unpiped)->fd_out, STDOUT_FILENO);
 	treat_arguments(minishell, (*unpiped)->content, STDOUT_FILENO);
+	if (!isatty((*unpiped)->fd_in))
+			close((*unpiped)->fd_in);
+	if (!isatty((*unpiped)->fd_out))
+			close((*unpiped)->fd_out);
 	pipeclear(unpiped);
 }
 

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   multiple_pipes.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ygille <ygille@student.42lyon.fr>          +#+  +:+       +#+        */
+/*   By: sithomas <sithomas@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/12 10:17:46 by sithomas          #+#    #+#             */
-/*   Updated: 2025/02/18 18:51:20 by ygille           ###   ########.fr       */
+/*   Updated: 2025/02/19 12:18:17 by sithomas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,15 @@ void	multiple_pipes(t_minishell *minishell, t_pipes **unpiped, int size)
 	}
 	pid = get_pid();
 	father(pipefd, pid, size, minishell);
+	current = *unpiped;
+	while (current)
+	{
+		if (!isatty(current->fd_in))
+			close(current->fd_in);
+		if (!isatty(current->fd_out))
+			close(current->fd_out);
+		current = current->next;
+	}
 	pipeclear(unpiped);
 }
 
