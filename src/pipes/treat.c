@@ -3,18 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   treat.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sithomas <sithomas@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: ygille <ygille@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/11 17:49:10 by sithomas          #+#    #+#             */
-/*   Updated: 2025/02/19 16:18:09 by sithomas         ###   ########.fr       */
+/*   Updated: 2025/02/19 16:30:28 by ygille           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
 static void	run_heredoc(char *tmp, int pipefd1);
-static t_bool	is_finished(char *s, char c);
-static int	has_no_quotes(char *str);
+// static t_bool	is_finished(char *s, char c);
+// static int	has_no_quotes(char *str);
 
 int	fill_here_doc(t_pipes *new, char *tmp)
 {
@@ -58,39 +58,39 @@ static void	run_heredoc(char *tmp, int pipefd1)
 	// free(history);
 }
 
-static int	has_no_quotes(char *str)
-{
-	int i;
+// static int	has_no_quotes(char *str)
+// {
+// 	int i;
 	
-	i = 0;
-	while (str[i])
-	{
-		if (str[i] == 34 && is_finished(&str[i], 34))
-			return (1);
-		else if (str[i] == 34)
-			return (-1);
-		else if (str[i] == 39 && is_finished(&str[i], 39))
-			return (1);
-		else if (str[i] == 39)
-			return (-1);
-		i++;
-	}
-	return (0);
-}
+// 	i = 0;
+// 	while (str[i])
+// 	{
+// 		if (str[i] == 34 && is_finished(&str[i], 34))
+// 			return (1);
+// 		else if (str[i] == 34)
+// 			return (-1);
+// 		else if (str[i] == 39 && is_finished(&str[i], 39))
+// 			return (1);
+// 		else if (str[i] == 39)
+// 			return (-1);
+// 		i++;
+// 	}
+// 	return (0);
+// }
 
-static t_bool	is_finished(char *s, char c)
-{
-	int i;
+// static t_bool	is_finished(char *s, char c)
+// {
+// 	int i;
 
-	i = 1;
-	while (s[i])
-	{
-		if (s[i] == c)
-			return (1);
-		i++;
-	}
-	return (0);
-}
+// 	i = 1;
+// 	while (s[i])
+// 	{
+// 		if (s[i] == c)
+// 			return (1);
+// 		i++;
+// 	}
+// 	return (0);
+// }
 /*
 TODO
 Handle Ctrl+C -- Ctrl+V
