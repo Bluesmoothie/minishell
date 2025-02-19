@@ -6,13 +6,13 @@
 /*   By: ygille <ygille@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/29 14:45:43 by ygille            #+#    #+#             */
-/*   Updated: 2025/02/19 15:07:36 by ygille           ###   ########.fr       */
+/*   Updated: 2025/02/19 15:37:33 by ygille           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static void	init_return_struct(t_return *ret);
+static void		init_return_struct(t_return *ret);
 static t_mlist	*init_minimal_env(void);
 
 /*
