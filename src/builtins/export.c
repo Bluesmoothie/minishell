@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sithomas <sithomas@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: ygille <ygille@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/29 15:14:06 by ygille            #+#    #+#             */
-/*   Updated: 2025/02/18 19:01:34 by sithomas         ###   ########.fr       */
+/*   Updated: 2025/02/19 15:11:30 by ygille           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,8 +60,12 @@ void	replace_env(t_minishell *minishell, char *name, char *content)
 	t_mlist	*target;
 
 	target = ft_mlstsearch(minishell->env, name);
-	gfree(target->content);
-	target->content = content;
+	if (target)
+	{
+		if (target->content != NULL)
+			gfree(target->content);
+		target->content = content;
+	}
 }
 
 /*

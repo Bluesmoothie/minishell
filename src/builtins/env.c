@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sithomas <sithomas@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: ygille <ygille@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/29 15:14:29 by ygille            #+#    #+#             */
-/*   Updated: 2025/02/18 16:23:12 by sithomas         ###   ########.fr       */
+/*   Updated: 2025/02/19 15:06:05 by ygille           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	print_export(t_mlist *lst, int fd);
+static void	print_export(t_mlist *lst, int fd);
 
 /*
 ** Like the env command, display the environment variables
@@ -37,7 +37,7 @@ int	func_env(t_minishell *minishell, int fd, t_bool export)
 	return (0);
 }
 
-void	print_export(t_mlist *lst, int fd)
+static void	print_export(t_mlist *lst, int fd)
 {
 	ft_putstr_fd("declare -x ", fd);
 	ft_putstr_fd(lst->name, fd);

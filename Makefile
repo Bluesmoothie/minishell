@@ -22,6 +22,7 @@ INCLUDE 		=	-Iinclude/ -I$(LIBFT)/include/
 SRC_FILES		=	minishell					\
 					builtins					\
 					env							\
+					env2						\
 					init						\
 					launch						\
 					miniparse					\
