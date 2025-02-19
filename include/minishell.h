@@ -6,7 +6,7 @@
 /*   By: ygille <ygille@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/28 17:52:27 by ygille            #+#    #+#             */
-/*   Updated: 2025/02/19 15:08:43 by ygille           ###   ########.fr       */
+/*   Updated: 2025/02/19 15:38:04 by ygille           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ void		search_for_env(t_minishell *minishell, t_mlist	*args);
 char		*get_env_name(char *arg);
 char		*get_env_value(t_minishell *minishell, char *name);
 void		replace_env_value(t_mlist *node, char *value);
-char		*update_searching(char *name, int i);\
+char		*update_searching(char *name, int i);
 
 //	env2.c
 void		update_pwdvar(t_minishell *minishell);
