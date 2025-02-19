@@ -6,13 +6,13 @@
 /*   By: sithomas <sithomas@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/07 11:07:02 by sithomas          #+#    #+#             */
-/*   Updated: 2025/02/19 12:19:38 by sithomas         ###   ########.fr       */
+/*   Updated: 2025/02/19 14:33:31 by sithomas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static void		nopipe(t_minishell *minishell, t_pipes **unpiped);
+// static void		nopipe(t_minishell *minishell, t_pipes **unpiped);
 static t_bool	oneemptypipe(char *str);
 static t_pipes	**create_pipe_list(char *line);
 
@@ -35,10 +35,7 @@ void	unpipe(t_minishell *minishell, char *line)
 	if (pipelast(*unpiped)->issue)
 		return ;
 	size = pipelstsize(*unpiped);
-	if (!(*unpiped)->next)
-		nopipe(minishell, unpiped);
-	else
-		multiple_pipes(minishell, unpiped, size);
+	multiple_pipes(minishell, unpiped, size);
 	dup2(tmp_in, STDIN_FILENO);
 	dup2(tmp_out, STDOUT_FILENO);
 	close(tmp_in);
@@ -69,20 +66,6 @@ static t_pipes	**create_pipe_list(char *line)
 	}
 	gfree_double(splitted);
 	return (list);
-}
-
-static void	nopipe(t_minishell *minishell, t_pipes **unpiped)
-{
-	if ((*unpiped)->fd_in != STDIN_FILENO)
-		dup2((*unpiped)->fd_in, STDIN_FILENO);
-	if ((*unpiped)->fd_out != STDOUT_FILENO)
-		dup2((*unpiped)->fd_out, STDOUT_FILENO);
-	treat_arguments(minishell, (*unpiped)->content, STDOUT_FILENO);
-	if (!isatty((*unpiped)->fd_in))
-			close((*unpiped)->fd_in);
-	if (!isatty((*unpiped)->fd_out))
-			close((*unpiped)->fd_out);
-	pipeclear(unpiped);
 }
 
 static t_bool	oneemptypipe(char *str)
