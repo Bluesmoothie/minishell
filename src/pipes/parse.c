@@ -6,7 +6,7 @@
 /*   By: sithomas <sithomas@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/11 17:44:17 by sithomas          #+#    #+#             */
-/*   Updated: 2025/02/19 12:11:14 by sithomas         ###   ########.fr       */
+/*   Updated: 2025/02/19 15:35:30 by sithomas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,6 @@ int	parse_pipe(t_pipes	*new)
 static int	right_pipe(t_pipes *new, int pos)
 {
 	char	*path;
-	int		fd_in;
 
 	if (new->content[pos + 1] == '<')
 	{
@@ -62,8 +61,7 @@ static int	right_pipe(t_pipes *new, int pos)
 		path = pipe_helper(new, pos, 2);
 		if (!path)
 			return (1);
-		fd_in = new->fd_in;
-		new->fd_in = fill_here_doc(fd_in, path);
+		new->fd_in = fill_here_doc(new, path);
 	}
 	else
 	{
@@ -74,7 +72,7 @@ static int	right_pipe(t_pipes *new, int pos)
 			return (printf("%s: No such file or directory\n", path));
 		if (access(path, R_OK))
 			return (printf("%s: permission denied\n", path));
-		new->fd_in = open(path, O_RDONLY | __O_CLOEXEC, 00400);
+		new->fd_in = open(path, O_RDONLY, 00400);
 	}
 	return (0);
 }
