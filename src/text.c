@@ -6,7 +6,7 @@
 /*   By: ygille <ygille@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/28 19:54:08 by ygille            #+#    #+#             */
-/*   Updated: 2025/02/15 21:08:35 by ygille           ###   ########.fr       */
+/*   Updated: 2025/02/19 14:47:20 by ygille           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,12 +45,19 @@ char	*calc_prompt(t_minishell minishell)
 
 	pwd = get_relative_path(minishell.pwd, minishell.home);
 	prompt = ft_strfcat(PROMPT_LEFT_COLOR, TEXT_BOLD, FALSE, FALSE);
-	prompt = ft_strfcat(prompt, minishell.user, TRUE, FALSE);
-	prompt = ft_strfcat(prompt, "@minishell", TRUE, FALSE);
+	if (minishell.user != NULL)
+	{
+		prompt = ft_strfcat(prompt, minishell.user, TRUE, FALSE);
+		prompt = ft_strfcat(prompt, "@", TRUE, FALSE);
+	}
+	prompt = ft_strfcat(prompt, "minishell", TRUE, FALSE);
 	prompt = ft_strfcat(prompt, PROMPT_RIGHT_COLOR, TRUE, FALSE);
 	prompt = ft_strfcat(prompt, ":", TRUE, FALSE);
-	prompt = ft_strfcat(prompt, pwd, TRUE, FALSE);
-	gfree(pwd);
+	if (pwd)
+	{
+		prompt = ft_strfcat(prompt, pwd, TRUE, FALSE);
+		gfree(pwd);
+	}
 	prompt = ft_strfcat(prompt, TEXT_RESET, TRUE, FALSE);
 	prompt = ft_strfcat(prompt, "$ ", TRUE, FALSE);
 	return (gman_add(prompt));
@@ -65,6 +72,8 @@ char	*get_relative_path(char *pwd, char *home)
 	char	*tmp;
 	int		i;
 
+	if (home == NULL)
+		return (ft_strdup(pwd));
 	i = 0;
 	if (!(ft_strnstr(pwd, home, ft_strlen(pwd))))
 		return (pwd);
