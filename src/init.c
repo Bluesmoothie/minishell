@@ -6,7 +6,7 @@
 /*   By: ygille <ygille@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/30 16:11:43 by ygille            #+#    #+#             */
-/*   Updated: 2025/02/17 20:08:16 by ygille           ###   ########.fr       */
+/*   Updated: 2025/02/19 14:32:17 by ygille           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,8 @@ t_mlist	*init_env(char **envp)
 	char	*content;
 	int		i;
 
+	if (envp == NULL)
+		return (NULL);
 	i = 0;
 	env = NULL;
 	while (envp[i] != NULL)
