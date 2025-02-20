@@ -35,6 +35,7 @@ SRC_FILES		=	minishell					\
 					builtins/cd					\
 					builtins/echo				\
 					builtins/env				\
+					builtins/exit				\
 					builtins/export				\
 					builtins/pwd				\
 					builtins/unset				\

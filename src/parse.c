@@ -6,7 +6,7 @@
 /*   By: ygille <ygille@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/28 19:38:14 by ygille            #+#    #+#             */
-/*   Updated: 2025/02/18 18:53:36 by ygille           ###   ########.fr       */
+/*   Updated: 2025/02/20 15:31:29 by ygille           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ void	treat_arguments(t_minishell *minishell, char *line, int fd)
 t_bool	builtin_functions(t_minishell *minishell, char **args, int fd)
 {
 	if (ft_strcmp(args[0], "exit") == 0)
-		gcall_exit(NULL);
+		exit(func_exit(args[1]));
 	else if (ft_strcmp(args[0], "echo") == 0)
 		minishell->last_return_value = func_echo(args, fd);
 	else if (ft_strcmp(args[0], "cd") == 0)
