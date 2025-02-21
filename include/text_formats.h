@@ -6,7 +6,7 @@
 /*   By: ygille <ygille@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/28 19:46:39 by ygille            #+#    #+#             */
-/*   Updated: 2025/01/29 01:49:16 by ygille           ###   ########.fr       */
+/*   Updated: 2025/02/21 15:57:24 by ygille           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,12 @@
 # define TEXT_RESET			"\033[0m"
 # define TEXT_NULL_FORMAT	"\0\0\0\0\0"
 
-# define PROMPT_LEFT_COLOR	TEXT_GREEN
-# define PROMPT_RIGHT_COLOR	TEXT_MAGENTA
+# if PROMPT_COLOR == TRUE
+#  define PROMPT_LEFT_COLOR		TEXT_GREEN
+#  define PROMPT_RIGHT_COLOR	TEXT_MAGENTA
+# else
+#  define PROMPT_LEFT_COLOR		TEXT_NULL_COLOR
+#  define PROMPT_RIGHT_COLOR	TEXT_NULL_COLOR
+# endif
 
 #endif

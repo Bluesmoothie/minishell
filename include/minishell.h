@@ -6,7 +6,7 @@
 /*   By: ygille <ygille@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/28 17:52:27 by ygille            #+#    #+#             */
-/*   Updated: 2025/02/19 15:38:04 by ygille           ###   ########.fr       */
+/*   Updated: 2025/02/21 15:58:23 by ygille           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,10 @@
 
 # include "libft.h"
 # include "get_next_line.h"
+
+# ifndef PROMPT_COLOR
+#  define PROMPT_COLOR TRUE
+# endif
 
 # include "struct.h"
 # include "builtins.h"
