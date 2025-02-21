@@ -6,7 +6,7 @@
 /*   By: ygille <ygille@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/28 19:54:08 by ygille            #+#    #+#             */
-/*   Updated: 2025/02/19 14:47:20 by ygille           ###   ########.fr       */
+/*   Updated: 2025/02/21 15:53:35 by ygille           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,8 @@ char	*get_relative_path(char *pwd, char *home)
 
 	if (home == NULL)
 		return (ft_strdup(pwd));
+	if (pwd == NULL)
+		return (NULL);
 	i = 0;
 	if (!(ft_strnstr(pwd, home, ft_strlen(pwd))))
 		return (pwd);
