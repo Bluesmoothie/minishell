@@ -6,7 +6,7 @@
 /*   By: ygille <ygille@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/28 19:38:14 by ygille            #+#    #+#             */
-/*   Updated: 2025/02/20 15:31:29 by ygille           ###   ########.fr       */
+/*   Updated: 2025/02/23 22:35:23 by ygille           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,6 +105,7 @@ char	*calc_bin_path(t_minishell *minishell, char **args)
 	char	**paths;
 	char	*path;
 
+	path = NULL;
 	if (!ft_strncmp("./", args[0], 2))
 		path = verif_file(ft_strfcat(ft_strfcat(minishell->pwd, "/", FALSE,
 						FALSE), &args[0][2], TRUE, FALSE));
@@ -113,7 +114,7 @@ char	*calc_bin_path(t_minishell *minishell, char **args)
 						FALSE), &args[0][2], TRUE, FALSE));
 	else if (!ft_strncmp("/", args[0], 1))
 		path = verif_file(ft_strdup(args[0]));
-	else
+	else if (get_env_value(minishell, "PATH") != NULL)
 	{
 		paths = gft_split(get_env_value(minishell, "PATH"), ':');
 		path = search_binary(paths, args[0]);
