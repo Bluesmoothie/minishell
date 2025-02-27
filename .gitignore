@@ -17,3 +17,4 @@ fichier2
 grep
 "file with spaces.txt"
 checker
+.build/
