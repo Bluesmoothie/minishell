@@ -97,7 +97,7 @@ char	**rebuild_args(t_mlist *args)
 	while (args != NULL)
 	{
 		result[i] = gman_add(ft_strdup(args->content));
-		while (args->glue == TRUE)
+		while (args->glue == TRUE && args->next != NULL)
 		{
 			args = args->next;
 			tmp = result[i];
