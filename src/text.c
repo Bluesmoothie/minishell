@@ -6,7 +6,7 @@
 /*   By: ygille <ygille@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/28 19:54:08 by ygille            #+#    #+#             */
-/*   Updated: 2025/02/21 15:53:35 by ygille           ###   ########.fr       */
+/*   Updated: 2025/03/03 17:41:05 by ygille           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@ void	display_error(char *command, char *error, char *arg)
 ** Calculate the prompt to display
 */
 char	*calc_prompt(t_minishell minishell)
+#if PROMPT_COLOR
 {
 	char	*pwd;
 	char	*prompt;
@@ -62,6 +63,26 @@ char	*calc_prompt(t_minishell minishell)
 	prompt = ft_strfcat(prompt, "$ ", TRUE, FALSE);
 	return (gman_add(prompt));
 }
+#else
+{
+	char	*pwd;
+	char	*prompt;
+
+	pwd = get_relative_path(minishell.pwd, minishell.home);
+	prompt = NULL;
+	if (minishell.user != NULL)
+		prompt = ft_strfcat(minishell.user, "@", FALSE, FALSE);
+	prompt = ft_strfcat(prompt, "minishell", TRUE, FALSE);
+	prompt = ft_strfcat(prompt, ":", TRUE, FALSE);
+	if (pwd)
+	{
+		prompt = ft_strfcat(prompt, pwd, TRUE, FALSE);
+		gfree(pwd);
+	}
+	prompt = ft_strfcat(prompt, "$ ", TRUE, FALSE);
+	return (gman_add(prompt));
+}
+#endif
 
 /*
 ** Get the path relative to the home directory
