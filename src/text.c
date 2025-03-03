@@ -6,7 +6,7 @@
 /*   By: ygille <ygille@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/28 19:54:08 by ygille            #+#    #+#             */
-/*   Updated: 2025/03/03 17:41:05 by ygille           ###   ########.fr       */
+/*   Updated: 2025/03/03 17:47:24 by ygille           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,8 +38,10 @@ void	display_error(char *command, char *error, char *arg)
 /*
 ** Calculate the prompt to display
 */
-char	*calc_prompt(t_minishell minishell)
+
 #if PROMPT_COLOR
+
+char	*calc_prompt(t_minishell minishell)
 {
 	char	*pwd;
 	char	*prompt;
@@ -64,6 +66,8 @@ char	*calc_prompt(t_minishell minishell)
 	return (gman_add(prompt));
 }
 #else
+
+char	*calc_prompt(t_minishell minishell)
 {
 	char	*pwd;
 	char	*prompt;

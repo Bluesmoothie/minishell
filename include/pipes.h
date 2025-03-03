@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipes.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sithomas <sithomas@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: ygille <ygille@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/11 19:44:12 by ygille            #+#    #+#             */
-/*   Updated: 2025/02/19 15:22:54 by sithomas         ###   ########.fr       */
+/*   Updated: 2025/03/03 17:47:59 by ygille           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,6 @@ int		parse_pipe(t_pipes	*new);
 void	unpipe(t_minishell *minishell, char *line);
 
 //	pipes/treat.c
-int	fill_here_doc(t_pipes *new, char *tmp);
+int		fill_here_doc(t_pipes *new, char *tmp);
 
 #endif
