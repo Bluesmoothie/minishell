@@ -6,7 +6,7 @@
 /*   By: sithomas <sithomas@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/07 11:07:02 by sithomas          #+#    #+#             */
-/*   Updated: 2025/02/19 15:37:31 by sithomas         ###   ########.fr       */
+/*   Updated: 2025/03/04 17:05:56 by sithomas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 static void		nopipe(t_minishell *minishell, t_pipes **unpiped);
 static t_bool	oneemptypipe(char *str);
-static t_pipes	**create_pipe_list(char *line);
+static t_pipes	**create_pipe_list(char *line, t_minishell *minishell);
 
 void	unpipe(t_minishell *minishell, char *line)
 {
@@ -31,7 +31,7 @@ void	unpipe(t_minishell *minishell, char *line)
 		return (gfree(line), (void)write(2, "Syntax error\n", 13));
 	tmp_in = open("/dev/tty", O_RDONLY);
 	tmp_out = open("/dev/tty", O_WRONLY);
-	unpiped = create_pipe_list(line);
+	unpiped = create_pipe_list(line, minishell);
 	if (pipelast(*unpiped)->issue)
 		return ;
 	size = pipelstsize(*unpiped);
@@ -45,7 +45,7 @@ void	unpipe(t_minishell *minishell, char *line)
 	close(tmp_out);
 }
 
-static t_pipes	**create_pipe_list(char *line)
+static t_pipes	**create_pipe_list(char *line, t_minishell *minishell)
 {
 	t_pipes	**list;
 	t_pipes	*new;
@@ -63,7 +63,7 @@ static t_pipes	**create_pipe_list(char *line)
 		dup = gman_add(ft_strdup(splitted[i]));
 		new = pipecreate(dup);
 		pipeadd_back(list, new);
-		if (parse_pipe(new))
+		if (parse_pipe(new, minishell))
 			break ;
 		i++;
 	}

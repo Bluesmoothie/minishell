@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipes.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ygille <ygille@student.42lyon.fr>          +#+  +:+       +#+        */
+/*   By: sithomas <sithomas@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/11 19:44:12 by ygille            #+#    #+#             */
-/*   Updated: 2025/03/03 17:47:59 by ygille           ###   ########.fr       */
+/*   Updated: 2025/03/04 17:03:03 by sithomas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,12 +18,12 @@ void	multiple_pipes(t_minishell *minishell, t_pipes **unpiped, int size);
 void	son(int i, t_pipes *current, int size, int *pipefd);
 
 //	pipes/parse.c 
-int		parse_pipe(t_pipes	*new);
+int		parse_pipe(t_pipes	*new, t_minishell *minishell);
 
 //	pipes/pipes.c
 void	unpipe(t_minishell *minishell, char *line);
 
 //	pipes/treat.c
-int		fill_here_doc(t_pipes *new, char *tmp);
+int		fill_here_doc(t_pipes *new, char *tmp, t_minishell *minishell);
 
 #endif

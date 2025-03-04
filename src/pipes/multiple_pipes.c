@@ -6,7 +6,7 @@
 /*   By: sithomas <sithomas@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/12 10:17:46 by sithomas          #+#    #+#             */
-/*   Updated: 2025/02/19 12:18:17 by sithomas         ###   ########.fr       */
+/*   Updated: 2025/03/04 17:01:16 by sithomas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,16 +49,6 @@ void	multiple_pipes(t_minishell *minishell, t_pipes **unpiped, int size)
 	}
 	pipeclear(unpiped);
 }
-
-// static int	pipe_and_fork(int *pipefd, int i)
-// {
-// 	int	pid;
-
-// 	pid = fork();
-// 	if (pid == -1)
-// 		return (gcall_exit(E_FORK), -1);
-// 	return (pid);
-// }
 
 static void	father(int *pipefd, int *pid, int size, t_minishell *minishell)
 {

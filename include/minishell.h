@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ygille <ygille@student.42lyon.fr>          +#+  +:+       +#+        */
+/*   By: sithomas <sithomas@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/28 17:52:27 by ygille            #+#    #+#             */
-/*   Updated: 2025/03/03 17:43:33 by ygille           ###   ########.fr       */
+/*   Updated: 2025/03/04 16:43:10 by sithomas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,5 +112,6 @@ char		*get_relative_path(char *pwd, char *home);
 char		**extract_str(char *str, int beg, int end);
 char		*verif_file(char *path);
 void		returns_process(int code, t_return *ret);
+char		*trimndelete(char *str, char *set);
 
 #endif
