@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ygille <ygille@student.42lyon.fr>          +#+  +:+       +#+        */
+/*   By: sithomas <sithomas@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/06 18:13:22 by ygille            #+#    #+#             */
-/*   Updated: 2025/03/05 11:45:42 by ygille           ###   ########.fr       */
+/*   Updated: 2025/03/05 18:32:57 by sithomas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ char	*get_env_name(char *arg)
 	char	*result;
 
 	i = 0;
-	while (arg[i] != '\0' && arg[i] != '$' && name[i] != '\n')
+	while (arg[i] != '\0' && arg[i] != '$' && arg[i] != '\n')
 		i++;
 	result = gmalloc(sizeof(char) * (i + 1));
 	result[i] = '\0';

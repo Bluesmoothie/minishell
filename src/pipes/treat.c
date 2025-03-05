@@ -6,14 +6,14 @@
 /*   By: sithomas <sithomas@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/11 17:49:10 by sithomas          #+#    #+#             */
-/*   Updated: 2025/03/04 17:47:37 by sithomas         ###   ########.fr       */
+/*   Updated: 2025/03/05 18:30:56 by sithomas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
 static void	run_heredoc(char *tmp, int pipefd1, int quoted, t_minishell *minishell);
-// static char *treat_env(char *str, t_minishell *minishell);
+static char *treat_env(char *str, t_minishell *minishell);
 static t_bool	is_finished(char *s, char c);
 static int	has_no_quotes(char *str);
 
@@ -40,14 +40,14 @@ static void	run_heredoc(char *tmp, int pipefd1, int quoted, t_minishell *minishe
 {
 	char	*last_line;
 
-	(void)quoted;
-	(void)minishell;
 	while (1)
 	{
+		(void)quoted;
+		(void)minishell;
 		last_line = readline("heredoc >");
+		if (!quoted)
+			last_line = treat_env(last_line, minishell);
 		last_line = ft_strfcat(last_line, "\n", TRUE, FALSE);
-		// if (!quoted)
-		// 	last_line = treat_env(last_line, minishell);
 		// history = ft_strfcat(history, last_line, TRUE, FALSE);
 		if (!ft_strncmp(last_line, tmp, ft_strlen(tmp)))
 		{
@@ -96,34 +96,47 @@ static t_bool	is_finished(char *s, char c)
 	return (0);
 }
 
-// static char *treat_env(char *str, t_minishell *minishell)
-// {
-// 	size_t	i;
-// 	size_t	j;
-// 	char	*name;
-// 	char	*tmp;
-// 	char	*result;
+char *treat_env(char *str, t_minishell *minishell)
+{
+	int		i;
+	int		j;
+	char	*result;
+	char	*tmp;
+	char	*env;
 
-// 	i = 0;
-// 	result = NULL;
-// 	while (str[i])
-// 	{
-// 		if (str[i++] == '$')
-// 		{
-// 			j = i;
-// 			while (str[j] != ' ' && str[j] != '\n' && str[j] != '$' && str[j])
-// 				j++;
-// 			name = gman_add(ft_substr(str, i, j - i));
-// 			tmp = get_env_value(minishell, name);
-// 			gfree(name);
-// 			result = gman_add(ft_strfcat(result, tmp, FALSE, TRUE));
-// 			i = j;
-// 		}
-// 	}
-// 	// gfree(str);
-// 	return (result);
-// }
+	i = -1;
+	j = 0;
+	result = NULL;
+	while (str[++i])
+	{
+		if (str[i] == '$')
+		{
+			tmp = ft_substr(str, j, i - j);
+			result = ft_strfcat(result, tmp, TRUE, TRUE);
+			j = i;
+			while (str[j] && str[j] != '\"' && str[j] != '\'' && str[j] != ' ')
+				j++;
+			env = ft_substr(str, i + 1, j - i - 1);
+			tmp = get_env_value(minishell, env);
+			free(env);
+			result = ft_strfcat(result, tmp, TRUE, FALSE);
+			i = j;
+		}
+	}
+	if (i > j)
+		result = ft_strfcat(result, str + j, TRUE, FALSE);
+	return (result);
+}
 
+
+
+/*
+Parcourir la str.
+Des qu'on trouve un $, go jusqu'au separateur (32, 9->13, " ' \)
+on met dans liste chainée 
+
+
+*/
 
 /*
 TODO
@@ -131,4 +144,16 @@ Handle Ctrl+C -- Ctrl+V
 determine if word is quoted or not
 if is quoted, not handle environment variable but word is without quotes
 if not, handle env variable
+*/
+
+
+/*
+typedef struct s_mlist
+{
+	char	mask; --> SPACE
+	char	*name; --> NULL
+	char	*content; -->line
+	t_bool	glue; --> FALSE
+	t_mlist	*next;
+}	t_mlist;
 */
