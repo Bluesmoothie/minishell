@@ -6,14 +6,13 @@
 /*   By: sithomas <sithomas@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/11 17:49:10 by sithomas          #+#    #+#             */
-/*   Updated: 2025/03/05 18:30:56 by sithomas         ###   ########.fr       */
+/*   Updated: 2025/03/05 18:46:29 by sithomas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
 static void	run_heredoc(char *tmp, int pipefd1, int quoted, t_minishell *minishell);
-static char *treat_env(char *str, t_minishell *minishell);
 static t_bool	is_finished(char *s, char c);
 static int	has_no_quotes(char *str);
 
@@ -96,37 +95,6 @@ static t_bool	is_finished(char *s, char c)
 	return (0);
 }
 
-char *treat_env(char *str, t_minishell *minishell)
-{
-	int		i;
-	int		j;
-	char	*result;
-	char	*tmp;
-	char	*env;
-
-	i = -1;
-	j = 0;
-	result = NULL;
-	while (str[++i])
-	{
-		if (str[i] == '$')
-		{
-			tmp = ft_substr(str, j, i - j);
-			result = ft_strfcat(result, tmp, TRUE, TRUE);
-			j = i;
-			while (str[j] && str[j] != '\"' && str[j] != '\'' && str[j] != ' ')
-				j++;
-			env = ft_substr(str, i + 1, j - i - 1);
-			tmp = get_env_value(minishell, env);
-			free(env);
-			result = ft_strfcat(result, tmp, TRUE, FALSE);
-			i = j;
-		}
-	}
-	if (i > j)
-		result = ft_strfcat(result, str + j, TRUE, FALSE);
-	return (result);
-}
 
 
 

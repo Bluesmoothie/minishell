@@ -49,6 +49,7 @@ SRC_FILES		=	minishell					\
 					pipes/multiple_pipes		\
 					pipes/pipes					\
 					pipes/treat					\
+					pipes/treat_env				\
 					types/mlist					\
 					types/mlist2				\
 					types/minishell				\
