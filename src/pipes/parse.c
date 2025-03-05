@@ -6,7 +6,7 @@
 /*   By: sithomas <sithomas@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/11 17:44:17 by sithomas          #+#    #+#             */
-/*   Updated: 2025/03/04 17:57:31 by sithomas         ###   ########.fr       */
+/*   Updated: 2025/03/05 19:03:52 by sithomas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,7 +118,7 @@ static char	*pipe_helper(t_pipes *new, int pos, int param)
 		&& new->content[j] != '>' && new->content[j] != ' ')
 		j++;
 	result = extract_str(new->content, pos, j);
-	new->content = gman_add(ft_strtrim(result[0], "< >"));
+	new->content = gman_add(ft_strdup(result[0]));
 	path = gman_add(ft_strtrim(result[1], "< >"));
 	gfree_double(result);
 	return (path);
