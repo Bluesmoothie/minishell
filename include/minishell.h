@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sithomas <sithomas@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: ygille <ygille@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/28 17:52:27 by ygille            #+#    #+#             */
-/*   Updated: 2025/03/04 16:43:10 by sithomas         ###   ########.fr       */
+/*   Updated: 2025/03/05 14:18:55 by ygille           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,7 @@ char		*update_searching(char *name, int i);
 
 //	env2.c
 void		update_pwdvar(t_minishell *minishell);
+void		update_content(t_mlist *arg);
 
 //	init.c
 void		init_minishell(t_minishell *minishell, char **envp);
