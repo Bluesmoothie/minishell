@@ -6,7 +6,7 @@
 /*   By: sithomas <sithomas@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/11 17:49:10 by sithomas          #+#    #+#             */
-/*   Updated: 2025/03/05 19:13:30 by sithomas         ###   ########.fr       */
+/*   Updated: 2025/03/05 19:19:32 by sithomas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,9 +47,8 @@ static void	run_heredoc(char *tmp, int pipefd1, int quoted, t_minishell *minishe
 		last_line = readline("heredoc >");
 		if (!quoted)
 			last_line = treat_env(last_line, minishell);
-		last_line = ft_strfcat(last_line, "\n", TRUE, FALSE);
 		// history = ft_strfcat(history, last_line, TRUE, FALSE);
-		if (!ft_strncmp(last_line, tmp, ft_strlen(tmp)))
+		if (!ft_strcmp(last_line, tmp))
 		{
 			close(pipefd1);
 			// add_history(history);
@@ -57,6 +56,7 @@ static void	run_heredoc(char *tmp, int pipefd1, int quoted, t_minishell *minishe
 			free(last_line);
 			return ;
 		}
+		last_line = ft_strfcat(last_line, "\n", TRUE, FALSE);
 		write(pipefd1, last_line, ft_strlen(last_line));
 		free(last_line);
 	}
