@@ -6,7 +6,7 @@
 /*   By: sithomas <sithomas@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/11 17:49:10 by sithomas          #+#    #+#             */
-/*   Updated: 2025/03/05 18:46:29 by sithomas         ###   ########.fr       */
+/*   Updated: 2025/03/05 19:13:30 by sithomas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ static void	run_heredoc(char *tmp, int pipefd1, int quoted, t_minishell *minishe
 static t_bool	is_finished(char *s, char c);
 static int	has_no_quotes(char *str);
 
-int	fill_here_doc(t_pipes *new, char *tmp, t_minishell *minishell)
+void	fill_here_doc(t_pipes *new, char *tmp, t_minishell *minishell)
 {
 	int		pipefd[2];
 	int		quoted;
@@ -30,9 +30,10 @@ int	fill_here_doc(t_pipes *new, char *tmp, t_minishell *minishell)
 		tmp = gman_add(trimndelete(tmp, " \"\'"));
 	pipe(pipefd);
 	run_heredoc(tmp, pipefd[1], quoted, minishell);
-	dup2(pipefd[0], new->fd_in);
+	new->fd_in = dup(pipefd[0]);
 	close(pipefd[0]);
-	return (pipefd[0]);
+	if (new->fd_in == -1)
+		gcall_exit(E_DUP);
 }
 
 static void	run_heredoc(char *tmp, int pipefd1, int quoted, t_minishell *minishell)
