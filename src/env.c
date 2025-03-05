@@ -6,7 +6,7 @@
 /*   By: ygille <ygille@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/06 18:13:22 by ygille            #+#    #+#             */
-/*   Updated: 2025/02/18 18:37:59 by ygille           ###   ########.fr       */
+/*   Updated: 2025/03/05 11:39:42 by ygille           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,7 +116,7 @@ char	*update_searching(char *name, int i)
 	char	*result;
 
 	result = NULL;
-	while (name[i] != '\0' && name[i] != '$')
+	while (name[i] != '\0' && name[i] != '$' && name[i] != '\n')
 		i++;
 	if (name[i] == '\0')
 		gfree(name);
