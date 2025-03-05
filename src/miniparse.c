@@ -6,7 +6,7 @@
 /*   By: ygille <ygille@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/10 12:39:29 by ygille            #+#    #+#             */
-/*   Updated: 2025/03/03 17:45:12 by ygille           ###   ########.fr       */
+/*   Updated: 2025/03/05 11:55:30 by ygille           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,8 +73,13 @@ int	extract_arg(char *line, t_mlist **args, t_mlist **node)
 		sep = '\'';
 	else
 		sep = ' ';
-	while (line[i] != '\0' && line[i] != sep)
-		i++;
+	if (sep == ' ')
+		while (line[i] != '\0' && line[i] != sep
+			&& line[i] != '\'' && line[i] != '\"')
+			i++;
+	else
+		while (line[i] != '\0' && line[i] != sep)
+			i++;
 	if (sep != ' ' && line[i] == sep)
 		i++;
 	*node = extract_helper(line, i, sep);

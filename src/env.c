@@ -6,7 +6,7 @@
 /*   By: sithomas <sithomas@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/06 18:13:22 by ygille            #+#    #+#             */
-/*   Updated: 2025/03/05 18:32:57 by sithomas         ###   ########.fr       */
+/*   Updated: 2025/03/05 18:34:16 by sithomas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ void	search_for_env(t_minishell *minishell, t_mlist *args)
 				replace_env_value(args, val);
 				start = ft_strchr(args->name, '$');
 			}
-			gfree (args->name);
+			update_content(args);
 			start = NULL;
 			val = NULL;
 		}
@@ -53,7 +53,7 @@ char	*get_env_name(char *arg)
 	char	*result;
 
 	i = 0;
-	while (arg[i] != '\0' && arg[i] != '$' && arg[i] != '\n')
+	while (arg[i] != '\0' && arg[i] != '$' && arg[i] != '\n' && arg[i] != '/')
 		i++;
 	result = gmalloc(sizeof(char) * (i + 1));
 	result[i] = '\0';
@@ -116,7 +116,8 @@ char	*update_searching(char *name, int i)
 	char	*result;
 
 	result = NULL;
-	while (name[i] != '\0' && name[i] != '$')
+	while (name[i] != '\0' && name[i] != '$'
+		&& name[i] != '\n' && name[i] != '/')
 		i++;
 	if (name[i] == '\0')
 		gfree(name);
