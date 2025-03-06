@@ -6,11 +6,13 @@
 /*   By: sithomas <sithomas@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/11 17:44:17 by sithomas          #+#    #+#             */
-/*   Updated: 2025/03/05 19:13:42 by sithomas         ###   ########.fr       */
+/*   Updated: 2025/03/06 17:41:08 by sithomas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+volatile sig_atomic_t	g_signaled;
 
 static int	right_pipe(t_pipes *new, int pos, t_minishell *minishell);
 static int	left_pipe(t_pipes *new, int pos);
@@ -26,8 +28,9 @@ int	parse_pipe(t_pipes	*new, t_minishell *minishell)
 	int	i;
 	int	j;
 
-	i = 0;
-	while (new->content[i])
+	i = -1;
+	g_signaled = 0;
+	while (new->content[++i])
 	{
 		j = 0;
 		if (new->content[i] == '<')
@@ -40,12 +43,11 @@ int	parse_pipe(t_pipes	*new, t_minishell *minishell)
 			j = left_pipe(new, i);
 			i = -1;
 		}
-		if (j)
+		if (j || g_signaled)
 		{
 			new->issue = 1;
 			return (1);
 		}
-		i++;
 	}
 	return (0);
 }

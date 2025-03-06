@@ -6,7 +6,7 @@
 /*   By: sithomas <sithomas@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/07 11:07:02 by sithomas          #+#    #+#             */
-/*   Updated: 2025/03/04 17:05:56 by sithomas         ###   ########.fr       */
+/*   Updated: 2025/03/06 17:41:42 by sithomas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,13 +15,12 @@
 static void		nopipe(t_minishell *minishell, t_pipes **unpiped);
 static t_bool	oneemptypipe(char *str);
 static t_pipes	**create_pipe_list(char *line, t_minishell *minishell);
+static void		reinit_fds(void);
 
 void	unpipe(t_minishell *minishell, char *line)
 {
 	t_pipes	**unpiped;
 	int		size;
-	int		tmp_in;
-	int		tmp_out;
 
 	if (line == NULL || ft_strcmp(line, "exit") == 0)
 		gcall_exit(NULL);
@@ -29,8 +28,6 @@ void	unpipe(t_minishell *minishell, char *line)
 		return (treat_arguments(minishell, line, STDOUT_FILENO));
 	if (oneemptypipe(line))
 		return (gfree(line), (void)write(2, "Syntax error\n", 13));
-	tmp_in = open("/dev/tty", O_RDONLY);
-	tmp_out = open("/dev/tty", O_WRONLY);
 	unpiped = create_pipe_list(line, minishell);
 	if (pipelast(*unpiped)->issue)
 		return ;
@@ -38,11 +35,8 @@ void	unpipe(t_minishell *minishell, char *line)
 	if (!(*unpiped)->next)
 		nopipe(minishell, unpiped);
 	else
-	multiple_pipes(minishell, unpiped, size);
-	dup2(tmp_in, STDIN_FILENO);
-	dup2(tmp_out, STDOUT_FILENO);
-	close(tmp_in);
-	close(tmp_out);
+		multiple_pipes(minishell, unpiped, size);
+	reinit_fds();
 }
 
 static t_pipes	**create_pipe_list(char *line, t_minishell *minishell)
@@ -79,9 +73,9 @@ static void	nopipe(t_minishell *minishell, t_pipes **unpiped)
 		dup2((*unpiped)->fd_out, STDOUT_FILENO);
 	treat_arguments(minishell, (*unpiped)->content, STDOUT_FILENO);
 	if (!isatty((*unpiped)->fd_in))
-			close((*unpiped)->fd_in);
+		close((*unpiped)->fd_in);
 	if (!isatty((*unpiped)->fd_out))
-			close((*unpiped)->fd_out);
+		close((*unpiped)->fd_out);
 	pipeclear(unpiped);
 }
 
@@ -109,4 +103,23 @@ static t_bool	oneemptypipe(char *str)
 		i++;
 	}
 	return (0);
+}
+
+static void	reinit_fds(void)
+{
+	int	tmp_in;
+	int	tmp_out;
+
+	tmp_in = open("/dev/tty", O_RDONLY);
+	tmp_out = open("/dev/tty", O_WRONLY);
+	if (tmp_in == -1 || tmp_out == -1)
+		return (gcall_exit(E_OPEN));
+	if (dup2(tmp_in, STDIN_FILENO) == -1)
+		gcall_exit(E_DUP2);
+	if (dup2(tmp_out, STDOUT_FILENO) == -1)
+		gcall_exit(E_DUP2);
+	if (close(tmp_in) == -1)
+		gcall_exit(E_CLOSE);
+	if (close(tmp_out) == -1)
+		gcall_exit(E_CLOSE);
 }

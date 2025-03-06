@@ -6,21 +6,18 @@
 /*   By: sithomas <sithomas@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/12 10:17:46 by sithomas          #+#    #+#             */
-/*   Updated: 2025/03/04 17:01:16 by sithomas         ###   ########.fr       */
+/*   Updated: 2025/03/06 17:38:23 by sithomas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
 static void	father(int *pipefd, int *pid, int size, t_minishell *minishell);
-// static void	treat_n_exit(t_minishell *minishell, char *line, int fd);
-// void	son(int i, t_pipes *current, int size, int *pipefd);
-// static int	pipe_and_fork(int *pipefd, int i);
+static void	check_tty(t_pipes *current);
 
 void	multiple_pipes(t_minishell *minishell, t_pipes **unpiped, int size)
 {
 	int		*pipefd;
-	int		*pid;
 	int		i;
 	t_pipes	*current;
 
@@ -36,15 +33,11 @@ void	multiple_pipes(t_minishell *minishell, t_pipes **unpiped, int size)
 		current = current->next;
 		i++;
 	}
-	pid = get_pid();
-	father(pipefd, pid, size, minishell);
+	father(pipefd, get_pid(), size, minishell);
 	current = *unpiped;
 	while (current)
 	{
-		if (!isatty(current->fd_in))
-			close(current->fd_in);
-		if (!isatty(current->fd_out))
-			close(current->fd_out);
+		check_tty(current);
 		current = current->next;
 	}
 	pipeclear(unpiped);
@@ -79,30 +72,41 @@ static void	father(int *pipefd, int *pid, int size, t_minishell *minishell)
 	reset_pipe();
 }
 
-void	son(int i, t_pipes *current, int size, int *pipefd)
+void	son(int i, t_pipes *pipe, int size, int *pipefd)
 {
 	int	j;
 
-	if (current->fd_in != STDIN_FILENO && dup2(current->fd_in, STDIN_FILENO) == -1)
-			exit (EXIT_FAILURE);
-	if (current->fd_out != STDOUT_FILENO && dup2(current->fd_out, STDOUT_FILENO) == -1)
-			exit (EXIT_FAILURE);
+	if (pipe->fd_in != STDIN_FILENO && dup2(pipe->fd_in, STDIN_FILENO) == -1)
+		exit(EXIT_FAILURE);
+	if (pipe->fd_out != STDOUT_FILENO && \
+		dup2(pipe->fd_out, STDOUT_FILENO) == -1)
+		exit(EXIT_FAILURE);
 	if (i == 0)
 	{
-		if (dup2(pipefd[1], current->fd_out) == -1)
+		if (dup2(pipefd[1], pipe->fd_out) == -1)
 			exit(EXIT_FAILURE);
 	}
 	else if (i < size - 1)
 	{
-		if (dup2(pipefd[2 * (i - 1)], current->fd_in) == -1)
+		if (dup2(pipefd[2 * (i - 1)], pipe->fd_in) == -1)
 			exit(EXIT_FAILURE);
-		if (dup2(pipefd[2 * i + 1], current->fd_out) == -1)
+		if (dup2(pipefd[2 * i + 1], pipe->fd_out) == -1)
 			exit(EXIT_FAILURE);
 	}
-	else if (dup2(pipefd[2 * (i - 1)], current->fd_in) == -1)
+	else if (dup2(pipefd[2 * (i - 1)], pipe->fd_in) == -1)
 		exit(EXIT_FAILURE);
 	j = 0;
 	while (j < 2 * i + 2)
 		if (close(pipefd[j++]) == -1)
 			exit(EXIT_FAILURE);
+}
+
+static void	check_tty(t_pipes *current)
+{
+	if (!isatty(current->fd_in))
+		if (close(current->fd_in) == -1)
+			gcall_exit(E_CLOSE);
+	if (!isatty(current->fd_out))
+		if (close(current->fd_out) == -1)
+			gcall_exit(E_CLOSE);
 }

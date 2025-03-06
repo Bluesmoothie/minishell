@@ -6,7 +6,7 @@
 /*   By: sithomas <sithomas@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/05 18:46:14 by sithomas          #+#    #+#             */
-/*   Updated: 2025/03/05 18:46:41 by sithomas         ###   ########.fr       */
+/*   Updated: 2025/03/06 17:42:45 by sithomas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 static char	*update_env(char *str, int i, int j, t_minishell *minishell);
 
-char *treat_env(char *str, t_minishell *minishell)
+char	*treat_env(char *str, t_minishell *minishell)
 {
 	int		i;
 	int		j;
