@@ -6,7 +6,7 @@
 /*   By: ygille <ygille@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/14 13:01:28 by ygille            #+#    #+#             */
-/*   Updated: 2025/02/18 13:40:03 by ygille           ###   ########.fr       */
+/*   Updated: 2025/03/06 17:49:22 by ygille           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,9 @@ static void	garbage_remove(void *glist[], size_t *gsize, void *ptr)
 	(*gsize)--;
 }
 
+/*
+** Free all memory allocated with garbage collector
+*/
 static void	garbage_clean(void *glist[], size_t *gsize)
 {
 	size_t	i;
