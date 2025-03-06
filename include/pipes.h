@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipes.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sithomas <sithomas@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: ygille <ygille@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/11 19:44:12 by ygille            #+#    #+#             */
-/*   Updated: 2025/03/06 17:11:31 by sithomas         ###   ########.fr       */
+/*   Updated: 2025/03/06 17:45:50 by ygille           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ void	unpipe(t_minishell *minishell, char *line);
 void	fill_here_doc(t_pipes *new, char *tmp, t_minishell *minishell);
 
 //	pipes/treat_env.c
-char 	*treat_env(char *str, t_minishell *minishell);
+char	*treat_env(char *str, t_minishell *minishell);
 
 //	pipes/signal_heredoc.c
 void	run_heredoc(char *tmp, int pipefd1, int quoted, t_minishell *minishell);
