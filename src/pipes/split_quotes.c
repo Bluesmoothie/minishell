@@ -6,7 +6,7 @@
 /*   By: sithomas <sithomas@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/06 18:07:43 by sithomas          #+#    #+#             */
-/*   Updated: 2025/03/06 18:45:27 by sithomas         ###   ########.fr       */
+/*   Updated: 2025/03/06 18:52:16 by sithomas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ char	**split_quotes(char *line, int *pos)
 	}
 	i = 0;
 	start = 0;
-	while (i <= size)
+	while (i < size)
 	{
 		if (pos[i] != -1)
 			result[i] = gman_add(ft_substr(line, start, pos[i] - start));
