@@ -6,7 +6,7 @@
 /*   By: sithomas <sithomas@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/11 17:49:10 by sithomas          #+#    #+#             */
-/*   Updated: 2025/03/06 17:42:07 by sithomas         ###   ########.fr       */
+/*   Updated: 2025/03/06 17:45:10 by sithomas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	fill_here_doc(t_pipes *new, char *tmp, t_minishell *minishell)
 {
 	int								pipefd[2];
 	int								quoted;
-	extern volatile sig_atomic_t	is_signaled;
+	extern volatile sig_atomic_t	g_signaled;
 
 	quoted = 1;
 	if (!has_no_quotes(tmp))
@@ -30,7 +30,7 @@ void	fill_here_doc(t_pipes *new, char *tmp, t_minishell *minishell)
 		tmp = gman_add(trimndelete(tmp, " \"\'"));
 	pipe(pipefd);
 	run_heredoc(tmp, pipefd[1], quoted, minishell);
-	if (is_signaled == 0)
+	if (g_signaled == 0)
 		new->fd_in = dup(pipefd[0]);
 	close(pipefd[0]);
 	if (new->fd_in == -1)
