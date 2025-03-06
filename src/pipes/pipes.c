@@ -6,7 +6,7 @@
 /*   By: sithomas <sithomas@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/07 11:07:02 by sithomas          #+#    #+#             */
-/*   Updated: 2025/03/06 18:28:37 by sithomas         ###   ########.fr       */
+/*   Updated: 2025/03/06 19:20:33 by sithomas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 static void		nopipe(t_minishell *minishell, t_pipes **unpiped);
 static t_bool	oneemptypipe(char *str);
-static t_pipes	**create_pipe_list(char *line, t_minishell *minishell, int *pos);
+static t_pipes	**create_pipe_list(char *line, t_minishell *minishell, int *p);
 static void		reinit_fds(void);
 
 void	unpipe(t_minishell *minishell, char *line, int *pos)

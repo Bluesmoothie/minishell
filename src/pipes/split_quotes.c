@@ -6,11 +6,13 @@
 /*   By: sithomas <sithomas@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/06 18:07:43 by sithomas          #+#    #+#             */
-/*   Updated: 2025/03/06 18:52:16 by sithomas         ###   ########.fr       */
+/*   Updated: 2025/03/06 19:21:07 by sithomas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+static char	*zeropipe(int *pos, int i, char *line, int start);
 
 char	**split_quotes(char *line, int *pos)
 {
@@ -30,17 +32,24 @@ char	**split_quotes(char *line, int *pos)
 		result[1] = NULL;
 		return (result);
 	}
-	i = 0;
+	i = -1;
 	start = 0;
-	while (i < size)
+	while (++i < size)
 	{
-		if (pos[i] != -1)
-			result[i] = gman_add(ft_substr(line, start, pos[i] - start));
-		else
-			result[i] = gman_add(ft_substr(line, start, ft_strlen(line) - start));
+		result[i] = zeropipe(pos, i, line, start);
 		start = pos[i] + 1;
-		i++;
 	}
 	result[i] = NULL;
-	return(result);
+	return (result);
+}
+
+static char	*zeropipe(int *pos, int i, char *line, int start)
+{
+	char	*result;
+
+	if (pos[i] != -1)
+		result = gman_add(ft_substr(line, start, pos[i] - start));
+	else
+		result = gman_add(ft_substr(line, start, ft_strlen(line) - start));
+	return (result);
 }
