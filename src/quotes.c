@@ -6,26 +6,26 @@
 /*   By: ygille <ygille@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/06 17:57:54 by ygille            #+#    #+#             */
-/*   Updated: 2025/03/06 18:12:10 by ygille           ###   ########.fr       */
+/*   Updated: 2025/03/06 18:23:41 by ygille           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
 static size_t	size_calc(char *line);
-static void		fill_tab(char *line, t_bool *tab);
+static void		fill_tab(char *line, int *tab);
 
-t_bool	*quotes_verif(char *line)
+int	*quotes_verif(char *line)
 {
-	t_bool	*result;
+	int	*result;
 	size_t	size;
 	
 	result = NULL;
 	size = size_calc(line);
 	if (size)
-		result = gmalloc(size * sizeof(t_bool));
+		result = gmalloc((size + 1) * sizeof(int));
 	fill_tab(line, result);
-	return (tab);
+	return (result);
 }
 
 static size_t	size_calc(char *line)
@@ -44,28 +44,31 @@ static size_t	size_calc(char *line)
 	return (size);
 }
 
-static void	fill_tab(char *line, t_bool *tab)
+static void	fill_tab(char *line, int *tab)
 {
 	size_t	scount;
 	size_t	dcount;
+	size_t	pos;
 	
 	scount = 0;
 	dcount = 0;
-	while (*line)
+	pos = 0;
+	while (line[pos])
 	{
-		if (*line == '\'')
+		if (line[pos] == '\'')
 			scount++;
-		else if (*line == '\"')
+		else if (line[pos] == '\"')
 			dcount++;
-		else if (*line == '|')
+		else if (line[pos] == '|')
 		{
-			if ((scount % 2 && ft_strchr(line, '\''))
-				|| (dcount % 2 && ft_strchr(line, '\"')))
-				*tab = FALSE;
-			else
-				*tab = TRUE;
-			tab++;
+			if (!((scount % 2 && ft_strchr(&line[pos], '\''))
+				|| (dcount % 2 && ft_strchr(&line[pos], '\"'))))
+			{
+				*tab = pos;
+				tab++;
+			}
 		}
-		line++;
+		pos++;
 	}
+	*tab = -1;
 }
