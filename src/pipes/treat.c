@@ -6,11 +6,12 @@
 /*   By: sithomas <sithomas@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/11 17:49:10 by sithomas          #+#    #+#             */
-/*   Updated: 2025/03/06 17:45:10 by sithomas         ###   ########.fr       */
+/*   Updated: 2025/03/06 17:51:06 by sithomas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
 
 static t_bool	is_finished(char *s, char c);
 static int		has_no_quotes(char *str);

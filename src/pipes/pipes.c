@@ -6,7 +6,7 @@
 /*   By: sithomas <sithomas@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/07 11:07:02 by sithomas          #+#    #+#             */
-/*   Updated: 2025/03/06 17:41:42 by sithomas         ###   ########.fr       */
+/*   Updated: 2025/03/06 18:28:37 by sithomas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,10 @@
 
 static void		nopipe(t_minishell *minishell, t_pipes **unpiped);
 static t_bool	oneemptypipe(char *str);
-static t_pipes	**create_pipe_list(char *line, t_minishell *minishell);
+static t_pipes	**create_pipe_list(char *line, t_minishell *minishell, int *pos);
 static void		reinit_fds(void);
 
-void	unpipe(t_minishell *minishell, char *line)
+void	unpipe(t_minishell *minishell, char *line, int *pos)
 {
 	t_pipes	**unpiped;
 	int		size;
@@ -28,7 +28,7 @@ void	unpipe(t_minishell *minishell, char *line)
 		return (treat_arguments(minishell, line, STDOUT_FILENO));
 	if (oneemptypipe(line))
 		return (gfree(line), (void)write(2, "Syntax error\n", 13));
-	unpiped = create_pipe_list(line, minishell);
+	unpiped = create_pipe_list(line, minishell, pos);
 	if (pipelast(*unpiped)->issue)
 		return ;
 	size = pipelstsize(*unpiped);
@@ -39,7 +39,7 @@ void	unpipe(t_minishell *minishell, char *line)
 	reinit_fds();
 }
 
-static t_pipes	**create_pipe_list(char *line, t_minishell *minishell)
+static t_pipes	**create_pipe_list(char *line, t_minishell *minishell, int *pos)
 {
 	t_pipes	**list;
 	t_pipes	*new;
@@ -47,7 +47,7 @@ static t_pipes	**create_pipe_list(char *line, t_minishell *minishell)
 	char	**splitted;
 	int		i;
 
-	splitted = gft_split(line, '|');
+	splitted = split_quotes(line, pos);
 	gfree(line);
 	i = 0;
 	list = (t_pipes **)gmalloc(sizeof(t_pipes *));
