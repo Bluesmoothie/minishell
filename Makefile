@@ -29,6 +29,7 @@ SRC_FILES		=	minishell					\
 					parse						\
 					pid_connect					\
 					pipe_connect				\
+					quotes						\
 					signal						\
 					text						\
 					utils						\
