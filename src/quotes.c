@@ -6,7 +6,7 @@
 /*   By: ygille <ygille@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/06 17:57:54 by ygille            #+#    #+#             */
-/*   Updated: 2025/03/06 18:23:41 by ygille           ###   ########.fr       */
+/*   Updated: 2025/03/06 18:51:19 by ygille           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,7 @@ int	*quotes_verif(char *line)
 	
 	result = NULL;
 	size = size_calc(line);
-	if (size)
-		result = gmalloc((size + 1) * sizeof(int));
+	result = gmalloc((size + 1) * sizeof(int));
 	fill_tab(line, result);
 	return (result);
 }
