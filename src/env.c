@@ -6,7 +6,7 @@
 /*   By: ygille <ygille@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/06 18:13:22 by ygille            #+#    #+#             */
-/*   Updated: 2025/03/06 14:12:40 by ygille           ###   ########.fr       */
+/*   Updated: 2025/03/07 16:54:28 by ygille           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,8 @@ char	*get_env_value(t_minishell *minishell, char *arg)
 {
 	t_mlist	*mlist;
 
+	if (*arg == '\0')
+		return ("$");
 	if (ft_strcmp(arg, "?") == 0)
 		return (gman_add(ft_itoa(minishell->returns.exit_stat)));
 	mlist = minishell->env;
