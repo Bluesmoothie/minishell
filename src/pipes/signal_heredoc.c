@@ -6,7 +6,7 @@
 /*   By: sithomas <sithomas@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/05 19:28:03 by sithomas          #+#    #+#             */
-/*   Updated: 2025/03/07 15:58:24 by sithomas         ###   ########.fr       */
+/*   Updated: 2025/03/07 16:02:53 by sithomas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,10 +18,10 @@ static int	heredoc_done(char *last_line, int pipefd1, char *tmp);
 
 void	run_heredoc(char *tmp, int pipefd1, int quoted, t_minishell *minishell)
 {
-	char	*last_line;
+	char							*last_line;
 	extern volatile sig_atomic_t	g_signaled;
-	rl_event_hook = event_hook;
 
+	rl_event_hook = event_hook;
 	while (1)
 	{
 		signal(SIGINT, heredoc_sig_father);
@@ -56,22 +56,10 @@ static void	heredoc_sig_father(int sig)
 		g_signaled = 1;
 }
 
-// static void	son_heredoc(int *pipefd)
-// {
-// 	char	*last_line;
-
-// 	signal(SIGINT, heredoc_signal);
-// 	close(pipefd[0]);
-// 	last_line = readline("heredoc >");
-// 	write(pipefd[1], last_line, ft_strlen(last_line));
-// 	close(pipefd[1]);
-// 	exit(EXIT_SUCCESS);
-// }
-
 static int	heredoc_done(char *last_line, int pipefd1, char *tmp)
 {
 	extern volatile sig_atomic_t	g_signaled;
-	
+
 	if (g_signaled)
 	{
 		free(last_line);
