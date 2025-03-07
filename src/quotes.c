@@ -6,7 +6,7 @@
 /*   By: ygille <ygille@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/06 17:57:54 by ygille            #+#    #+#             */
-/*   Updated: 2025/03/06 18:51:19 by ygille           ###   ########.fr       */
+/*   Updated: 2025/03/07 16:29:14 by ygille           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,9 @@ static void		fill_tab(char *line, int *tab);
 
 int	*quotes_verif(char *line)
 {
-	int	*result;
+	int		*result;
 	size_t	size;
-	
+
 	result = NULL;
 	size = size_calc(line);
 	result = gmalloc((size + 1) * sizeof(int));
@@ -48,7 +48,7 @@ static void	fill_tab(char *line, int *tab)
 	size_t	scount;
 	size_t	dcount;
 	size_t	pos;
-	
+
 	scount = 0;
 	dcount = 0;
 	pos = 0;
@@ -61,7 +61,7 @@ static void	fill_tab(char *line, int *tab)
 		else if (line[pos] == '|')
 		{
 			if (!((scount % 2 && ft_strchr(&line[pos], '\''))
-				|| (dcount % 2 && ft_strchr(&line[pos], '\"'))))
+					|| (dcount % 2 && ft_strchr(&line[pos], '\"'))))
 			{
 				*tab = pos;
 				tab++;
