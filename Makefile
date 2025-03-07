@@ -29,6 +29,7 @@ SRC_FILES		=	minishell					\
 					parse						\
 					pid_connect					\
 					pipe_connect				\
+					quotes						\
 					signal						\
 					text						\
 					utils						\
@@ -49,6 +50,9 @@ SRC_FILES		=	minishell					\
 					pipes/multiple_pipes		\
 					pipes/pipes					\
 					pipes/treat					\
+					pipes/treat_env				\
+					pipes/signal_heredoc		\
+					pipes/split_quotes			\
 					types/mlist					\
 					types/mlist2				\
 					types/minishell				\

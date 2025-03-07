@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ygille <ygille@student.42lyon.fr>          +#+  +:+       +#+        */
+/*   By: sithomas <sithomas@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/13 16:18:50 by sithomas          #+#    #+#             */
-/*   Updated: 2025/02/18 18:59:30 by ygille           ###   ########.fr       */
+/*   Updated: 2025/03/04 16:42:24 by sithomas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,4 +69,13 @@ void	returns_process(int code, t_return *ret)
 	ret->coredump = __WCOREDUMP(code);
 	ret->stopped = WIFSTOPPED(code);
 	ret->stopsig = WSTOPSIG(code);
+}
+
+char	*trimndelete(char *str, char *set)
+{
+	char	*new;
+
+	new = ft_strtrim(str, set);
+	gfree(str);
+	return (new);
 }

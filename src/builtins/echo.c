@@ -6,7 +6,7 @@
 /*   By: ygille <ygille@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/29 15:13:01 by ygille            #+#    #+#             */
-/*   Updated: 2025/02/19 15:37:15 by ygille           ###   ########.fr       */
+/*   Updated: 2025/03/06 17:47:19 by ygille           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,9 @@ int	func_echo(char **args, int fd)
 	return (0);
 }
 
+/*
+** To skip all -n
+*/
 static t_bool	skip_args(int *i, char **args)
 {
 	t_bool	ret;

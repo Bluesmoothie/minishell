@@ -6,7 +6,7 @@
 /*   By: ygille <ygille@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/28 17:52:27 by ygille            #+#    #+#             */
-/*   Updated: 2025/03/03 17:43:33 by ygille           ###   ########.fr       */
+/*   Updated: 2025/03/06 18:23:29 by ygille           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,7 @@ char		*update_searching(char *name, int i);
 
 //	env2.c
 void		update_pwdvar(t_minishell *minishell);
+void		update_content(t_mlist *arg);
 
 //	init.c
 void		init_minishell(t_minishell *minishell, char **envp);
@@ -98,6 +99,9 @@ void		set_pipe(int i, t_pipes *current, int size, int *pipefd);
 void		reset_pipe(void);
 t_pipe_mem	get_pipe(void);
 
+//	quotes.c
+int			*quotes_verif(char *line);
+
 //	signal.c
 void		siginit_struct(t_minishell *minishell);
 void		signal_handler(int sig);
@@ -112,5 +116,6 @@ char		*get_relative_path(char *pwd, char *home);
 char		**extract_str(char *str, int beg, int end);
 char		*verif_file(char *path);
 void		returns_process(int code, t_return *ret);
+char		*trimndelete(char *str, char *set);
 
 #endif

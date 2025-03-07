@@ -6,7 +6,7 @@
 /*   By: ygille <ygille@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/29 15:14:29 by ygille            #+#    #+#             */
-/*   Updated: 2025/02/19 15:06:05 by ygille           ###   ########.fr       */
+/*   Updated: 2025/03/06 17:47:50 by ygille           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,10 @@ int	func_env(t_minishell *minishell, int fd, t_bool export)
 	return (0);
 }
 
+/*
+** When export is called without arguments
+** print the environnement
+*/
 static void	print_export(t_mlist *lst, int fd)
 {
 	ft_putstr_fd("declare -x ", fd);

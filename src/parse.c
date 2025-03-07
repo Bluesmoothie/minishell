@@ -6,7 +6,7 @@
 /*   By: ygille <ygille@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/28 19:38:14 by ygille            #+#    #+#             */
-/*   Updated: 2025/02/23 22:35:23 by ygille           ###   ########.fr       */
+/*   Updated: 2025/03/06 17:56:45 by ygille           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void	parse_line(t_minishell *minishell, char *line)
 		gcall_exit(NULL);
 	if (line[0] != '\0')
 		add_history(line);
-	unpipe(minishell, line);
+	unpipe(minishell, line, quotes_verif(line));
 }
 
 /*

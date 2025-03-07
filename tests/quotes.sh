@@ -8,10 +8,6 @@ echo "Hello $USER"
 echo 'Hello $USER'
 echo "$HOME/directory"
 echo '$HOME/directory'
-echo "Line 1
-Line 2"
-echo 'Line 1
-Line 2'
 echo "Command: ls"
 echo 'Command: ls'
 echo "Nested "quotes""
