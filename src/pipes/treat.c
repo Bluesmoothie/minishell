@@ -6,7 +6,7 @@
 /*   By: sithomas <sithomas@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/11 17:49:10 by sithomas          #+#    #+#             */
-/*   Updated: 2025/03/06 19:20:57 by sithomas         ###   ########.fr       */
+/*   Updated: 2025/03/07 15:44:06 by sithomas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 static t_bool	is_finished(char *s, char c);
 static int		has_no_quotes(char *str);
 
-void	fill_here_doc(t_pipes *new, char *tmp, t_minishell *minishell)
+int	fill_here_doc(t_pipes *new, char *tmp, t_minishell *minishell)
 {
 	int								pipefd[2];
 	int								quoted;
@@ -25,7 +25,7 @@ void	fill_here_doc(t_pipes *new, char *tmp, t_minishell *minishell)
 	if (!has_no_quotes(tmp))
 		quoted = 0;
 	else if (has_no_quotes(tmp) == -1)
-		gcall_exit("Close your quotes!\n");
+		return (write(2, "Close your quotes!\n", 19));
 	else
 		tmp = gman_add(trimndelete(tmp, " \"\'"));
 	pipe(pipefd);
@@ -36,6 +36,7 @@ void	fill_here_doc(t_pipes *new, char *tmp, t_minishell *minishell)
 	if (new->fd_in == -1)
 		gcall_exit(E_DUP);
 	init_signals();
+	return (0);
 }
 
 static int	has_no_quotes(char *str)

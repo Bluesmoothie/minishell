@@ -6,36 +6,27 @@
 /*   By: sithomas <sithomas@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/05 19:28:03 by sithomas          #+#    #+#             */
-/*   Updated: 2025/03/06 19:54:10 by sithomas         ###   ########.fr       */
+/*   Updated: 2025/03/07 15:58:24 by sithomas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static void	heredoc_signal(int sig);
 static void	heredoc_sig_father(int sig);
-static void	son_heredoc(int *pipefd);
-static int	heredoc_done(int r, char *last_line, int pipefd1, char *tmp);
+static int	event_hook(void);
+static int	heredoc_done(char *last_line, int pipefd1, char *tmp);
 
 void	run_heredoc(char *tmp, int pipefd1, int quoted, t_minishell *minishell)
 {
 	char	*last_line;
-	pid_t	pid;
-	int		pipefd[2];
-	int		r;
+	extern volatile sig_atomic_t	g_signaled;
+	rl_event_hook = event_hook;
 
 	while (1)
 	{
-		pipe(pipefd);
-		pid = fork();
-		if (pid == 0)
-			son_heredoc(pipefd);
 		signal(SIGINT, heredoc_sig_father);
-		last_line = (char *)gmalloc(4097 * sizeof(char));
-		close(pipefd[1]);
-		r = read(pipefd[0], last_line, 4096);
-		close(pipefd[0]);
-		if (heredoc_done(r, last_line, pipefd1, tmp))
+		last_line = readline("heredoc >");
+		if (heredoc_done(last_line, pipefd1, tmp))
 			return ;
 		if (!quoted)
 			last_line = treat_env(last_line, minishell);
@@ -45,10 +36,16 @@ void	run_heredoc(char *tmp, int pipefd1, int quoted, t_minishell *minishell)
 	}
 }
 
-static void	heredoc_signal(int sig)
+static int	event_hook(void)
 {
-	if (sig == SIGINT)
-		exit(EXIT_SUCCESS);
+	extern volatile sig_atomic_t	g_signaled;
+
+	if (g_signaled == 1)
+	{
+		rl_done = 1;
+		return (0);
+	}
+	return (1);
 }
 
 static void	heredoc_sig_father(int sig)
@@ -59,23 +56,33 @@ static void	heredoc_sig_father(int sig)
 		g_signaled = 1;
 }
 
-static void	son_heredoc(int *pipefd)
-{
-	char	*last_line;
+// static void	son_heredoc(int *pipefd)
+// {
+// 	char	*last_line;
 
-	signal(SIGINT, heredoc_signal);
-	close(pipefd[0]);
-	last_line = readline("heredoc >");
-	write(pipefd[1], last_line, ft_strlen(last_line));
-	close(pipefd[1]);
-	exit(EXIT_SUCCESS);
-}
+// 	signal(SIGINT, heredoc_signal);
+// 	close(pipefd[0]);
+// 	last_line = readline("heredoc >");
+// 	write(pipefd[1], last_line, ft_strlen(last_line));
+// 	close(pipefd[1]);
+// 	exit(EXIT_SUCCESS);
+// }
 
-static int	heredoc_done(int r, char *last_line, int pipefd1, char *tmp)
+static int	heredoc_done(char *last_line, int pipefd1, char *tmp)
 {
-	if (r < 1)
+	extern volatile sig_atomic_t	g_signaled;
+	
+	if (g_signaled)
 	{
-		gfree(last_line);
+		free(last_line);
+		g_signaled = 2;
+		rl_done = 0;
+		if (close(pipefd1) == -1)
+			gcall_exit(E_CLOSE);
+		return (1);
+	}
+	if (!last_line)
+	{
 		if (close(pipefd1) == -1)
 			gcall_exit(E_CLOSE);
 		return (1);

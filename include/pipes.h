@@ -6,7 +6,7 @@
 /*   By: sithomas <sithomas@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/11 19:44:12 by ygille            #+#    #+#             */
-/*   Updated: 2025/03/06 18:28:55 by sithomas         ###   ########.fr       */
+/*   Updated: 2025/03/07 15:41:52 by sithomas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ int		parse_pipe(t_pipes	*new, t_minishell *minishell);
 void	unpipe(t_minishell *minishell, char *line, int *pos);
 
 //	pipes/treat.c
-void	fill_here_doc(t_pipes *new, char *tmp, t_minishell *minishell);
+int		fill_here_doc(t_pipes *new, char *tmp, t_minishell *minishell);
 
 //	pipes/treat_env.c
 char	*treat_env(char *str, t_minishell *minishell);

@@ -6,7 +6,7 @@
 /*   By: sithomas <sithomas@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/11 17:44:17 by sithomas          #+#    #+#             */
-/*   Updated: 2025/03/06 17:51:14 by sithomas         ###   ########.fr       */
+/*   Updated: 2025/03/07 15:41:42 by sithomas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,8 @@ static int	right_pipe(t_pipes *new, int pos, t_minishell *minishell)
 		path = pipe_helper(new, pos, 2);
 		if (!path)
 			return (1);
-		fill_here_doc(new, path, minishell);
+		if (fill_here_doc(new, path, minishell))
+			return (1);
 	}
 	else
 	{
