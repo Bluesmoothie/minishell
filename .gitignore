@@ -18,3 +18,4 @@ grep
 "file with spaces.txt"
 checker
 .build/
+.VSCodeCounter/
