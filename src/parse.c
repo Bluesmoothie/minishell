@@ -6,7 +6,7 @@
 /*   By: ygille <ygille@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/28 19:38:14 by ygille            #+#    #+#             */
-/*   Updated: 2025/03/06 17:56:45 by ygille           ###   ########.fr       */
+/*   Updated: 2025/03/08 12:48:53 by ygille           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,12 @@ void	treat_arguments(t_minishell *minishell, char *line, int fd)
 	if (args[0] == NULL)
 	{
 		gfree_double(args);
-		return ;
+		return (gfree(line));
+	}
+	else if (args[0][0] == '\0')
+	{
+		gfree_double(args);
+		return (gfree(line));
 	}
 	gfree(line);
 	if (is_builtin(args) && is_piped())
