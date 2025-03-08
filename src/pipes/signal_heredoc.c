@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   signal_heredoc.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sithomas <sithomas@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: ygille <ygille@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/05 19:28:03 by sithomas          #+#    #+#             */
-/*   Updated: 2025/03/07 16:02:53 by sithomas         ###   ########.fr       */
+/*   Updated: 2025/03/08 12:24:20 by ygille           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,6 @@ static int	heredoc_done(char *last_line, int pipefd1, char *tmp);
 void	run_heredoc(char *tmp, int pipefd1, int quoted, t_minishell *minishell)
 {
 	char							*last_line;
-	extern volatile sig_atomic_t	g_signaled;
 
 	rl_event_hook = event_hook;
 	while (1)
