@@ -6,11 +6,13 @@
 /*   By: ygille <ygille@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/10 12:56:07 by ygille            #+#    #+#             */
-/*   Updated: 2025/03/10 13:05:32 by ygille           ###   ########.fr       */
+/*   Updated: 2025/03/10 16:23:13 by ygille           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+static t_bool	check_file(char *path);
 
 void	fork_nf(t_minishell *minishell, char *comm)
 {
@@ -28,7 +30,28 @@ void	display_nf(char *arg)
 {
 	if (!ft_strncmp("./", arg, 2) || !ft_strncmp("~/", arg, 2)
 		|| !ft_strncmp("/", arg, 1))
-		display_error(arg, E_FILEOPERM, NULL);
+	{
+		if (check_file(arg))
+			display_error(arg, E_ISDIR, NULL);
+		else
+			display_error(arg, E_FILEOPERM, NULL);
+	}
 	else
 		display_error(arg, E_COMMANDNF, NULL);
+}
+
+static t_bool	check_file(char *path)
+{
+	t_stat	path_stat;
+
+	if (path != NULL)
+	{
+		if (access(path, F_OK | X_OK) == 0)
+		{
+			stat(path, &path_stat);
+			if (S_ISDIR(path_stat.st_mode))
+				return (TRUE);
+		}
+	}
+	return (FALSE);
 }
