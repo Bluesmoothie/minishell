@@ -6,7 +6,7 @@
 /*   By: ygille <ygille@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/17 16:55:15 by ygille            #+#    #+#             */
-/*   Updated: 2025/02/20 15:29:11 by ygille           ###   ########.fr       */
+/*   Updated: 2025/03/10 11:38:10 by ygille           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ static int	launch_pipe_builtin(t_minishell *minishell, char **args, int fd)
 
 	code = -1;
 	if (ft_strcmp(args[0], "exit") == 0)
-		code = func_exit(args[1]);
+		code = func_exit(args[1], minishell);
 	else if (ft_strcmp(args[0], "echo") == 0)
 		code = func_echo(args, fd);
 	else if (ft_strcmp(args[0], "cd") == 0)

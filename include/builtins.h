@@ -6,7 +6,7 @@
 /*   By: ygille <ygille@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/11 17:03:25 by ygille            #+#    #+#             */
-/*   Updated: 2025/02/20 15:31:44 by ygille           ###   ########.fr       */
+/*   Updated: 2025/03/10 11:37:21 by ygille           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ int		func_echo(char **args, int fd);
 int		func_env(t_minishell *minishell, int fd, t_bool export);
 
 //	builtins/exit.c
-int		func_exit(char *arg);
+int		func_exit(char *arg, t_minishell *minishell);
 
 //	builtins/export.c
 int		func_export(t_minishell *minishell, char **args, int fd);
