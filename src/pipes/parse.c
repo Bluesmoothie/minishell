@@ -6,7 +6,7 @@
 /*   By: sithomas <sithomas@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/11 17:44:17 by sithomas          #+#    #+#             */
-/*   Updated: 2025/03/10 15:08:42 by sithomas         ###   ########.fr       */
+/*   Updated: 2025/03/10 15:11:01 by sithomas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,8 @@
 
 volatile sig_atomic_t	g_signaled;
 
-static int	right_pipe(t_pipes *new, int pos, t_minishell *minishell, t_bool **quote_checker);
+static int	right_pipe(t_pipes *new, int pos, t_minishell *minishell,
+				t_bool **quote_checker);
 static int	left_pipe(t_pipes *new, int pos, t_bool **quote_checker);
 static char	*pipe_helper(t_pipes *new, int pos, int param);
 
@@ -52,7 +53,8 @@ int	parse_pipe(t_pipes	*new, t_minishell *minishell)
 	return (0);
 }
 
-static int	right_pipe(t_pipes *new, int pos, t_minishell *minishell, t_bool **quote_checker)
+static int	right_pipe(t_pipes *new, int pos, t_minishell *minishell,
+	t_bool **quote_checker)
 {
 	char	*path;
 
