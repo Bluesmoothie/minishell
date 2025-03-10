@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   signal_heredoc.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ygille <ygille@student.42lyon.fr>          +#+  +:+       +#+        */
+/*   By: sithomas <sithomas@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/05 19:28:03 by sithomas          #+#    #+#             */
-/*   Updated: 2025/03/08 12:24:20 by ygille           ###   ########.fr       */
+/*   Updated: 2025/03/10 13:36:31 by sithomas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,15 +18,21 @@ static int	heredoc_done(char *last_line, int pipefd1, char *tmp);
 
 void	run_heredoc(char *tmp, int pipefd1, int quoted, t_minishell *minishell)
 {
-	char							*last_line;
+	char	*last_line;
+	int		here;
 
 	rl_event_hook = event_hook;
 	while (1)
 	{
 		signal(SIGINT, heredoc_sig_father);
 		last_line = readline("heredoc >");
-		if (heredoc_done(last_line, pipefd1, tmp))
+		here = heredoc_done(last_line, pipefd1, tmp);
+		if (here)
+		{
+			if (here == 2)
+				minishell->returns.exit_stat = 130;
 			return ;
+		}
 		if (!quoted)
 			last_line = treat_env(last_line, minishell);
 		last_line = ft_strfcat(last_line, "\n", TRUE, FALSE);
@@ -66,7 +72,7 @@ static int	heredoc_done(char *last_line, int pipefd1, char *tmp)
 		rl_done = 0;
 		if (close(pipefd1) == -1)
 			gcall_exit(E_CLOSE);
-		return (1);
+		return (2);
 	}
 	if (!last_line)
 	{
