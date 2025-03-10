@@ -6,7 +6,7 @@
 /*   By: ygille <ygille@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/29 01:27:49 by ygille            #+#    #+#             */
-/*   Updated: 2025/02/18 15:48:03 by ygille           ###   ########.fr       */
+/*   Updated: 2025/03/10 13:05:09 by ygille           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,5 +27,6 @@
 # define E_DUP2			"Error : dup2 fail"
 # define E_OPEN			"Error : open fail"
 # define E_EXEC			"Error : execve fail"
+# define E_FILEOPERM	" : doesn't exist or don't have permissions to execute"
 
 #endif

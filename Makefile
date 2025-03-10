@@ -26,6 +26,7 @@ SRC_FILES		=	minishell					\
 					init						\
 					launch						\
 					miniparse					\
+					nf 							\
 					parse						\
 					pid_connect					\
 					pipe_connect				\

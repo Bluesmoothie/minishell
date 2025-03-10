@@ -6,7 +6,7 @@
 /*   By: ygille <ygille@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/28 17:52:27 by ygille            #+#    #+#             */
-/*   Updated: 2025/03/06 18:23:29 by ygille           ###   ########.fr       */
+/*   Updated: 2025/03/10 13:02:02 by ygille           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,6 @@ void		launch_bin_piped(t_minishell *minishell, char *path, char **args,
 				char **envp);
 char		*search_binary(char **paths, char *bin);
 char		**create_new_envp(t_minishell *minishell);
-void		fork_nf(t_minishell *minishell, char *comm);
 
 //	miniparse.c
 char		**miniparse(t_minishell *minishell, char *line);
@@ -80,6 +79,10 @@ int			skip_whitespaces(char *line);
 int			extract_arg(char *line, t_mlist **args, t_mlist **node);
 char		**rebuild_args(t_mlist *args);
 t_mlist		*extract_helper(char *line, int i, char sep);
+
+//	nf.c
+void		fork_nf(t_minishell *minishell, char *comm);
+void		display_nf(char *arg);
 
 //	parse.c
 void		parse_line(t_minishell *minishell, char *line);

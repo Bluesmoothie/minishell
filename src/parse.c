@@ -6,7 +6,7 @@
 /*   By: ygille <ygille@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/28 19:38:14 by ygille            #+#    #+#             */
-/*   Updated: 2025/03/10 11:36:05 by ygille           ###   ########.fr       */
+/*   Updated: 2025/03/10 12:57:44 by ygille           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,7 +94,7 @@ void	try_launch(t_minishell *minishell, char **args)
 	else
 	{
 		if (!is_piped())
-			display_error(args[0], E_COMMANDNF, NULL);
+			display_nf(args[0]);
 		else
 			fork_nf(minishell, args[0]);
 		minishell->returns.exit_stat = 127;
