@@ -6,7 +6,7 @@
 /*   By: ygille <ygille@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/28 17:52:27 by ygille            #+#    #+#             */
-/*   Updated: 2025/03/10 14:26:55 by ygille           ###   ########.fr       */
+/*   Updated: 2025/03/10 14:59:47 by ygille           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,7 +106,7 @@ t_pipe_mem	get_pipe(void);
 int			*quotes_verif(char *line);
 
 //	quotes_chevron.c
-int			*quotes_verif_chevron(char *line);
+t_bool		*quotes_verif_chevron(char *line);
 
 //	signal.c
 void		siginit_struct(t_minishell *minishell);
