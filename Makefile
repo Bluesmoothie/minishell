@@ -31,6 +31,7 @@ SRC_FILES		=	minishell					\
 					pid_connect					\
 					pipe_connect				\
 					quotes						\
+					quotes_chevron				\
 					signal						\
 					text						\
 					utils						\
