@@ -6,7 +6,7 @@
 /*   By: sithomas <sithomas@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/11 17:44:17 by sithomas          #+#    #+#             */
-/*   Updated: 2025/03/10 15:01:27 by sithomas         ###   ########.fr       */
+/*   Updated: 2025/03/10 15:08:42 by sithomas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ static int	right_pipe(t_pipes *new, int pos, t_minishell *minishell, t_bool **qu
 			return (printf("%s: No such file or directory\n", path));
 		if (access(path, R_OK))
 			return (printf("%s: permission denied\n", path));
-		new->fd_in = open(path, O_RDONLY, 00400);
+		new->fd_in = open(path, O_RDONLY);
 	}
 	return (0);
 }
@@ -91,7 +91,7 @@ static int	left_pipe(t_pipes *new, int pos, t_bool **quote_checker)
 		path = pipe_helper(new, pos, 2);
 		if (!path)
 			return (1);
-		new->fd_out = open(path, O_CREAT | O_APPEND | O_RDWR, 00700);
+		new->fd_out = open(path, O_CREAT | O_APPEND | O_RDWR, 00744);
 	}
 	else
 	{
@@ -100,7 +100,7 @@ static int	left_pipe(t_pipes *new, int pos, t_bool **quote_checker)
 			return (1);
 		if (!access(path, F_OK))
 			unlink(path);
-		new->fd_out = open(path, O_CREAT | O_RDWR, 00700);
+		new->fd_out = open(path, O_CREAT | O_RDWR, 00744);
 	}
 	return (0);
 }
