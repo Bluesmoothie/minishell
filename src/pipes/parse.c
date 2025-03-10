@@ -6,7 +6,7 @@
 /*   By: sithomas <sithomas@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/11 17:44:17 by sithomas          #+#    #+#             */
-/*   Updated: 2025/03/07 15:41:42 by sithomas         ###   ########.fr       */
+/*   Updated: 2025/03/10 15:01:27 by sithomas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 volatile sig_atomic_t	g_signaled;
 
-static int	right_pipe(t_pipes *new, int pos, t_minishell *minishell);
-static int	left_pipe(t_pipes *new, int pos);
+static int	right_pipe(t_pipes *new, int pos, t_minishell *minishell, t_bool **quote_checker);
+static int	left_pipe(t_pipes *new, int pos, t_bool **quote_checker);
 static char	*pipe_helper(t_pipes *new, int pos, int param);
 
 /*
@@ -25,38 +25,38 @@ and modifies the fd accordingly
 
 int	parse_pipe(t_pipes	*new, t_minishell *minishell)
 {
-	int	i;
-	int	j;
+	int		i;
+	int		j;
+	t_bool	*quote_checker;
 
 	i = -1;
 	g_signaled = 0;
+	quote_checker = quotes_verif_chevron(new->content);
 	while (new->content[++i])
 	{
 		j = 0;
-		if (new->content[i] == '<')
+		if (new->content[i] == '<' && *quote_checker++ == TRUE)
 		{
-			j = right_pipe(new, i, minishell);
+			j = right_pipe(new, i, minishell, &quote_checker);
 			i = -1;
 		}
-		else if (new->content[i] == '>')
+		else if (new->content[i] == '>' && *quote_checker++ == TRUE)
 		{
-			j = left_pipe(new, i);
+			j = left_pipe(new, i, &quote_checker);
 			i = -1;
 		}
 		if (j || g_signaled)
-		{
-			new->issue = 1;
-			return (1);
-		}
+			return (new->issue = 1);
 	}
+	gfree(quote_checker);
 	return (0);
 }
 
-static int	right_pipe(t_pipes *new, int pos, t_minishell *minishell)
+static int	right_pipe(t_pipes *new, int pos, t_minishell *minishell, t_bool **quote_checker)
 {
 	char	*path;
 
-	if (new->content[pos + 1] == '<')
+	if (new->content[pos + 1] == '<' && (*quote_checker)++)
 	{
 		if (new->content[pos + 2] == '<' || new->content[pos + 2] == '>')
 			return (write(2, "Syntax error\n", 13));
@@ -80,11 +80,11 @@ static int	right_pipe(t_pipes *new, int pos, t_minishell *minishell)
 	return (0);
 }
 
-static int	left_pipe(t_pipes *new, int pos)
+static int	left_pipe(t_pipes *new, int pos, t_bool **quote_checker)
 {
 	char	*path;
 
-	if (new->content[pos + 1] == '>')
+	if (new->content[pos + 1] == '>' && (*quote_checker)++)
 	{
 		if (new->content[pos + 2] == '<' || new->content[pos + 2] == '>')
 			return (write(2, "Syntax error\n", 13));
