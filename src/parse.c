@@ -6,7 +6,7 @@
 /*   By: ygille <ygille@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/28 19:38:14 by ygille            #+#    #+#             */
-/*   Updated: 2025/03/10 12:57:44 by ygille           ###   ########.fr       */
+/*   Updated: 2025/03/10 16:32:53 by ygille           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,20 +61,19 @@ t_bool	builtin_functions(t_minishell *minishell, char **args, int fd)
 	if (ft_strcmp(args[0], "exit") == 0)
 		exit(func_exit(args[1], minishell));
 	else if (ft_strcmp(args[0], "echo") == 0)
-		minishell->last_return_value = func_echo(args, fd);
+		minishell->returns.exit_stat = func_echo(args, fd);
 	else if (ft_strcmp(args[0], "cd") == 0)
-		minishell->last_return_value = func_cd(minishell, args);
+		minishell->returns.exit_stat = func_cd(minishell, args);
 	else if (ft_strcmp(args[0], "pwd") == 0)
-		minishell->last_return_value = func_pwd(minishell, fd);
+		minishell->returns.exit_stat = func_pwd(minishell, fd);
 	else if (ft_strcmp(args[0], "export") == 0)
-		minishell->last_return_value = func_export(minishell, args, fd);
+		minishell->returns.exit_stat = func_export(minishell, args, fd);
 	else if (ft_strcmp(args[0], "unset") == 0)
-		minishell->last_return_value = func_unset(minishell, args);
+		minishell->returns.exit_stat = func_unset(minishell, args);
 	else if (ft_strcmp(args[0], "env") == 0)
-		minishell->last_return_value = func_env(minishell, fd, 0);
+		minishell->returns.exit_stat = func_env(minishell, fd, 0);
 	else
 		return (FALSE);
-	returns_process(minishell->last_return_value, &minishell->returns);
 	return (TRUE);
 }
 
