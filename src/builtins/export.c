@@ -6,7 +6,7 @@
 /*   By: ygille <ygille@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/29 15:14:06 by ygille            #+#    #+#             */
-/*   Updated: 2025/03/10 16:31:07 by ygille           ###   ########.fr       */
+/*   Updated: 2025/03/10 16:39:15 by ygille           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ int	func_export(t_minishell *minishell, char **args, int fd)
 	char	*content;
 
 	content = NULL;
-	if (args[1] == NULL)
+	if (args[1] == NULL || args[1][0] == '\0')
 		return (func_env(minishell, fd, 1));
 	else if (ft_strchr(args[1], '=') == NULL)
 		name = gman_add(ft_strdup(args[1]));
