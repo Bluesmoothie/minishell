@@ -6,7 +6,7 @@
 /*   By: sithomas <sithomas@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/07 11:07:02 by sithomas          #+#    #+#             */
-/*   Updated: 2025/03/10 12:48:43 by sithomas         ###   ########.fr       */
+/*   Updated: 2025/03/10 16:06:54 by sithomas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,25 +84,18 @@ static t_bool	oneemptypipe(char *str)
 	int	i;
 	int	j;
 
-	i = 0;
-	while (str[i])
+	i = -1;
+	while (str[++i])
 	{
 		if (str[i] == '|')
 		{
-			if (!str[i + 1] || str[i + 1] == '|')
+			j = i + 1;
+			while (str[j] && ((str[j] == 32 || str[j] == '>' || str[j] == '<') \
+			|| (str[j] > 9 && str[j] < 13)))
+				j++;
+			if (str[j] == '|' || str[j] == '\0')
 				return (1);
-			j = 0;
-			while (str[j])
-			{
-				if (j == i)
-					return (1);
-				if (str[j] == 32 || str[j] == '>' || str[j] == '<')
-					j++;
-				else
-					return (0);
-			}
 		}
-		i++;
 	}
 	return (0);
 }
