@@ -6,7 +6,7 @@
 /*   By: sithomas <sithomas@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/07 11:07:02 by sithomas          #+#    #+#             */
-/*   Updated: 2025/03/06 19:20:33 by sithomas         ###   ########.fr       */
+/*   Updated: 2025/03/10 12:48:43 by sithomas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,6 +89,8 @@ static t_bool	oneemptypipe(char *str)
 	{
 		if (str[i] == '|')
 		{
+			if (!str[i + 1] || str[i + 1] == '|')
+				return (1);
 			j = 0;
 			while (str[j])
 			{
