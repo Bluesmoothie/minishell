@@ -6,7 +6,7 @@
 /*   By: ygille <ygille@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/29 01:27:49 by ygille            #+#    #+#             */
-/*   Updated: 2025/03/10 16:30:12 by ygille           ###   ########.fr       */
+/*   Updated: 2025/03/10 16:47:10 by ygille           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,6 @@
 # define E_EXEC			"Error : execve fail"
 # define E_FILEOPERM	" : doesn't exist or don't have permissions to execute"
 # define E_ISDIR		" : is a directory"
-# define E_VARNAME		" : not a valid variable name"
+# define E_VARNAME		" : not a valid variable name : "
 
 #endif

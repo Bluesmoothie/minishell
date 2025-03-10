@@ -6,13 +6,13 @@
 /*   By: ygille <ygille@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/29 15:14:06 by ygille            #+#    #+#             */
-/*   Updated: 2025/03/10 16:39:15 by ygille           ###   ########.fr       */
+/*   Updated: 2025/03/10 16:47:38 by ygille           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static int	error_no_name(void);
+static int	error_no_name(char *name);
 
 /*
 ** Like the export command, display the environment variables
@@ -34,8 +34,8 @@ int	func_export(t_minishell *minishell, char **args, int fd)
 		name = extract_name(args[1]);
 		content = extract_content(args[1]);
 	}
-	if (name[0] == '\0')
-		return (error_no_name());
+	if (name[0] == '\0' || (name[0] == '?' && name[1] == '\0'))
+		return (error_no_name(name));
 	if (!ft_mlstsearch(minishell->env, name) && name[0] != '\0')
 	{
 		new = ft_mlstcreate(name, content);
@@ -94,8 +94,8 @@ char	*extract_content(char *arg)
 	return (gman_add(content));
 }
 
-static int	error_no_name(void)
+static int	error_no_name(char *name)
 {
-	display_error("export", E_VARNAME, NULL);
+	display_error("export", E_VARNAME, name);
 	return (1);
 }
