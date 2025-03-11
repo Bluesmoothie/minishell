@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   signal_heredoc.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sithomas <sithomas@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: ygille <ygille@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/05 19:28:03 by sithomas          #+#    #+#             */
-/*   Updated: 2025/03/10 13:36:31 by sithomas         ###   ########.fr       */
+/*   Updated: 2025/03/11 14:29:40 by ygille           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ void	run_heredoc(char *tmp, int pipefd1, int quoted, t_minishell *minishell)
 		}
 		if (!quoted)
 			last_line = treat_env(last_line, minishell);
-		last_line = ft_strfcat(last_line, "\n", TRUE, FALSE);
+		last_line = gman_add(ft_strfcat(last_line, "\n", TRUE, FALSE));
 		write(pipefd1, last_line, ft_strlen(last_line));
 		gfree(last_line);
 	}
