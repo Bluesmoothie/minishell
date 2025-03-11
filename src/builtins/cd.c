@@ -6,7 +6,7 @@
 /*   By: ygille <ygille@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/29 15:13:17 by ygille            #+#    #+#             */
-/*   Updated: 2025/03/08 13:24:36 by ygille           ###   ########.fr       */
+/*   Updated: 2025/03/11 11:43:02 by ygille           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,8 +32,8 @@ int	func_cd(t_minishell *minishell, char **args)
 		return (no_home());
 	else if (dir)
 		err = chdir(dir);
-	else if (ft_strcmp(args[1], "-"))
-		err = chdir(args[1]);
+	// else if (ft_strcmp(args[1], "-"))
+	// 	err = chdir(args[1]);
 	if (err)
 		display_error(args[0], E_NOFILE, args[1]);
 	return (err);
