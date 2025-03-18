@@ -6,7 +6,7 @@
 /*   By: sithomas <sithomas@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/11 17:44:17 by sithomas          #+#    #+#             */
-/*   Updated: 2025/03/18 14:53:42 by sithomas         ###   ########.fr       */
+/*   Updated: 2025/03/18 16:09:25 by sithomas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@ static int	right_pipe(t_pipes *new, int pos, t_minishell *minishell,
 				t_bool **quote_checker);
 static int	left_pipe(t_pipes *new, int pos, t_bool **quote_checker);
 static char	*pipe_helper(t_pipes *new, int pos, int param);
+static int	right_pipe_2(char *path, t_pipes *new);
 
 /*
 checks the existence of < and > 
@@ -73,11 +74,8 @@ static int	right_pipe(t_pipes *new, int pos, t_minishell *minishell,
 		path = pipe_helper(new, pos, 1);
 		if (!path)
 			return (1);
-		if (access(path, F_OK))
-			return (printf("%s: No such file or directory\n", path));
-		if (access(path, R_OK))
-			return (printf("%s: permission denied\n", path));
-		new->fd_in = open(path, O_RDONLY);
+		if (right_pipe_2(path, new))
+			return (1);
 	}
 	return (0);
 }
@@ -94,6 +92,8 @@ static int	left_pipe(t_pipes *new, int pos, t_bool **quote_checker)
 		if (!path)
 			return (1);
 		new->fd_out = open(path, O_CREAT | O_APPEND | O_RDWR, 00744);
+		if (new->fd_out == -1)
+			gcall_exit(E_OPEN);
 	}
 	else
 	{
@@ -103,6 +103,8 @@ static int	left_pipe(t_pipes *new, int pos, t_bool **quote_checker)
 		if (!access(path, F_OK))
 			unlink(path);
 		new->fd_out = open(path, O_CREAT | O_RDWR, 00744);
+		if (new->fd_out == -1)
+			gcall_exit(E_OPEN);
 	}
 	return (0);
 }
@@ -127,4 +129,18 @@ static char	*pipe_helper(t_pipes *new, int pos, int param)
 	path = gman_add(ft_strtrim(result[1], "< >"));
 	gfree_double(result);
 	return (path);
+}
+
+static int	right_pipe_2(char *path, t_pipes *new)
+{
+	if (access(path, F_OK))
+		return (printf("%s: No such file or directory\n", path));
+	if (access(path, R_OK))
+		return (printf("%s: permission denied\n", path));
+	if (new->fd_in != STDIN_FILENO)
+		close(new->fd_in);
+	new->fd_in = open(path, O_RDONLY);
+	if (new->fd_in == -1)
+		gcall_exit(E_OPEN);
+	return (0);
 }
