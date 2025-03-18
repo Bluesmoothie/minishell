@@ -6,7 +6,7 @@
 /*   By: sithomas <sithomas@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/11 17:44:17 by sithomas          #+#    #+#             */
-/*   Updated: 2025/03/18 16:09:25 by sithomas         ###   ########.fr       */
+/*   Updated: 2025/03/18 16:21:48 by sithomas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,8 @@ static int	right_pipe(t_pipes *new, int pos, t_minishell *minishell,
 	}
 	else
 	{
+		if (new->fd_in != STDIN_FILENO)
+			close(new->fd_in);
 		path = pipe_helper(new, pos, 1);
 		if (!path)
 			return (1);
@@ -137,8 +139,6 @@ static int	right_pipe_2(char *path, t_pipes *new)
 		return (printf("%s: No such file or directory\n", path));
 	if (access(path, R_OK))
 		return (printf("%s: permission denied\n", path));
-	if (new->fd_in != STDIN_FILENO)
-		close(new->fd_in);
 	new->fd_in = open(path, O_RDONLY);
 	if (new->fd_in == -1)
 		gcall_exit(E_OPEN);
