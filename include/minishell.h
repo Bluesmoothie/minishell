@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ygille <ygille@student.42lyon.fr>          +#+  +:+       +#+        */
+/*   By: sithomas <sithomas@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/28 17:52:27 by ygille            #+#    #+#             */
-/*   Updated: 2025/03/18 16:03:49 by ygille           ###   ########.fr       */
+/*   Updated: 2025/03/18 18:23:58 by sithomas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,12 +16,14 @@
 # include <readline/readline.h>
 # include <readline/history.h>
 # include <sys/stat.h>
+# include <sys/types.h>
 # include <sys/wait.h>
 # include <termios.h>
 # include <signal.h>
 # include <stdio.h>
 # include <unistd.h>
 # include <fcntl.h>
+# include <dirent.h>
 
 # include "libft.h"
 # include "get_next_line.h"
@@ -86,8 +88,8 @@ int			display_nf(char *arg);
 
 //	parse.c
 void		parse_line(t_minishell *minishell, char *line);
-void		treat_arguments(t_minishell *minishell, char *line, int fd);
-t_bool		builtin_functions(t_minishell *minishell, char **args, int fd);
+void		treat_arguments(t_minishell *minishell, char *line);
+t_bool		builtin_functions(t_minishell *minishell, char **args);
 void		try_launch(t_minishell *minishell, char **args);
 char		*calc_bin_path(t_minishell *minishell, char **args);
 

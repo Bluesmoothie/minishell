@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pwd.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ygille <ygille@student.42lyon.fr>          +#+  +:+       +#+        */
+/*   By: sithomas <sithomas@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/29 15:13:56 by ygille            #+#    #+#             */
-/*   Updated: 2025/03/08 12:34:05 by ygille           ###   ########.fr       */
+/*   Updated: 2025/03/18 18:18:47 by sithomas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,10 +15,10 @@
 /*
 ** Like the pwd command, display the current directory
 */
-int	func_pwd(t_minishell *minishell, int fd)
+int	func_pwd(t_minishell *minishell)
 {
 	if (minishell->pwd)
-		ft_putendl_fd(minishell->pwd, fd);
+		ft_putendl_fd(minishell->pwd, STDOUT_FILENO);
 	else
 		display_error("pwd", " : Don't know where I am :(",
 			" Did you removed the current directory ?");

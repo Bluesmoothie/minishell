@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   builtins.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ygille <ygille@student.42lyon.fr>          +#+  +:+       +#+        */
+/*   By: sithomas <sithomas@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/17 16:55:15 by ygille            #+#    #+#             */
-/*   Updated: 2025/03/10 11:38:10 by ygille           ###   ########.fr       */
+/*   Updated: 2025/03/18 18:21:23 by sithomas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static int	launch_pipe_builtin(t_minishell *minishell, char **args, int fd);
+static int	launch_pipe_builtin(t_minishell *minishell, char **args);
 
 t_bool	is_builtin(char **args)
 {
@@ -47,7 +47,7 @@ void	piped_builtin(t_minishell *minishell, char **args)
 	if (pid == 0)
 	{
 		son(pipe.i, pipe.current, pipe.size, pipe.pipefd);
-		code = launch_pipe_builtin(minishell, args, pipe.current->fd_out);
+		code = launch_pipe_builtin(minishell, args);
 		gclean();
 		exit (code);
 	}
@@ -55,7 +55,7 @@ void	piped_builtin(t_minishell *minishell, char **args)
 	minishell->child_pid = pid;
 }
 
-static int	launch_pipe_builtin(t_minishell *minishell, char **args, int fd)
+static int	launch_pipe_builtin(t_minishell *minishell, char **args)
 {
 	int	code;
 
@@ -63,16 +63,16 @@ static int	launch_pipe_builtin(t_minishell *minishell, char **args, int fd)
 	if (ft_strcmp(args[0], "exit") == 0)
 		code = func_exit(args[1], minishell);
 	else if (ft_strcmp(args[0], "echo") == 0)
-		code = func_echo(args, fd);
+		code = func_echo(args);
 	else if (ft_strcmp(args[0], "cd") == 0)
 		code = func_cd(minishell, args);
 	else if (ft_strcmp(args[0], "pwd") == 0)
-		code = func_pwd(minishell, fd);
+		code = func_pwd(minishell);
 	else if (ft_strcmp(args[0], "export") == 0)
-		code = func_export(minishell, args, fd);
+		code = func_export(minishell, args);
 	else if (ft_strcmp(args[0], "unset") == 0)
 		code = func_unset(minishell, args);
 	else if (ft_strcmp(args[0], "env") == 0)
-		code = func_env(minishell, fd, 0);
+		code = func_env(minishell, 0);
 	return (code);
 }

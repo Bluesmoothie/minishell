@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ygille <ygille@student.42lyon.fr>          +#+  +:+       +#+        */
+/*   By: sithomas <sithomas@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/29 15:14:06 by ygille            #+#    #+#             */
-/*   Updated: 2025/03/10 16:47:38 by ygille           ###   ########.fr       */
+/*   Updated: 2025/03/18 18:19:58 by sithomas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ static int	error_no_name(char *name);
 ** Like the export command, display the environment variables
 ** or add a new one
 */
-int	func_export(t_minishell *minishell, char **args, int fd)
+int	func_export(t_minishell *minishell, char **args)
 {
 	t_mlist	*new;
 	char	*name;
@@ -26,7 +26,7 @@ int	func_export(t_minishell *minishell, char **args, int fd)
 
 	content = NULL;
 	if (args[1] == NULL || args[1][0] == '\0')
-		return (func_env(minishell, fd, 1));
+		return (func_env(minishell, 1));
 	else if (ft_strchr(args[1], '=') == NULL)
 		name = gman_add(ft_strdup(args[1]));
 	else

@@ -6,7 +6,7 @@
 /*   By: sithomas <sithomas@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/12 10:17:46 by sithomas          #+#    #+#             */
-/*   Updated: 2025/03/06 17:38:23 by sithomas         ###   ########.fr       */
+/*   Updated: 2025/03/18 18:24:17 by sithomas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ void	multiple_pipes(t_minishell *minishell, t_pipes **unpiped, int size)
 		if (pipe(pipefd + 2 * i) == -1)
 			return (gcall_exit(E_PIPE));
 		set_pipe(i, current, size, pipefd);
-		treat_arguments(minishell, current->content, current->fd_out);
+		treat_arguments(minishell, current->content);
 		current = current->next;
 		i++;
 	}

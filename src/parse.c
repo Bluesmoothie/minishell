@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ygille <ygille@student.42lyon.fr>          +#+  +:+       +#+        */
+/*   By: sithomas <sithomas@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/28 19:38:14 by ygille            #+#    #+#             */
-/*   Updated: 2025/03/18 16:01:11 by ygille           ###   ########.fr       */
+/*   Updated: 2025/03/18 18:23:43 by sithomas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ parse the argument either on a line either between two pipes
 and executes
 */
 
-void	treat_arguments(t_minishell *minishell, char *line, int fd)
+void	treat_arguments(t_minishell *minishell, char *line)
 {
 	char	**args;
 
@@ -47,7 +47,7 @@ void	treat_arguments(t_minishell *minishell, char *line, int fd)
 	gfree(line);
 	if (is_builtin(args) && is_piped())
 		piped_builtin(minishell, args);
-	else if (!builtin_functions(minishell, args, fd))
+	else if (!builtin_functions(minishell, args))
 		try_launch(minishell, args);
 	gfree_double(args);
 	return ;
@@ -56,22 +56,22 @@ void	treat_arguments(t_minishell *minishell, char *line, int fd)
 /*
 ** Check if the command is a builtin function
 */
-t_bool	builtin_functions(t_minishell *minishell, char **args, int fd)
+t_bool	builtin_functions(t_minishell *minishell, char **args)
 {
 	if (ft_strcmp(args[0], "exit") == 0)
 		exit(func_exit(args[1], minishell));
 	else if (ft_strcmp(args[0], "echo") == 0)
-		minishell->returns.exit_stat = func_echo(args, fd);
+		minishell->returns.exit_stat = func_echo(args);
 	else if (ft_strcmp(args[0], "cd") == 0)
 		minishell->returns.exit_stat = func_cd(minishell, args);
 	else if (ft_strcmp(args[0], "pwd") == 0)
-		minishell->returns.exit_stat = func_pwd(minishell, fd);
+		minishell->returns.exit_stat = func_pwd(minishell);
 	else if (ft_strcmp(args[0], "export") == 0)
-		minishell->returns.exit_stat = func_export(minishell, args, fd);
+		minishell->returns.exit_stat = func_export(minishell, args);
 	else if (ft_strcmp(args[0], "unset") == 0)
 		minishell->returns.exit_stat = func_unset(minishell, args);
 	else if (ft_strcmp(args[0], "env") == 0)
-		minishell->returns.exit_stat = func_env(minishell, fd, 0);
+		minishell->returns.exit_stat = func_env(minishell, 0);
 	else
 		return (FALSE);
 	return (TRUE);
