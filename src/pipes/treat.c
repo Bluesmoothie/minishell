@@ -6,7 +6,7 @@
 /*   By: sithomas <sithomas@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/11 17:49:10 by sithomas          #+#    #+#             */
-/*   Updated: 2025/03/07 15:44:06 by sithomas         ###   ########.fr       */
+/*   Updated: 2025/03/18 15:30:15 by sithomas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,11 @@ int	fill_here_doc(t_pipes *new, char *tmp, t_minishell *minishell)
 	pipe(pipefd);
 	run_heredoc(tmp, pipefd[1], quoted, minishell);
 	if (g_signaled == 0)
+	{
+		if (new->fd_in != STDIN_FILENO)
+			close(new->fd_in);
 		new->fd_in = dup(pipefd[0]);
+	}
 	close(pipefd[0]);
 	if (new->fd_in == -1)
 		gcall_exit(E_DUP);

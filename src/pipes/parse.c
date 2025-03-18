@@ -6,7 +6,7 @@
 /*   By: sithomas <sithomas@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/11 17:44:17 by sithomas          #+#    #+#             */
-/*   Updated: 2025/03/10 15:11:01 by sithomas         ###   ########.fr       */
+/*   Updated: 2025/03/18 14:53:42 by sithomas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,28 +28,28 @@ int	parse_pipe(t_pipes	*new, t_minishell *minishell)
 {
 	int		i;
 	int		j;
-	t_bool	*quote_checker;
+	t_bool	*q_c;
 
 	i = -1;
 	g_signaled = 0;
-	quote_checker = quotes_verif_chevron(new->content);
+	q_c = quotes_verif_chevron(new->content);
 	while (new->content[++i])
 	{
 		j = 0;
-		if (new->content[i] == '<' && *quote_checker++ == TRUE)
+		if (new->content[i] && new->content[i] == '<' && *q_c++ == TRUE)
 		{
-			j = right_pipe(new, i, minishell, &quote_checker);
+			j = right_pipe(new, i, minishell, &q_c);
 			i = -1;
 		}
-		else if (new->content[i] == '>' && *quote_checker++ == TRUE)
+		else if (new->content[i] && new->content[i] == '>' && *q_c++ == TRUE)
 		{
-			j = left_pipe(new, i, &quote_checker);
+			j = left_pipe(new, i, &q_c);
 			i = -1;
 		}
 		if (j || g_signaled)
 			return (new->issue = 1);
 	}
-	gfree(quote_checker);
+	gfree(q_c);
 	return (0);
 }
 
