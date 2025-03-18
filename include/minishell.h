@@ -6,7 +6,7 @@
 /*   By: ygille <ygille@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/28 17:52:27 by ygille            #+#    #+#             */
-/*   Updated: 2025/03/10 14:59:47 by ygille           ###   ########.fr       */
+/*   Updated: 2025/03/18 16:03:49 by ygille           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,8 +81,8 @@ char		**rebuild_args(t_mlist *args);
 t_mlist		*extract_helper(char *line, int i, char sep);
 
 //	nf.c
-void		fork_nf(t_minishell *minishell, char *comm);
-void		display_nf(char *arg);
+int			fork_nf(t_minishell *minishell, char *comm);
+int			display_nf(char *arg);
 
 //	parse.c
 void		parse_line(t_minishell *minishell, char *line);

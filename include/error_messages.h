@@ -6,7 +6,7 @@
 /*   By: ygille <ygille@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/29 01:27:49 by ygille            #+#    #+#             */
-/*   Updated: 2025/03/18 14:15:38 by ygille           ###   ########.fr       */
+/*   Updated: 2025/03/18 15:58:28 by ygille           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,8 @@
 # define E_DUP2			"Error : dup2 fail"
 # define E_OPEN			"Error : open fail"
 # define E_EXEC			"Error : execve fail"
-# define E_FILEOPERM	" : doesn't exist or don't have permissions to execute"
+# define E_FILE			" : doesn't exist"
+# define E_PERM			" : don't have permissions to execute"
 # define E_ISDIR		" : is a directory"
 # define E_VARNAME		" : not a valid variable name : "
 
