@@ -6,7 +6,7 @@
 /*   By: ygille <ygille@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/13 16:18:50 by sithomas          #+#    #+#             */
-/*   Updated: 2025/03/10 11:29:21 by ygille           ###   ########.fr       */
+/*   Updated: 2025/03/18 15:35:21 by ygille           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,8 @@ void	returns_process(int code, t_return *ret)
 	ret->coredump = __WCOREDUMP(code);
 	ret->stopped = WIFSTOPPED(code);
 	ret->stopsig = WSTOPSIG(code);
+	if (ret->signaled)
+		ret->exit_stat = 128 + ret->termsig;
 }
 
 char	*trimndelete(char *str, char *set)
