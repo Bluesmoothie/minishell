@@ -6,7 +6,7 @@
 /*   By: ygille <ygille@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/29 01:27:49 by ygille            #+#    #+#             */
-/*   Updated: 2025/03/10 16:47:10 by ygille           ###   ########.fr       */
+/*   Updated: 2025/03/18 14:15:38 by ygille           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 
 # define E_SPLIT		"Error : split failed"
 # define E_NOFILE		" : no such file or directory : "
+# define E_NODIR		" : no such directory : "
 # define E_COMMANDNF	" : command not found"
 # define E_MALLOC		"Error : malloc failed"
 # define E_FORK			"Error : fork failed"
