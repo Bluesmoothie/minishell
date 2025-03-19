@@ -6,7 +6,7 @@
 /*   By: sithomas <sithomas@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/05 19:28:03 by sithomas          #+#    #+#             */
-/*   Updated: 2025/03/19 11:49:45 by sithomas         ###   ########.fr       */
+/*   Updated: 2025/03/19 13:19:53 by sithomas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ void	run_heredoc(char *tmp, int pipefd1, int quoted, t_minishell *minishell)
 		}
 		if (!quoted)
 			last_line = treat_env(last_line, minishell);
-		last_line = gman_add(ft_strfcat(last_line, "\n", TRUE, FALSE));
+		last_line = gman_add(ft_strfcat(last_line, "\n", FALSE, FALSE));
 		write(pipefd1, last_line, ft_strlen(last_line));
 		gfree(last_line);
 	}
