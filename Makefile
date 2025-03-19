@@ -56,6 +56,8 @@ SRC_FILES		=	minishell					\
 					pipes/treat_env				\
 					pipes/signal_heredoc		\
 					pipes/split_quotes			\
+					pipes/fds					\
+					pipes/left_pipe				\
 					types/mlist					\
 					types/mlist2				\
 					types/minishell				\

@@ -6,7 +6,7 @@
 /*   By: sithomas <sithomas@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/05 18:46:14 by sithomas          #+#    #+#             */
-/*   Updated: 2025/03/19 11:58:28 by sithomas         ###   ########.fr       */
+/*   Updated: 2025/03/19 12:37:49 by sithomas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ char	*treat_env(char *str, t_minishell *minishell)
 	char	*tmp;
 	int		i;
 	int		j;
-	
+
 	i = -1;
 	j = 0;
 	result = NULL;

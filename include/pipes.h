@@ -6,7 +6,7 @@
 /*   By: sithomas <sithomas@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/11 19:44:12 by ygille            #+#    #+#             */
-/*   Updated: 2025/03/19 12:28:16 by sithomas         ###   ########.fr       */
+/*   Updated: 2025/03/19 12:37:28 by sithomas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,13 +17,14 @@
 void	multiple_pipes(t_minishell *minishell, t_pipes **unpiped, int size);
 void	son(int i, t_pipes *current, int size, int *pipefd);
 
-//	pipes/parse.c 
-int		parse_pipe(t_pipes	*new, t_minishell *minishell);
+//	pipes/parse.c
+int		parse_pipe(t_pipes *new, t_minishell *minishell);
 char	*pipe_helper(t_pipes *new, int pos, int param);
 int		check_path(char *path);
 
 //	pipes/left_pipe.c
-int		left_pipe(t_pipes *new, int pos, t_minishell *minishell, t_bool **quote_checker);
+int		left_pipe(t_pipes *new, int pos, t_minishell *minishell,
+			t_bool **quote_checker);
 
 //	pipes/pipes.c
 void	unpipe(t_minishell *minishell, char *line, int *pos);

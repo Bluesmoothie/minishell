@@ -6,7 +6,7 @@
 /*   By: sithomas <sithomas@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/11 17:44:17 by sithomas          #+#    #+#             */
-/*   Updated: 2025/03/19 12:30:37 by sithomas         ###   ########.fr       */
+/*   Updated: 2025/03/19 12:38:23 by sithomas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,16 +14,16 @@
 
 volatile sig_atomic_t	g_signaled;
 
-static int	right_pipe(t_pipes *new, int pos, t_minishell *minishell,
-				t_bool **quote_checker);
-static int	right_pipe_2(char *path, t_pipes *new);
+static int				right_pipe(t_pipes *new, int pos,
+							t_minishell *minishell, t_bool **quote_checker);
+static int				right_pipe_2(char *path, t_pipes *new);
 
 /*
-checks the existence of < and > 
+checks the existence of < and >
 and modifies the fd accordingly
 */
 
-int	parse_pipe(t_pipes	*new, t_minishell *minishell)
+int	parse_pipe(t_pipes *new, t_minishell *minishell)
 {
 	int		i;
 	int		j;
@@ -53,7 +53,7 @@ int	parse_pipe(t_pipes	*new, t_minishell *minishell)
 }
 
 static int	right_pipe(t_pipes *new, int pos, t_minishell *minishell,
-	t_bool **quote_checker)
+		t_bool **quote_checker)
 {
 	char	*path;
 
@@ -93,8 +93,8 @@ char	*pipe_helper(t_pipes *new, int pos, int param)
 			j++;
 	if (!new->content[j] || new->content[j] == '<' || new->content[j] == '>')
 		return ((void)write(2, "Syntax error\n", 13), NULL);
-	while (new->content[j] && new->content[j] != '<'
-		&& new->content[j] != '>' && new->content[j] != ' ')
+	while (new->content[j] && new->content[j] != '<' && new->content[j] != '>'
+		&& new->content[j] != ' ')
 		j++;
 	result = extract_str(new->content, pos, j);
 	new->content = gman_add(ft_strdup(result[0]));
@@ -116,7 +116,6 @@ static int	right_pipe_2(char *path, t_pipes *new)
 		gcall_exit(E_OPEN);
 	return (0);
 }
-
 
 int	check_path(char *path)
 {
