@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   signal.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sithomas <sithomas@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: ygille <ygille@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/16 13:33:55 by ygille            #+#    #+#             */
-/*   Updated: 2025/03/06 16:20:31 by sithomas         ###   ########.fr       */
+/*   Updated: 2025/03/19 12:59:00 by ygille           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,8 @@ void	siginit_struct(t_minishell *minishell)
 */
 void	signal_handler(int sig)
 {
+	if (sig == SIGPIPE)
+		return ;
 	signal_handler_helper(NULL, sig, TRUE);
 }
 
