@@ -42,6 +42,7 @@ SRC_FILES		=	minishell					\
 					builtins/export				\
 					builtins/pwd				\
 					builtins/unset				\
+					builtins/suit				\
 					garbage/core				\
 					garbage/double_core			\
 					garbage/double				\
