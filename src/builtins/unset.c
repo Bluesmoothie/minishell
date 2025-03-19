@@ -6,7 +6,7 @@
 /*   By: ygille <ygille@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/29 15:14:16 by ygille            #+#    #+#             */
-/*   Updated: 2025/01/30 16:24:23 by ygille           ###   ########.fr       */
+/*   Updated: 2025/03/19 12:21:53 by ygille           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,10 +35,10 @@ int	func_unset(t_minishell *minishell, char **args)
 			else
 				prev->next = next;
 			ft_mlstdelone(del);
-			return (0);
+			return (suit(&func_unset, minishell, args));
 		}
 		prev = del;
 		del = next;
 	}
-	return (0);
+	return (suit(&func_unset, minishell, args));
 }

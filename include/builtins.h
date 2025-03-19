@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtins.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sithomas <sithomas@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: ygille <ygille@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/11 17:03:25 by ygille            #+#    #+#             */
-/*   Updated: 2025/03/18 18:20:37 by sithomas         ###   ########.fr       */
+/*   Updated: 2025/03/19 12:23:58 by ygille           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,5 +36,9 @@ int		func_pwd(t_minishell *minishell);
 
 //	builtins/unset.c
 int		func_unset(t_minishell *minishell, char **args);
+
+//	builtins/suit.c
+int		suit(int (*f)(t_minishell*, char**),
+			t_minishell *minishell, char **args);
 
 #endif
