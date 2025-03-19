@@ -6,7 +6,7 @@
 /*   By: sithomas <sithomas@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/17 16:55:15 by ygille            #+#    #+#             */
-/*   Updated: 2025/03/19 11:33:23 by sithomas         ###   ########.fr       */
+/*   Updated: 2025/03/19 12:50:02 by sithomas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ void	piped_builtin(t_minishell *minishell, char **args, int *fds)
 		son(pipe.i, pipe.current, pipe.size, pipe.pipefd);
 		code = launch_pipe_builtin(minishell, args);
 		i = 0;
-		while (fds[i] != 0)
+		while (fds && fds[i] != 0)
 		{
 			close(fds[i]);
 			i++;
