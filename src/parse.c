@@ -6,7 +6,7 @@
 /*   By: sithomas <sithomas@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/28 19:38:14 by ygille            #+#    #+#             */
-/*   Updated: 2025/03/18 18:23:43 by sithomas         ###   ########.fr       */
+/*   Updated: 2025/03/19 11:22:14 by sithomas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ parse the argument either on a line either between two pipes
 and executes
 */
 
-void	treat_arguments(t_minishell *minishell, char *line)
+void	treat_arguments(t_minishell *minishell, char *line, int *fds)
 {
 	char	**args;
 
@@ -46,7 +46,7 @@ void	treat_arguments(t_minishell *minishell, char *line)
 	}
 	gfree(line);
 	if (is_builtin(args) && is_piped())
-		piped_builtin(minishell, args);
+		piped_builtin(minishell, args, fds);
 	else if (!builtin_functions(minishell, args))
 		try_launch(minishell, args);
 	gfree_double(args);

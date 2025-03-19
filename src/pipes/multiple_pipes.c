@@ -6,7 +6,7 @@
 /*   By: sithomas <sithomas@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/12 10:17:46 by sithomas          #+#    #+#             */
-/*   Updated: 2025/03/18 18:24:17 by sithomas         ###   ########.fr       */
+/*   Updated: 2025/03/19 11:38:50 by sithomas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,18 +20,19 @@ void	multiple_pipes(t_minishell *minishell, t_pipes **unpiped, int size)
 	int		*pipefd;
 	int		i;
 	t_pipes	*current;
+	int		*fds;
 
 	current = *unpiped;
 	pipefd = (int *)gmalloc((2 * size) * sizeof(int));
-	i = 0;
+	i = -1;
+	fds = establish_fd_list(current);
 	while (current)
 	{
-		if (pipe(pipefd + 2 * i) == -1)
+		if (pipe(pipefd + 2 * ++i) == -1)
 			return (gcall_exit(E_PIPE));
 		set_pipe(i, current, size, pipefd);
-		treat_arguments(minishell, current->content);
+		treat_arguments(minishell, current->content, fds);
 		current = current->next;
-		i++;
 	}
 	father(pipefd, get_pid(), size, minishell);
 	current = *unpiped;
@@ -51,8 +52,7 @@ static void	father(int *pipefd, int *pid, int size, t_minishell *minishell)
 	i = 0;
 	while (i < 2 * size)
 	{
-		if (close(pipefd[i]) == -1)
-			return (gcall_exit(E_OPEN));
+		close(pipefd[i]);
 		i++;
 	}
 	j = 0;
@@ -97,8 +97,7 @@ void	son(int i, t_pipes *pipe, int size, int *pipefd)
 		exit(EXIT_FAILURE);
 	j = 0;
 	while (j < 2 * i + 2)
-		if (close(pipefd[j++]) == -1)
-			exit(EXIT_FAILURE);
+		close(pipefd[j++]);
 }
 
 static void	check_tty(t_pipes *current)

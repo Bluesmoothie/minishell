@@ -6,7 +6,7 @@
 /*   By: sithomas <sithomas@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/11 17:49:10 by sithomas          #+#    #+#             */
-/*   Updated: 2025/03/18 15:30:15 by sithomas         ###   ########.fr       */
+/*   Updated: 2025/03/19 11:43:58 by sithomas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ int	fill_here_doc(t_pipes *new, char *tmp, t_minishell *minishell)
 	if (!has_no_quotes(tmp))
 		quoted = 0;
 	else if (has_no_quotes(tmp) == -1)
-		return (write(2, "Close your quotes!\n", 19));
+		return (write(2, "Wrong format!\n", 14));
 	else
 		tmp = gman_add(trimndelete(tmp, " \"\'"));
 	pipe(pipefd);
@@ -70,7 +70,7 @@ static t_bool	is_finished(char *s, char c)
 	i = 1;
 	while (s[i])
 	{
-		if (s[i] == c)
+		if (s[i] == c && !s[i + 1])
 			return (1);
 		i++;
 	}

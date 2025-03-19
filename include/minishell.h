@@ -6,7 +6,7 @@
 /*   By: sithomas <sithomas@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/28 17:52:27 by ygille            #+#    #+#             */
-/*   Updated: 2025/03/18 18:23:58 by sithomas         ###   ########.fr       */
+/*   Updated: 2025/03/19 11:24:25 by sithomas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ void		free_exit(void *param, char *message);
 
 //	builtins.c
 t_bool		is_builtin(char **args);
-void		piped_builtin(t_minishell *minishell, char **args);
+void		piped_builtin(t_minishell *minishell, char **args, int *fds);
 
 //	env.c
 void		search_for_env(t_minishell *minishell, t_mlist	*args);
@@ -88,7 +88,7 @@ int			display_nf(char *arg);
 
 //	parse.c
 void		parse_line(t_minishell *minishell, char *line);
-void		treat_arguments(t_minishell *minishell, char *line);
+void		treat_arguments(t_minishell *minishell, char *line, int *fds);
 t_bool		builtin_functions(t_minishell *minishell, char **args);
 void		try_launch(t_minishell *minishell, char **args);
 char		*calc_bin_path(t_minishell *minishell, char **args);

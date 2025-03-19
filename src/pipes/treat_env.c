@@ -6,7 +6,7 @@
 /*   By: sithomas <sithomas@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/05 18:46:14 by sithomas          #+#    #+#             */
-/*   Updated: 2025/03/19 10:37:40 by sithomas         ###   ########.fr       */
+/*   Updated: 2025/03/19 11:58:28 by sithomas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,13 +14,17 @@
 
 static char	*update_env(char *str, int i, int j, t_minishell *minishell);
 
-char	*treat_env(char *str, t_minishell *minishell, int i, int j)
+char	*treat_env(char *str, t_minishell *minishell)
 {
 	char	*result;
 	char	*tmp;
-
+	int		i;
+	int		j;
+	
+	i = -1;
+	j = 0;
 	result = NULL;
-	while (str[i])
+	while (str[++i])
 	{
 		if (str[i] == '$' && str[i + 1])
 		{
@@ -31,12 +35,8 @@ char	*treat_env(char *str, t_minishell *minishell, int i, int j)
 				j++;
 			tmp = update_env(str, i, j, minishell);
 			if (tmp)
-			{
 				result = ft_strfcat(result, tmp, TRUE, FALSE);
-				i = j;
-			}
 		}
-		i++;
 	}
 	if (i > j)
 		result = ft_strfcat(result, str + j, TRUE, FALSE);

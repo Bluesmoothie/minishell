@@ -6,7 +6,7 @@
 /*   By: sithomas <sithomas@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/17 16:55:15 by ygille            #+#    #+#             */
-/*   Updated: 2025/03/18 18:21:23 by sithomas         ###   ########.fr       */
+/*   Updated: 2025/03/19 11:33:23 by sithomas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,11 +34,12 @@ t_bool	is_builtin(char **args)
 		return (FALSE);
 }
 
-void	piped_builtin(t_minishell *minishell, char **args)
+void	piped_builtin(t_minishell *minishell, char **args, int *fds)
 {
 	int			pid;
 	t_pipe_mem	pipe;
 	int			code;
+	int			i;
 
 	pipe = get_pipe();
 	pid = fork();
@@ -48,6 +49,12 @@ void	piped_builtin(t_minishell *minishell, char **args)
 	{
 		son(pipe.i, pipe.current, pipe.size, pipe.pipefd);
 		code = launch_pipe_builtin(minishell, args);
+		i = 0;
+		while (fds[i] != 0)
+		{
+			close(fds[i]);
+			i++;
+		}
 		gclean();
 		exit (code);
 	}
