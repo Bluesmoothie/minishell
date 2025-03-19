@@ -6,7 +6,7 @@
 /*   By: ygille <ygille@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/30 16:11:43 by ygille            #+#    #+#             */
-/*   Updated: 2025/02/19 14:32:17 by ygille           ###   ########.fr       */
+/*   Updated: 2025/03/19 12:58:34 by ygille           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ void	init_signals(void)
 {
 	signal(SIGINT, signal_handler);
 	signal(SIGQUIT, signal_handler);
+	signal(SIGPIPE, signal_handler);
 }
 
 /*
