@@ -6,7 +6,7 @@
 /*   By: ygille <ygille@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/10 12:39:29 by ygille            #+#    #+#             */
-/*   Updated: 2025/03/05 11:55:30 by ygille           ###   ########.fr       */
+/*   Updated: 2025/04/10 16:33:47 by ygille           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,8 +30,7 @@ char	**miniparse(t_minishell *minishell, char *line)
 		if (line[i] != '\0')
 		{
 			i += extract_arg(&line[i], &args, &act);
-			if (line[i] != '\0' && line[i] != ' '
-				&& (line[i] <= '\t' || line[i] >= '\r'))
+			if (line[i] != '\0' && !MWS(line[i]))
 				act->glue = TRUE;
 			else
 				act->glue = FALSE;
@@ -39,6 +38,8 @@ char	**miniparse(t_minishell *minishell, char *line)
 	}
 	search_for_env(minishell, args);
 	out = rebuild_args(args);
+	for (int i = 0 ; out[i] ; i++)
+		printf("%d = %s\n", i, out[i]);
 	ft_mlstclear(args);
 	return (out);
 }
@@ -74,7 +75,7 @@ int	extract_arg(char *line, t_mlist **args, t_mlist **node)
 	else
 		sep = ' ';
 	if (sep == ' ')
-		while (line[i] != '\0' && line[i] != sep
+		while (line[i] != '\0' && !MWS(line[i])
 			&& line[i] != '\'' && line[i] != '\"')
 			i++;
 	else

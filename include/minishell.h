@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sithomas <sithomas@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: ygille <ygille@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/28 17:52:27 by ygille            #+#    #+#             */
-/*   Updated: 2025/03/19 11:24:25 by sithomas         ###   ########.fr       */
+/*   Updated: 2025/04/10 16:30:16 by ygille           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,8 @@
 # include "pipes.h"
 # include "text_formats.h"
 # include "types.h"
+
+# define MWS(c)	(c >= '\t' && c <= '\r' || c == ' ')
 
 //	minishell.c
 void		define_mode(t_minishell *minishell, int argc, char **argv);
