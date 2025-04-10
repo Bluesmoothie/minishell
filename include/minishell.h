@@ -6,7 +6,7 @@
 /*   By: ygille <ygille@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/28 17:52:27 by ygille            #+#    #+#             */
-/*   Updated: 2025/04/10 16:30:16 by ygille           ###   ########.fr       */
+/*   Updated: 2025/04/10 16:39:08 by ygille           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,8 +39,6 @@
 # include "pipes.h"
 # include "text_formats.h"
 # include "types.h"
-
-# define MWS(c)	(c >= '\t' && c <= '\r' || c == ' ')
 
 //	minishell.c
 void		define_mode(t_minishell *minishell, int argc, char **argv);
@@ -127,5 +125,6 @@ char		**extract_str(char *str, int beg, int end);
 char		*verif_file(char *path);
 void		returns_process(int code, t_return *ret);
 char		*trimndelete(char *str, char *set);
+t_bool		is_ws(char c);
 
 #endif

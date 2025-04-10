@@ -6,7 +6,7 @@
 /*   By: ygille <ygille@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/13 16:18:50 by sithomas          #+#    #+#             */
-/*   Updated: 2025/03/18 15:35:21 by ygille           ###   ########.fr       */
+/*   Updated: 2025/04/10 16:39:57 by ygille           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,4 +80,9 @@ char	*trimndelete(char *str, char *set)
 	new = ft_strtrim(str, set);
 	gfree(str);
 	return (new);
+}
+
+t_bool	is_ws(char c)
+{
+	return ((c >= '\t' && c <= '\r') || c == ' ');
 }
