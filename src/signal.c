@@ -6,7 +6,7 @@
 /*   By: ygille <ygille@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/16 13:33:55 by ygille            #+#    #+#             */
-/*   Updated: 2025/03/19 12:59:00 by ygille           ###   ########.fr       */
+/*   Updated: 2025/04/10 16:36:38 by ygille           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ static void	signal_handler_helper(t_minishell *minishell, int sig, t_bool call)
 		local_signal(sig);
 	}
 	else
-		transmit_signal(sig);
+		return ;
 }
 
 static void	local_signal(int sig)
@@ -65,9 +65,10 @@ static void	local_signal(int sig)
 		rl_redisplay();
 	}
 }
-
+/*
 static void	transmit_signal(int sig)
 {
+	return ;
 	int	*pid_list;
 
 	if (sig == SIGQUIT)
@@ -85,3 +86,4 @@ static void	transmit_signal(int sig)
 		}
 	}
 }
+*/
