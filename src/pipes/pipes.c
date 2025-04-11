@@ -6,7 +6,7 @@
 /*   By: sithomas <sithomas@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/07 11:07:02 by sithomas          #+#    #+#             */
-/*   Updated: 2025/03/19 11:25:37 by sithomas         ###   ########.fr       */
+/*   Updated: 2025/04/11 10:50:49 by sithomas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,8 @@ void	unpipe(t_minishell *minishell, char *line, int *pos)
 	if (oneemptypipe(line))
 		return (gfree(line), (void)write(2, "Syntax error\n", 13));
 	unpiped = create_pipe_list(line, minishell, pos);
+	if (!(*unpiped) || !unpiped)
+		return ;
 	if (pipelast(*unpiped)->issue)
 		return ;
 	size = pipelstsize(*unpiped);
@@ -56,9 +58,12 @@ static t_pipes	**create_pipe_list(char *line, t_minishell *minishell, int *pos)
 	{
 		dup = gman_add(ft_strdup(splitted[i]));
 		new = pipecreate(dup);
-		pipeadd_back(list, new);
 		if (parse_pipe(new, minishell))
 			break ;
+		else if (new->skip)
+			pipedelone(new);
+		else
+			pipeadd_back(list, new);
 		i++;
 	}
 	gfree_double(splitted);

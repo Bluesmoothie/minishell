@@ -6,7 +6,7 @@
 /*   By: sithomas <sithomas@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/11 17:02:55 by ygille            #+#    #+#             */
-/*   Updated: 2025/02/16 15:22:31 by sithomas         ###   ########.fr       */
+/*   Updated: 2025/04/11 11:53:08 by sithomas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ int		pipelstsize(t_pipes *lst);
 
 //	types/pipes2.c
 void	pipeclear(t_pipes **lst);
-void	pipeclear2(t_pipes **lst);
 t_pipes	*pipelast(t_pipes *lst);
+void	pipedelone(t_pipes *lst);
 
 #endif

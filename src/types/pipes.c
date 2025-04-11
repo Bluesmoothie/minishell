@@ -6,7 +6,7 @@
 /*   By: sithomas <sithomas@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/10 16:39:09 by sithomas          #+#    #+#             */
-/*   Updated: 2025/02/16 14:52:04 by sithomas         ###   ########.fr       */
+/*   Updated: 2025/04/11 10:33:10 by sithomas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ t_pipes	*pipecreate(char *content)
 	new->fd_out = STDOUT_FILENO;
 	new->next = NULL;
 	new->issue = 0;
+	new->skip = 0;
 	return (new);
 }
 

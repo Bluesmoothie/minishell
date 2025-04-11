@@ -6,7 +6,7 @@
 /*   By: sithomas <sithomas@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/11 16:51:17 by ygille            #+#    #+#             */
-/*   Updated: 2025/02/19 14:27:31 by sithomas         ###   ########.fr       */
+/*   Updated: 2025/04/11 10:30:46 by sithomas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,7 @@ typedef struct s_pipes
 	int				fd_in;
 	int				fd_out;
 	t_bool			issue;
+	t_bool			skip;
 	char			*content;
 	struct s_pipes	*next;
 }	t_pipes;

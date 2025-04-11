@@ -6,7 +6,7 @@
 /*   By: sithomas <sithomas@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/11 17:44:17 by sithomas          #+#    #+#             */
-/*   Updated: 2025/03/19 12:38:23 by sithomas         ###   ########.fr       */
+/*   Updated: 2025/04/11 10:53:04 by sithomas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,8 +45,8 @@ int	parse_pipe(t_pipes *new, t_minishell *minishell)
 			j = left_pipe(new, i, minishell, &q_c);
 			i = -1;
 		}
-		if (j || g_signaled)
-			return (new->issue = 1);
+		if (j > 1 || g_signaled)
+			new->issue = 1;
 	}
 	gfree(q_c);
 	return (0);
@@ -63,9 +63,9 @@ static int	right_pipe(t_pipes *new, int pos, t_minishell *minishell,
 			return (write(2, "Syntax error\n", 13));
 		path = pipe_helper(new, pos, 2);
 		if (!path)
-			return (1);
+			return (2);
 		if (fill_here_doc(new, path, minishell))
-			return (1);
+			return (2);
 	}
 	else
 	{
@@ -73,10 +73,10 @@ static int	right_pipe(t_pipes *new, int pos, t_minishell *minishell,
 			close(new->fd_in);
 		path = pipe_helper(new, pos, 1);
 		if (!path)
-			return (1);
+			return (2);
 		path = miniparse(minishell, path)[0];
 		if (right_pipe_2(path, new))
-			return (1);
+			return (new->skip = 1);
 	}
 	return (0);
 }
