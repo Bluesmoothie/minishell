@@ -6,7 +6,7 @@
 /*   By: sithomas <sithomas@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/10 16:39:09 by sithomas          #+#    #+#             */
-/*   Updated: 2025/04/11 10:33:10 by sithomas         ###   ########.fr       */
+/*   Updated: 2025/04/11 16:20:38 by sithomas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ t_pipes	*pipecreate(char *content)
 	new->content = content;
 	new->fd_in = STDIN_FILENO;
 	new->fd_out = STDOUT_FILENO;
+	new->piped_fd_out = STDOUT_FILENO;
 	new->next = NULL;
 	new->issue = 0;
 	new->skip = 0;

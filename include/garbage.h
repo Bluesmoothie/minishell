@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   garbage.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ygille <ygille@student.42lyon.fr>          +#+  +:+       +#+        */
+/*   By: sithomas <sithomas@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/13 14:47:53 by ygille            #+#    #+#             */
-/*   Updated: 2025/02/18 13:45:13 by ygille           ###   ########.fr       */
+/*   Updated: 2025/04/11 15:16:20 by sithomas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,10 +21,10 @@
 # define FALSE					0
 
 # ifndef GARBAGE_SIZE
-#  define GARBAGE_SIZE			2048
+#  define GARBAGE_SIZE			2048555
 # endif
 # ifndef GARBAGE_SPLIT_SIZE
-#  define GARBAGE_SPLIT_SIZE	1024
+#  define GARBAGE_SPLIT_SIZE	1024555
 # endif
 
 # define EGNF			"Warning : can't found requested ptr in ptr list"
