@@ -58,6 +58,7 @@ SRC_FILES		=	minishell					\
 					pipes/split_quotes			\
 					pipes/fds					\
 					pipes/left_pipe				\
+					pipes/pipe_helper			\
 					types/mlist					\
 					types/mlist2				\
 					types/minishell				\

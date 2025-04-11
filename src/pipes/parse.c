@@ -6,7 +6,7 @@
 /*   By: sithomas <sithomas@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/11 17:44:17 by sithomas          #+#    #+#             */
-/*   Updated: 2025/04/11 10:53:04 by sithomas         ###   ########.fr       */
+/*   Updated: 2025/04/11 14:10:24 by sithomas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,28 +79,6 @@ static int	right_pipe(t_pipes *new, int pos, t_minishell *minishell,
 			return (new->skip = 1);
 	}
 	return (0);
-}
-
-char	*pipe_helper(t_pipes *new, int pos, int param)
-{
-	int		j;
-	char	**result;
-	char	*path;
-
-	j = pos + param;
-	if (new->content[j] == ' ')
-		while (new->content[j] == ' ')
-			j++;
-	if (!new->content[j] || new->content[j] == '<' || new->content[j] == '>')
-		return ((void)write(2, "Syntax error\n", 13), NULL);
-	while (new->content[j] && new->content[j] != '<' && new->content[j] != '>'
-		&& new->content[j] != ' ')
-		j++;
-	result = extract_str(new->content, pos, j);
-	new->content = gman_add(ft_strdup(result[0]));
-	path = gman_add(ft_strtrim(result[1], "< >"));
-	gfree_double(result);
-	return (path);
 }
 
 static int	right_pipe_2(char *path, t_pipes *new)
