@@ -6,7 +6,7 @@
 /*   By: sithomas <sithomas@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/11 14:10:48 by sithomas          #+#    #+#             */
-/*   Updated: 2025/04/11 14:54:57 by sithomas         ###   ########.fr       */
+/*   Updated: 2025/04/11 15:02:14 by sithomas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ static int	dbl_quotes(char *content, int j)
 		if (content[k] == '"')
 		{
 			k = 0;
-			break;
+			break ;
 		}
 		k++;
 	}
@@ -72,7 +72,6 @@ static int	dbl_quotes(char *content, int j)
 		j++;
 	return (j);
 }
-
 
 static int	spl_quotes(char *content, int j)
 {
@@ -85,7 +84,7 @@ static int	spl_quotes(char *content, int j)
 		if (content[k] == '\'')
 		{
 			k = 0;
-			break;
+			break ;
 		}
 		k++;
 	}
