@@ -6,7 +6,7 @@
 /*   By: sithomas <sithomas@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/11 17:44:17 by sithomas          #+#    #+#             */
-/*   Updated: 2025/04/11 14:10:24 by sithomas         ###   ########.fr       */
+/*   Updated: 2025/04/11 17:12:34 by sithomas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ volatile sig_atomic_t	g_signaled;
 static int				right_pipe(t_pipes *new, int pos,
 							t_minishell *minishell, t_bool **quote_checker);
 static int				right_pipe_2(char *path, t_pipes *new);
+static int				check_if_continue(int j, t_pipes *new);
 
 /*
 checks the existence of < and >
@@ -45,10 +46,21 @@ int	parse_pipe(t_pipes *new, t_minishell *minishell)
 			j = left_pipe(new, i, minishell, &q_c);
 			i = -1;
 		}
-		if (j > 1 || g_signaled)
-			new->issue = 1;
+		if (check_if_continue(j, new))
+			return (1);
 	}
 	gfree(q_c);
+	return (0);
+}
+
+static int	check_if_continue(int j, t_pipes *new)
+{
+	extern volatile sig_atomic_t	g_signaled;
+
+	if (j > 1 || g_signaled)
+		new->issue = 1;
+	if (j || g_signaled)
+		return (1);
 	return (0);
 }
 
