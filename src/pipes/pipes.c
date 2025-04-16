@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipes.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sithomas <sithomas@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: ygille <ygille@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/07 11:07:02 by sithomas          #+#    #+#             */
-/*   Updated: 2025/04/16 10:36:15 by sithomas         ###   ########.fr       */
+/*   Updated: 2025/04/16 11:16:37 by ygille           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void	unpipe(t_minishell *minishell, char *line, int *pos)
 	t_pipes	**unpiped;
 	int		size;
 
-	if (line == NULL || ft_strcmp(line, "exit") == 0)
+	if (line == NULL)
 		gcall_exit(NULL);
 	if (!line[0])
 		return (treat_arguments(minishell, line, 0));
