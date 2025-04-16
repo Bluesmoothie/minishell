@@ -6,7 +6,7 @@
 /*   By: sithomas <sithomas@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/19 11:19:51 by sithomas          #+#    #+#             */
-/*   Updated: 2025/04/16 11:42:49 by sithomas         ###   ########.fr       */
+/*   Updated: 2025/04/16 16:17:07 by sithomas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ int	open_null_fd(void)
 
 	result = open("/dev/null", O_RDWR);
 	if (result == -1)
-		gcall_exit(E_OPEN);
+		printf(E_OPEN);
 	return (result);
 }
 

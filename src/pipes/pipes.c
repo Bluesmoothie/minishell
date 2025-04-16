@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipes.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ygille <ygille@student.42lyon.fr>          +#+  +:+       +#+        */
+/*   By: sithomas <sithomas@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/07 11:07:02 by sithomas          #+#    #+#             */
-/*   Updated: 2025/04/16 11:16:37 by ygille           ###   ########.fr       */
+/*   Updated: 2025/04/16 16:23:49 by sithomas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,13 +113,14 @@ static void	reinit_fds(void)
 	tmp_in = open("/dev/tty", O_RDONLY);
 	tmp_out = open("/dev/tty", O_WRONLY);
 	if (tmp_in == -1 || tmp_out == -1)
-		return (gcall_exit(E_OPEN));
+	{
+		printf("open fail\n");
+		return ;
+	}
 	if (dup2(tmp_in, STDIN_FILENO) == -1)
 		gcall_exit(E_DUP2);
 	if (dup2(tmp_out, STDOUT_FILENO) == -1)
 		gcall_exit(E_DUP2);
-	if (close(tmp_in) == -1)
-		gcall_exit(E_CLOSE);
-	if (close(tmp_out) == -1)
-		gcall_exit(E_CLOSE);
+	close(tmp_in);
+	close(tmp_out);
 }

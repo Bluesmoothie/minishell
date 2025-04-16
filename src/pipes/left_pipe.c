@@ -6,7 +6,7 @@
 /*   By: sithomas <sithomas@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/19 12:17:44 by sithomas          #+#    #+#             */
-/*   Updated: 2025/04/16 16:04:51 by sithomas         ###   ########.fr       */
+/*   Updated: 2025/04/16 16:20:19 by sithomas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 
 static int	append(t_pipes *new, int pos, t_minishell *minishell);
 static int	check_left_path(char *path);
-static int	fail_return(t_pipes *new, char *message, int ret_value);
 
 int	left_pipe(t_pipes *new, int pos, t_minishell *minishell,
 		t_bool **quote_checker)
@@ -124,7 +123,7 @@ static int	check_left_path(char *path)
 	return (0);
 }
 
-static int	fail_return(t_pipes *new, char *message, int ret_value)
+int	fail_return(t_pipes *new, char *message, int ret_value)
 {
 	printf("%s\n", message);
 	new->fd_out = open_null_fd();

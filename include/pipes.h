@@ -6,7 +6,7 @@
 /*   By: sithomas <sithomas@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/11 19:44:12 by ygille            #+#    #+#             */
-/*   Updated: 2025/04/16 11:36:32 by sithomas         ###   ########.fr       */
+/*   Updated: 2025/04/16 16:20:11 by sithomas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ int		check_path(char *path);
 //	pipes/left_pipe.c
 int		left_pipe(t_pipes *new, int pos, t_minishell *minishell,
 			t_bool **quote_checker);
+int		fail_return(t_pipes *new, char *message, int ret_value);
 
 //	pipes/pipes.c
 void	unpipe(t_minishell *minishell, char *line, int *pos);

@@ -6,7 +6,7 @@
 /*   By: sithomas <sithomas@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/11 17:44:17 by sithomas          #+#    #+#             */
-/*   Updated: 2025/04/16 11:41:48 by sithomas         ###   ########.fr       */
+/*   Updated: 2025/04/16 16:20:57 by sithomas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,7 +121,7 @@ static int	right_pipe_2(char *path, t_pipes *new)
 	}
 	new->fd_in = open(path, O_RDONLY);
 	if (new->fd_in == -1)
-		gcall_exit(E_OPEN);
+		return (fail_return(new, E_OPEN, 1));
 	return (0);
 }
 

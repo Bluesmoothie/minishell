@@ -6,7 +6,7 @@
 /*   By: sithomas <sithomas@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/12 10:17:46 by sithomas          #+#    #+#             */
-/*   Updated: 2025/04/11 16:23:54 by sithomas         ###   ########.fr       */
+/*   Updated: 2025/04/16 16:18:51 by sithomas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,9 +107,7 @@ void	son(int i, t_pipes *pipe, int size, int *pipefd)
 static void	check_tty(t_pipes *current)
 {
 	if (!isatty(current->fd_in))
-		if (close(current->fd_in) == -1)
-			gcall_exit(E_CLOSE);
+		close(current->fd_in);
 	if (!isatty(current->fd_out))
-		if (close(current->fd_out) == -1)
-			gcall_exit(E_CLOSE);
+		close(current->fd_out);
 }
