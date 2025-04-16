@@ -6,7 +6,7 @@
 /*   By: sithomas <sithomas@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/19 11:19:51 by sithomas          #+#    #+#             */
-/*   Updated: 2025/03/19 11:33:32 by sithomas         ###   ########.fr       */
+/*   Updated: 2025/04/16 10:55:57 by sithomas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,4 +54,14 @@ static int	get_fd_size(t_pipes *first)
 		current = current->next;
 	}
 	return (size);
+}
+
+int	open_null_fd(void)
+{
+	int	result;
+
+	result = open("/dev/null", O_RDWR);
+	if (result == -1)
+		gcall_exit(E_OPEN);
+	return (result);
 }

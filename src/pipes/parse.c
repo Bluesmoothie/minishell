@@ -6,7 +6,7 @@
 /*   By: sithomas <sithomas@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/11 17:44:17 by sithomas          #+#    #+#             */
-/*   Updated: 2025/04/11 17:12:34 by sithomas         ###   ########.fr       */
+/*   Updated: 2025/04/16 10:58:33 by sithomas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ int	parse_pipe(t_pipes *new, t_minishell *minishell)
 			i = -1;
 		}
 		if (check_if_continue(j, new))
-			return (1);
+			return (check_if_continue(j, new));
 	}
 	gfree(q_c);
 	return (0);
@@ -58,7 +58,10 @@ static int	check_if_continue(int j, t_pipes *new)
 	extern volatile sig_atomic_t	g_signaled;
 
 	if (j > 1 || g_signaled)
+	{
 		new->issue = 1;
+		return (2);
+	}
 	if (j || g_signaled)
 		return (1);
 	return (0);
@@ -88,7 +91,7 @@ static int	right_pipe(t_pipes *new, int pos, t_minishell *minishell,
 			return (2);
 		path = miniparse(minishell, path)[0];
 		if (right_pipe_2(path, new))
-			return (new->skip = 1);
+			return (1);
 	}
 	return (0);
 }
@@ -96,11 +99,26 @@ static int	right_pipe(t_pipes *new, int pos, t_minishell *minishell,
 static int	right_pipe_2(char *path, t_pipes *new)
 {
 	if (access(path, F_OK))
-		return (printf("%s: No such file or directory\n", path));
+	{
+		new->skip = 1;
+		printf("%s: No such file or directory\n", path);
+		new->fd_out = open_null_fd();
+		return (1);
+	}
 	if (access(path, R_OK))
-		return (printf("%s: permission denied\n", path));
+	{
+		new->fd_out = open_null_fd();
+		new->skip = 1;
+		printf("%s: permission denied\n", path);
+		return (1);
+	}
 	if (check_path(path) == 1)
-		return (printf("can´t open file: is a directory\n"));
+	{
+		new->fd_out = open_null_fd();
+		new->skip = 1;
+		printf("can´t open file: is a directory\n");
+		return (1);
+	}
 	new->fd_in = open(path, O_RDONLY);
 	if (new->fd_in == -1)
 		gcall_exit(E_OPEN);

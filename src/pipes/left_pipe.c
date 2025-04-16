@@ -6,7 +6,7 @@
 /*   By: sithomas <sithomas@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/19 12:17:44 by sithomas          #+#    #+#             */
-/*   Updated: 2025/04/11 11:54:39 by sithomas         ###   ########.fr       */
+/*   Updated: 2025/04/16 11:01:13 by sithomas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,13 +28,13 @@ int	left_pipe(t_pipes *new, int pos, t_minishell *minishell,
 		if (!path)
 			return (2);
 		path = miniparse(minishell, path)[0];
-		if (check_left_path(path))
-		{
-			new->skip = 1;
-			return (1);
-		}
 		if (new->fd_out != STDOUT_FILENO)
 			close(new->fd_out);
+		if (check_left_path(path))
+		{
+			new->fd_out = open_null_fd();
+			return (1);
+		}
 		new->fd_out = open(path, O_CREAT | O_RDWR | O_TRUNC, 00744);
 		if (new->fd_out == -1)
 			gcall_exit(E_OPEN);
