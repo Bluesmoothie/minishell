@@ -6,7 +6,7 @@
 /*   By: sithomas <sithomas@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/19 12:17:44 by sithomas          #+#    #+#             */
-/*   Updated: 2025/04/16 11:38:46 by sithomas         ###   ########.fr       */
+/*   Updated: 2025/04/16 12:21:28 by sithomas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,10 +68,39 @@ static int	append(t_pipes *new, int pos, t_minishell *minishell)
 	return (0);
 }
 
+static int	are_there_directories(char *path)
+{
+	int		i;
+	int		j;
+	char	*tmp;
+
+	i = 0;
+	j = 0;
+	while (path[i])
+	{
+		if (path[i] == '/' && i != 0)
+		{
+			tmp = gman_add(ft_substr(path, j, i - j));
+			if (access(tmp, F_OK | X_OK))
+			{
+				printf("%s : no such file or directory\n", path);
+				gfree(tmp);
+				return (1);
+			}
+			gfree(tmp);
+			j = i;
+		}
+		i++;
+	}
+	return (0);
+}
+
 static int	check_left_path(char *path)
 {
 	t_stat	path_stat;
 
+	if (are_there_directories(path))
+		return (1);
 	if (path != NULL)
 	{
 		if (access(path, F_OK | X_OK) == 0)
