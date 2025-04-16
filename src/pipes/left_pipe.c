@@ -6,7 +6,7 @@
 /*   By: sithomas <sithomas@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/19 12:17:44 by sithomas          #+#    #+#             */
-/*   Updated: 2025/04/16 12:42:03 by sithomas         ###   ########.fr       */
+/*   Updated: 2025/04/16 16:04:51 by sithomas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 
 static int	append(t_pipes *new, int pos, t_minishell *minishell);
 static int	check_left_path(char *path);
+static int	fail_return(t_pipes *new, char *message, int ret_value);
 
 int	left_pipe(t_pipes *new, int pos, t_minishell *minishell,
 		t_bool **quote_checker)
@@ -39,7 +40,7 @@ int	left_pipe(t_pipes *new, int pos, t_minishell *minishell,
 		}
 		new->fd_out = open(path, O_CREAT | O_RDWR | O_TRUNC, 00744);
 		if (new->fd_out == -1)
-			gcall_exit(E_OPEN);
+			return (fail_return(new, E_OPEN, 1));
 	}
 	return (0);
 }
@@ -66,7 +67,7 @@ static int	append(t_pipes *new, int pos, t_minishell *minishell)
 	}
 	new->fd_out = open(path, O_CREAT | O_APPEND | O_RDWR, 00744);
 	if (new->fd_out == -1)
-		gcall_exit(E_OPEN);
+		return (fail_return(new, E_OPEN, 2));
 	return (0);
 }
 
@@ -121,4 +122,12 @@ static int	check_left_path(char *path)
 		}
 	}
 	return (0);
+}
+
+static int	fail_return(t_pipes *new, char *message, int ret_value)
+{
+	printf("%s\n", message);
+	new->fd_out = open_null_fd();
+	new->fd_in = open_null_fd();
+	return (ret_value);
 }
