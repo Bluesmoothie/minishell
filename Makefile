@@ -1,4 +1,4 @@
-.PHONY			:	clean fclean re all norme FORCE check test valgrind valgrindext
+.PHONY			:	clean fclean re all norm FORCE check test valgrind valgrindext
 
 NAME			=   minishell
 
@@ -147,7 +147,7 @@ valgrind		:
 valgrindext		:
 				valgrind $(VFLAGS) ./$(NAME)
 
-norme			:
+norm			:
 				norminette $(SRC_DIR) include
 
 clean			:
