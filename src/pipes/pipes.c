@@ -6,7 +6,7 @@
 /*   By: ygille <ygille@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/07 11:07:02 by sithomas          #+#    #+#             */
-/*   Updated: 2025/04/16 11:08:34 by ygille           ###   ########.fr       */
+/*   Updated: 2025/04/16 11:16:37 by ygille           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ static t_pipes	**create_pipe_list(char *line, t_minishell *minishell, int *pos)
 	{
 		dup = gman_add(ft_strdup(splitted[i]));
 		new = pipecreate(dup);
-		if (parse_pipe(new, minishell))
+		if (parse_pipe(new, minishell) > 1)
 			break ;
 		else if (new->skip)
 			pipedelone(new);
