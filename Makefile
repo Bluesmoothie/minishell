@@ -74,34 +74,6 @@ DEPS 			= 	$(addprefix $(BUILD_DIR), $(addsuffix .d, $(SRC_FILES)))
 LIBFT			=	libft
 LIBFT_A			=	$(LIBFT)/libft_ex.a
 
-#			TESTS
-
-TESTS_DIR		=	tests/
-TESTS			=	$(addprefix $(TESTS_DIR), $(addsuffix .sh, $(TESTS_FILES)))
-TESTS_FILES		=	chevron			\
-					echo			\
-					env				\
-					others			\
-					pipes			\
-					quotes			\
-
-TESTS_GARBAGE	=	error.log					\
-					file\ with\ spaces.txt 		\
-					file.txt					\
-					file1.txt					\
-					file2.txt					\
-					file3.txt					\
-					heredoc.txt					\
-					ls_output.txt				\
-					non_existent_file.txt		\
-					output.txt					\
-					quoted_heredoc.txt			\
-					checker						\
-					checker.d 					\
-					out.txt						\
-					ref.txt						\
-					\"file with spaces.txt\"	\
-
 #			VALGRIND
 
 VFLAGS			=	--leak-check=full --show-leak-kinds=all --track-origins=yes --track-fds=yes
@@ -132,13 +104,6 @@ $(LIBFT_A)		:	FORCE
 
 FORCE			:
 
-check			:	test
-				./checker
-				rm	-f $(TESTS_GARBAGE)
-
-test			:
-				$(CC) $(CFLAGS) tests/tests.c tests/tests2.c $(LIBSFLAGS) -o checker
-
 valgrind		:
 				@echo "\033[31m\033[1mNow launch make valgrindext in another console"
 				@echo "Errors will appear here CTRL+C to stop\033[0m"
@@ -153,7 +118,6 @@ norm			:
 clean			:
 				$(MAKE) clean -C $(LIBFT)
 				rm -rf $(BUILD_DIR)
-				rm	-f $(TESTS_GARBAGE)
 
 fclean			:	clean
 				$(MAKE) fclean -C $(LIBFT)
