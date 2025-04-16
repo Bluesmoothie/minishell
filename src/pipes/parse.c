@@ -6,7 +6,7 @@
 /*   By: sithomas <sithomas@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/11 17:44:17 by sithomas          #+#    #+#             */
-/*   Updated: 2025/04/16 10:58:33 by sithomas         ###   ########.fr       */
+/*   Updated: 2025/04/16 11:41:48 by sithomas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,21 +101,21 @@ static int	right_pipe_2(char *path, t_pipes *new)
 	if (access(path, F_OK))
 	{
 		new->skip = 1;
-		printf("%s: No such file or directory\n", path);
 		new->fd_out = open_null_fd();
+		printf("%s: No such file or directory\n", path);
 		return (1);
 	}
 	if (access(path, R_OK))
 	{
-		new->fd_out = open_null_fd();
 		new->skip = 1;
+		new->fd_out = open_null_fd();
 		printf("%s: permission denied\n", path);
 		return (1);
 	}
 	if (check_path(path) == 1)
 	{
-		new->fd_out = open_null_fd();
 		new->skip = 1;
+		new->fd_out = open_null_fd();
 		printf("can´t open file: is a directory\n");
 		return (1);
 	}

@@ -6,7 +6,7 @@
 /*   By: sithomas <sithomas@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/11 19:44:12 by ygille            #+#    #+#             */
-/*   Updated: 2025/04/16 10:56:12 by sithomas         ###   ########.fr       */
+/*   Updated: 2025/04/16 11:36:32 by sithomas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,7 @@ char	**split_quotes(char *line, int *pos);
 //	pipes/fds.c
 int		*establish_fd_list(t_pipes *first);
 int		open_null_fd(void);
+void	delete_after_pos(t_pipes *new, int pos);
 
 //	pipes/pipe_helper.c
 char	*pipe_helper(t_pipes *new, int pos, int param);

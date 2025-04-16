@@ -6,7 +6,7 @@
 /*   By: sithomas <sithomas@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/19 12:17:44 by sithomas          #+#    #+#             */
-/*   Updated: 2025/04/16 11:01:13 by sithomas         ###   ########.fr       */
+/*   Updated: 2025/04/16 11:38:46 by sithomas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,8 @@ int	left_pipe(t_pipes *new, int pos, t_minishell *minishell,
 			close(new->fd_out);
 		if (check_left_path(path))
 		{
+			pos += ft_strlen(path) - 2;
+			delete_after_pos(new, pos);
 			new->fd_out = open_null_fd();
 			return (1);
 		}
