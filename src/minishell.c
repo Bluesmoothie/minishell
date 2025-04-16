@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sithomas <sithomas@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: ygille <ygille@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/28 17:52:41 by ygille            #+#    #+#             */
-/*   Updated: 2025/02/19 12:06:53 by sithomas         ###   ########.fr       */
+/*   Updated: 2025/04/16 12:38:31 by ygille           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,7 +106,5 @@ void	free_exit(void *param, char *message)
 	if (message)
 		error(message);
 	term_param_restore(null_term, 1);
-	if (minishell->mode != TTY_MODE)
-		exit(minishell->last_return_value);
-	exit(EXIT_SUCCESS);
+	exit(minishell->returns.exit_stat);
 }
